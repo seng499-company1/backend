@@ -1,5 +1,121 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 schedule_bp = Blueprint('schedule', __name__)
 @schedule_bp.route('/hello/')
 def hello():
-    return "Hello from Schedules"
+    '''
+    blah
+    '''
+    return 'Hello from Schedules'
+SCHEDULES = [
+    {
+        'uuid': '4e90ab30-c380-4034-acdb-238856a88df3',
+        'semester': 'Fall',
+        'year': '2022',
+        'schedule': [
+            {
+                'timeslot': 'MWF 10am-10:50am',
+                'course_code': 'CSC230',
+                'prof': 'Bill Bird',
+                'section': 'A1',
+                'capacity': 100, 
+            },
+            {
+                'timeslot': 'MWF 10am-10:50am',
+                'course_code': 'CSC230',
+                'prof': 'Bill Bird',
+                'section': 'A2',
+                'capacity': 20,
+            },
+            {
+                'timeslot': 'MTh 10am-10:50am',
+                'course_code': 'CSC111',
+                'prof': 'Hausi Muller',
+                'section': 'A1',
+                'capacity': 100,
+            },
+            {
+                'timeslot': 'MTh 10am-10:50am',
+                'course_code': 'CSC111',
+                'prof': 'Hausi Muller',
+                'section': 'A2',
+                'capacity': 20,
+            },
+        ]
+    },
+    {
+        'uuid': '5e90ab30-c380-4034-acdb-238856a88df3',
+        'semester': 'Spring',
+        'year': '2022',
+        'schedule': [
+            {
+                'timeslot': 'MWF 11am-11:50am',
+                'course_code': 'CSC370',
+                'prof': 'Bill Bird',
+                'section': 'A1',
+                'capacity': 40,
+            },
+            {
+                'timeslot': 'MWF 11am-11:50am',
+                'course_code': 'CSC370',
+                'prof': 'Bill Bird',
+                'section': 'A2',
+                'capacity': 10,
+            },
+            {
+                'timeslot': 'MTh 2pm-2:50pm',
+                'course_code': 'SENG275',
+                'prof': 'Mike Zastre',
+                'section': 'A1',
+                'capacity': 100,
+            },
+            {
+                'timeslot': 'MTh 2pm-2:50pm',
+                'course_code': 'SENG275',
+                'prof': 'Mike Zastre',
+                'section': 'A2',
+                'capacity': 20,
+            },
+        ]
+    }
+]
+UUIDS = [schedule['uuid'] for schedule in SCHEDULES]
+
+@schedule_bp.route('/', methods=['GET'])
+def get_all_schedules():
+    # Return JSON object containing a list of schedules with their year, semester and id
+    return jsonify(SCHEDULES), 200
+
+@schedule_bp.route('<schedule_id>', methods=['GET'])
+def get_schedule(schedule_id):
+    # Return JSON object containing schedule
+    if(schedule_id not in UUIDS):
+        return 'couldn\'t find that schedule', 404
+    
+    return jsonify(SCHEDULES[UUIDS.index(schedule_id)]), 200
+
+@schedule_bp.route('/', methods=['POST'])
+def add_schedule():
+    # Request contains JSON object containing a new schedule 
+    # Add a new schedule to the table of schedules
+    # Returns new schedule’s id
+    return f'schedule id of new entry\n\nJSON object:\n{request.data}\n\n', 200
+
+@schedule_bp.route('/<schedule_id>/<course_id>', methods=['PUT'])
+def update_course_time(schedule_id, course_id):
+    # Update the time slot of a course in the schedule
+    return f'update timeslot of course {course_id} in schedule {schedule_id}', 200
+
+@schedule_bp.route('/<schedule_id>/<course_id>/<prof_id>', methods=['PUT'])
+def update_course_prof(schedule_id, course_id, prof_id):
+    # Update the professor of a course in the existing schedule
+    return f'update prof teaching course {course_id} to prof {prof_id} in schedule {schedule_id}', 200
+
+@schedule_bp.route('/<schedule_id>', methods=['DELETE'])
+def delete_schedule(schedule_id):
+    # Deletes a schedule from the schedules table
+    return f'deleted schedule {schedule_id}', 200
+
+@schedule_bp.route('/<schedule_id>/<course_id>', methods=['DELETE'])
+def delete_course_from_schedule(schedule_id, course_id):
+    # Deletes a course from the schedule
+    return f'deleted course {course_id} from schedule {schedule_id}', 200
