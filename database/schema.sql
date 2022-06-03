@@ -26,7 +26,8 @@ CREATE TABLE Schedule (
 
 CREATE TABLE CourseOffering (
 	id BINARY(16) PRIMARY KEY,
-	name VARCHAR(30) NOT NULL,
+	course_name VARCHAR(30) NOT NULL,
+	course_code VARCHAR(10) NOT NULL, 
 	min_offering INT NOT NULL,
 	spring_required BOOLEAN NOT NULL,
 	summer_required BOOLEAN NOT NULL,
