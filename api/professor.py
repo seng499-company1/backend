@@ -30,9 +30,9 @@ def get_professor_preferences(id):
     return jsonify(reliefs[uuids.index(id)]),200
 
 #returns a professor's preferences for a certain year
-@professor_bp.route('/<id>/preferences/<int:preference_id>', methods=['GET'])
+@professor_bp.route('/<id>/preferences/<preference_id>', methods=['GET'])
 def get_professor_preference(id, preference_id):
-    if reliefs[uuids.index(id)]['id'] != preference_id:
+    if reliefs[uuids.index(id)]['id'] != int(preference_id):
         return 'couldn\'t find that preference id', 404
     else:
         return jsonify(reliefs[uuids.index(id)]),200
