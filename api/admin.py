@@ -30,5 +30,5 @@ def post_admin():
 
 # deletes an admin from the admin table
 @admin_bp.route('/<id>', methods=['DELETE'])
-def delete_admin():
+def delete_admin(id):
     return f'deleted user with id {id}',200
