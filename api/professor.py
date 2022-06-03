@@ -4,9 +4,9 @@ professor_bp = Blueprint('professor', __name__)
 def hello():
     return "Hello from Professors"
 professors = [
-    {'first_name':'Celina', 'last_name': 'Berg', 'uuid':'0e90ab30-c380-4034-acdb-238856a88df3'},
-    {'first_name':'Bill', 'last_name': 'Bird', 'uuid': '8b8829ec-4615-4708-a0cd-5103f080ae56'},
-    {'first_name':'Anthony', 'last_name': 'Estey', 'uuid':'6e46c60b-6709-4af5-ab4e-7a1c89c8ae0b'},
+    {'first_name':'Celina', 'last_name': 'Berg', 'uuid':'0e90ab30-c380-4034-acdb-238856a88df3', 'department':'CSC', 'is_teaching':True,'email':'email@uvic.ca' },
+    {'first_name':'Bill', 'last_name': 'Bird', 'uuid': '8b8829ec-4615-4708-a0cd-5103f080ae56','department':'CSC', 'is_teaching':True,'email':'email@uvic.ca' },
+    {'first_name':'Anthony', 'last_name': 'Estey', 'uuid':'6e46c60b-6709-4af5-ab4e-7a1c89c8ae0b','department':'CSC', 'is_teaching':True,'email':'email@uvic.ca' },
 ]
 reliefs = [
     {'prof_id':'0e90ab30-c380-4034-acdb-238856a88df3', 'id':1, 'year':2022, 'num_relief': 2, 'num_summer_courses':1, 'num_fall_courses':1, 'num_spring_courses':2},
