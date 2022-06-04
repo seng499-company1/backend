@@ -25,7 +25,9 @@ Current Endpoints are:
 - http://127.0.0.1:5000/admins/hello/
 
 ## Database
-The database is a mysql database built using docker. To build a docker image for the database (and hopefully later the entire backend) run 
+The database is a mysql database built using docker. The data for the database is stored inside the docker image however, the data will be persistent as long 
+as the image for the container is not deleted. This means that the container can be started and stopped without any loss of data. To build a docker image for
+the database (and hopefully later the entire backend) run 
 
 ```
 $ docker-compose build
