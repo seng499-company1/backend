@@ -23,3 +23,20 @@ Current Endpoints are:
 - http://127.0.0.1:5000/professors/hello/
 - http://127.0.0.1:5000/schedule/hello/
 - http://127.0.0.1:5000/admins/hello/
+
+## Database
+The database is a mysql database built using docker. The data for the database is stored inside the docker image however, the data will be persistent as long 
+as the image for the container is not deleted. This means that the container can be started and stopped without any loss of data. To build a docker image for
+the database (and hopefully later the entire backend) run 
+
+```
+$ docker-compose build
+```
+
+To start the mysql docker container in the background (and hopefully later the entire backend) run
+
+```
+$ docker-compose up -d
+```
+
+Note: If the container is being started for the first time scripts in [/database/sql/](/database/sql/) will be run in alphabetical order to create and initialize the database. 
