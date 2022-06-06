@@ -25,6 +25,7 @@ jobs:
     - name: Setup flask environment
       working-directory: ./api
       run: |
+        pwd
         export FLASK_APP=app
         flask run       
     - name: Run test cases with pytest
