@@ -40,3 +40,19 @@ $ docker-compose up -d
 ```
 
 Note: If the container is being started for the first time scripts in [/database/sql/](/database/sql/) will be run in alphabetical order to create and initialize the database. 
+
+## Testing
+The test suite is located under the /tests directory of the project. To run the test cases, first install dependencies by either running:
+
+```
+$ pip install -r requirements.txt
+```
+
+OR by doing separate installs via
+
+```
+$ pip install pytest
+$ pip install requests
+```
+
+Next, simply run the `pytest` from the repo root to run all tests. See pytest documentation for other test configurations.
