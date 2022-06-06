@@ -1,4 +1,7 @@
-'''Import json to assert json responses'''
+'''
+Import json to assert json responses
+Import requests to support api requests
+'''
 import json
 import requests
 from ...api import admin

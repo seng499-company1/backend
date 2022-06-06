@@ -1,3 +1,4 @@
+'''Import py requests to support api requests'''
 import requests
 
 SERVICE_URL = "http://127.0.0.1:5000/courses/"
