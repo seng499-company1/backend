@@ -1,9 +1,9 @@
 from flask import Flask
 
-from admin import admin_bp
-from professor import professor_bp
-from schedule import schedule_bp
-from course import course_bp
+from .admin import admin_bp
+from .professor import professor_bp
+from .schedule import schedule_bp
+from .course import course_bp
 
 app = Flask(__name__)
 @app.route('/')
