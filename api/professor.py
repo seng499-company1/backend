@@ -92,4 +92,5 @@ def delete_professor_preferences(professor_id, preference_id):
     '''
     deletes a professor's preferences
     '''
-    return f'deleted preference with id {preference_id} for professor with id {professor_id}', 200
+    return f'deleted preference with id {preference_id} for \
+     professor with id {professor_id}', 200
