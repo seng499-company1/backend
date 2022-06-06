@@ -30,7 +30,7 @@ jobs:
       working-directory: ./api
       run: |
         export FLASK_APP=app
-        flask run       
+        flask run &       
     - name: Run test cases with pytest
       run: |
         pytest
