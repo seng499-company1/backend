@@ -45,7 +45,7 @@ Note: If the container is being started for the first time scripts in [/database
 The test suite is located under the /tests directory of the project. To run the test cases, first install dependencies by either running:
 
 ```
-$ pip install -r requirements
+$ pip install -r requirements.txt
 ```
 
 OR by doing separate installs via
