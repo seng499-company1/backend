@@ -3,7 +3,7 @@
 name: Testing
 
 # Run tests on push or pull request on any branch
-on: [push, pull_request]
+on: [push]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
