@@ -1,3 +1,4 @@
+'''Import json to assert json responses'''
 import json
 import requests
 from ...api import professor
@@ -96,4 +97,5 @@ def test_delete_professor_preferences():
     preference_id = 1
     response = requests.delete(url=SERVICE_URL+professor_id+endpoint+str(preference_id))
     assert response.status_code == 200
-    assert response.text == f'deleted preference with id {preference_id} for professor with id {professor_id}'
+    assert response.text == f'deleted preference with id {preference_id} for \
+     professor with id {professor_id}'

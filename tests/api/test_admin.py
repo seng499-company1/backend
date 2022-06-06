@@ -1,3 +1,4 @@
+'''Import json to assert json responses'''
 import json
 import requests
 from ...api import admin
