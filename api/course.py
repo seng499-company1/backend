@@ -1,6 +1,9 @@
+'''
+contains all /courses endpoints
+'''
 from flask import Blueprint, request, jsonify
-course_bp = Blueprint('course', __name__)
-@course_bp.route('/hello/')
+COURSE_BP = Blueprint('course', __name__)
+@COURSE_BP.route('/hello/')
 def hello():
     '''
     blah
@@ -13,7 +16,7 @@ COURSES = [
         'uuid': '1e90ab30-c380-4034-acdb-238856a88df3',
         'min_offering': '3',
         'spring_required': True,
-        'summer_required': False, 
+        'summer_required': False,
         'fall_required': False,
         'spring_peng_req': False,
         'summer_peng_req': False,
@@ -46,28 +49,34 @@ COURSES = [
 ]
 UUIDS = [course['uuid'] for course in COURSES]
 
-@course_bp.route('/', methods=['GET'])
+@COURSE_BP.route('/', methods=['GET'])
 def get_all_courses():
-    # Return JSON object containing a list of courses and their course ids
+    '''
+    Return JSON object containing a list of courses and their course ids
+    '''
     return jsonify(COURSES), 200
 
-@course_bp.route('/<course_id>', methods=['GET'])
+@COURSE_BP.route('/<course_id>', methods=['GET'])
 def get_course(course_id):
-    # Return JSON object containing that course’s information
-    if(course_id not in UUIDS):
+    '''
+    Return JSON object containing that course’s information
+    '''
+    if course_id not in UUIDS:
         return 'couldn\'t find that course', 404
-    
     return jsonify(COURSES[UUIDS.index(course_id)]), 200
 
-@course_bp.route('/', methods=['POST'])
+@COURSE_BP.route('/', methods=['POST'])
 def add_course():
-    # Request contains JSON object containing information about the course being posted
-    # Add a new course to the table of courses
-    # Returns new course’s id
+    '''
+    Request contains JSON object containing information about the course being posted
+    Add a new course to the table of courses
+    Returns new course’s id
+    '''
     return f'course id of new entry\n\nJSON object:\n{request.data}\n\n', 200
 
-@course_bp.route('/<course_id>', methods=['DELETE'])
+@COURSE_BP.route('/<course_id>', methods=['DELETE'])
 def delete_course(course_id):
-    # Deletes a course from the course table
+    '''
+    Deletes a course from the course table
+    '''
     return f'deleted course {course_id}', 200
-

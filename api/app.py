@@ -1,17 +1,23 @@
+'''
+starting point for API
+'''
 from flask import Flask
 
-from admin import admin_bp
-from professor import professor_bp
-from schedule import schedule_bp
-from course import course_bp
+from admin import ADMIN_BP
+from professor import PROFESSOR_BP
+from schedule import SCHEDULE_BP
+from course import COURSE_BP
 
-app = Flask(__name__)
-@app.route('/')
+APP = Flask(__name__)
+@APP.route('/')
 def index():
+    '''
+    sanity check endpoint
+    '''
     return 'all is good :)'
 
-app.register_blueprint(admin_bp, url_prefix='/admins')
-app.register_blueprint(professor_bp, url_prefix='/professors')
-app.register_blueprint(schedule_bp, url_prefix='/schedule')
-app.register_blueprint(course_bp, url_prefix='/courses')
-app.run()
+APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
+APP.register_blueprint(PROFESSOR_BP, url_prefix='/professors')
+APP.register_blueprint(SCHEDULE_BP, url_prefix='/schedule')
+APP.register_blueprint(COURSE_BP, url_prefix='/courses')
+APP.run()
