@@ -1,7 +1,12 @@
+'''
+contains all functions for /admins endpoints
+'''
+from cgitb import reset
+from urllib import response
 from flask import Blueprint, jsonify
-admin_bp = Blueprint('admin', __name__)
+ADMIN_BP = Blueprint('admin', __name__)
 
-@admin_bp.route('/hello/')
+@ADMIN_BP.route('/hello/')
 def hello():
     '''
     says hello
@@ -15,31 +20,32 @@ ADMINS = [
 ]
 UUIDS = [admin['uuid'] for admin in ADMINS]
 
-@admin_bp.route('/', methods=['GET'])
+@ADMIN_BP.route('/', methods=['GET'])
 def get_all_admins():
     '''
     returns all ADMINS and their URIs
     '''
     return jsonify(ADMINS), 200
 
-@admin_bp.route('/<admin_id>', methods=['GET'])
+@ADMIN_BP.route('/<admin_id>', methods=['GET'])
 def get_admin(admin_id):
     '''
     returns a specific professor's account information
     '''
     if admin_id not in UUIDS:
-        return 'id not valid', 404
+        response = 'id not valid', 404
     else:
-        return jsonify(ADMINS[UUIDS.index(admin_id)]), 200
+        response = jsonify(ADMINS[UUIDS.index(admin_id)]), 200
+    return response
 
-@admin_bp.route('/', methods=['POST'])
+@ADMIN_BP.route('/', methods=['POST'])
 def post_admin():
     '''
     posts a new admin
     '''
     return 'added user ', 200
 
-@admin_bp.route('/<admin_id>', methods=['DELETE'])
+@ADMIN_BP.route('/<admin_id>', methods=['DELETE'])
 def delete_admin(admin_id):
     '''
     deletes an admin from the admin table
