@@ -53,6 +53,7 @@ def get_professor_preference(professor_id, preference_id):
     '''
     returns a professor's preferences for a certain year
     '''
+    response = ''
     if RELIEFS[UUIDS.index(professor_id)]['id'] != int(preference_id):
         response = 'couldn\'t find that preference id', 404
     else:

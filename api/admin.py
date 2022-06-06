@@ -1,8 +1,6 @@
 '''
 contains all functions for /admins endpoints
 '''
-from cgitb import reset
-from urllib import response
 from flask import Blueprint, jsonify
 ADMIN_BP = Blueprint('admin', __name__)
 
@@ -32,6 +30,7 @@ def get_admin(admin_id):
     '''
     returns a specific professor's account information
     '''
+    response = ''
     if admin_id not in UUIDS:
         response = 'id not valid', 404
     else:
