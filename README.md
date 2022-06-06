@@ -55,4 +55,4 @@ $ pip install pytest
 $ pip install requests
 ```
 
-Next, simply run the `pytest` from the repo root to run all tests. See pytest documentation for other test configurations.
+Next, start the flask app by following the instructions under API section and then simply run the `pytest` from the repo root to run all tests. See pytest documentation for other test configurations.
