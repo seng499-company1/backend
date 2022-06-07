@@ -1,6 +1,14 @@
-version: '3.1'
+version: '3.2'
 
 services:
+  web:
+    build:
+      context: .
+    ports:
+    - 5000:5000
+    volumes:
+    - ./api:/app
+
   db:
     build:
       context: ./database
