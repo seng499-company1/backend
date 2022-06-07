@@ -1,5 +1,61 @@
 # backend
 
+## Docker
+**To run entire Backend Server:**
+- Ensure pwd is backend root (backend/)
+- On your terminal run
+
+To build docker images for web and database
+```
+$ docker-compose build
+```
+
+To create and start web and database containers in detached mode (run in background)
+```
+$ docker-compose up -d
+```
+
+Expected:
+- app should now be hosted [here](http://127.0.0.1:5000/)
+- should see `all is good :)` if running successfully
+
+Current Endpoints are:
+- http://127.0.0.1:5000/courses/hello/
+- http://127.0.0.1:5000/professors/hello/
+- http://127.0.0.1:5000/schedule/hello/
+- http://127.0.0.1:5000/admins/hello/
+
+
+To stop services:
+```
+$ docker-compose stop
+```
+
+**To run just the Web App (API):**
+- Ensure pwd is backend root (backend/)
+- On your terminal run
+
+To build image
+```
+docker build --tag api
+```
+
+To run container
+```
+docker run -p 5000:5000 api
+```
+
+To run container in detached mode (run in background)
+```
+docker run -d -p 5000:5000 api
+```
+
+To stop container
+```
+docker run -d -p 5000:5000 api
+```
+
+
 ## API
 To  run API locally:
 - Navigate the api directory
