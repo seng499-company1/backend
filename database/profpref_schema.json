@@ -1,0 +1,41 @@
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "title": "ProfessorCoursePreference",
+   "description": "An entry from the preference form",
+   "type": "object",
+   "properties": {
+      "course_id": {
+         "description": "The unique identifier for a course",
+         "type": "string"
+      },
+      "prof_relief_id": {
+         "description": "The unique identifier for a relief entry",
+         "type": "string"
+      },
+      "year": {
+         "description": "The teaching year the preferences apply to",
+         "type": "number"
+      },
+      "will_to_teach": {
+         "description": "Prof's will to teach",
+         "type": "string",
+         "pattern": "^(very willing|willing|unwilling|no)$"
+      },
+      "able_to_teach": {
+         "description": "Prof's ability to teach",
+         "type": "string",
+         "pattern": "^(able|with effort|no)$"
+      },
+      "time_stamp": {
+         "description": "Time of query entry",
+         "type": "string",
+         "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+      }
+   },
+   "required": [
+      "year",
+      "will_to_teach",
+      "able_to_teach",
+      "time_stamp"
+   ]
+}

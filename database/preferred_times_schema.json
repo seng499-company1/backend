@@ -1,0 +1,81 @@
+[
+    {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "preferred_times",
+        "description": "Professor availability for the year",
+        "type": "object",
+        "properties": {
+            "fall": {
+                "description": "JSON object of preferred days and times from Mon-Fri",
+                "type": "object"
+            },
+            "spring": {
+                "description": "JSON object of preferred days and times from Mon-Fri",
+                "type": "object"
+            },
+            "summer": {
+                "description": "JSON object of preferred days and times from Mon-Fri",
+                "type": "object"
+            }
+        },
+        "required": [
+            "n/a"
+        ]
+    },
+    {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "AvailabilityDict",
+        "description": "Professor availability for the week",
+        "type": "object",
+        "properties": {
+            "mon": {
+                "description": "JSON object of preferred time range for the day",
+                "type": "object"
+            },
+            "tues": {
+                "description": "JSON object of preferred time range for the day",
+                "type": "object"
+            },
+            "wed": {
+                "description": "JSON object of preferred time range for the day",
+                "type": "object"
+            },
+            "thurs": {
+                "description": "JSON object of preferred time range for the day",
+                "type": "object"
+            },
+            "fri": {
+                "description": "JSON object of preferred time range for the day",
+                "type": "object"
+            }
+        },
+        "required": [
+            "mon",
+            "tues",
+            "wed",
+            "thurs",
+            "fri"
+        ]
+    },
+    {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "PreferredTimes",
+        "description": "Professor availability for the day",
+        "type": "object",
+        "properties": {
+            "times": {
+                "description": "array of time ranges stored as tuples",
+                "type": "array",
+                "example": "[(“12:00”, “13:20”), (“14:00”, “15:20”)]"
+            },
+            "preferredDay": {
+                "description": "if prof prefers to teach on this day of the week",
+                "type": "boolean"
+            }
+        },
+        "required": [
+            "times",
+            "preferredDay"
+        ]
+    }
+]

@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "ProfessorAvailability",
+    "description": "An entry from the preference form that states prof's availability for the year",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unique identifier for the availability entry",
+            "type": "string"
+        },
+        "prof_id": {
+            "description": "The unique identifier for the prof",
+            "type": "string"
+        },
+        "year": {
+            "description": "The teaching year the preferences apply to",
+            "type": "number"
+        },
+        "num_relief": {
+            "description": "number of courses the prof can opt out of this year",
+            "type": "number"
+        },
+        "num_summer_courses": {
+            "description": "number of courses prof prefers to teach during summer term",
+            "type": "number"
+        },
+        "num_fall_courses": {
+            "description": "number of courses prof prefers to teach during fall term",
+            "type": "number"
+        },
+        "num_spring_courses": {
+            "description": "number of courses prof prefers to teach during spring term",
+            "type": "number"
+        },
+        "why_relief": {
+            "description": "prof provides reason for number of reliefs they put down",
+            "type": "string"
+        },
+        "preferred_times": {
+            "description": "prof weekly availability for each semester (see preferred_times_schema.json)",
+            "type": "object"
+        }
+    },
+    "required": [
+        "prof_id",
+        "year",
+        "num_relief",
+        "num_summer_courses",
+        "num_fall_courses",
+        "num_spring_courses",
+        "preferred_times"
+    ]
+}
