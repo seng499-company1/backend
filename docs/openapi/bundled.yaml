@@ -1,0 +1,636 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: SENG 499 Company 1 API
+  termsOfService: https://example.com/terms/
+  contact:
+    email: contact@example.com
+    url: http://example.com/contact
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://redocly.github.io/openapi-template/logo.png
+  description: |
+    This site documents SENG 499 Company 1's API.  
+tags:
+  - name: Professors
+    description: Operations about professors.
+  - name: Courses
+    description: Operations about courses.
+  - name: Admins
+    description: Operations about admins.
+  - name: Schedules
+    description: Operations about schedules.
+servers:
+  - url: https://{tenant}/api/v1
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
+  - url: https://example.com/api/v1
+paths:
+  /professors:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors
+      description: Get list of professors and their UUIDs.
+      operationId: getProfessors
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Professors
+      summary: POST /professors
+      description: |
+        Adds a new professor to the database
+      operationId: postProfessor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of professor
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding professor
+  /professors/{id}:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors/{id}
+      description: Gets information for a specific professor
+      operationId: getProfessor(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: professor not found
+    delete:
+      tags:
+        - Professors
+      summary: DELETE /professors/{id}
+      description: Deletes a specific professor and their associated preferences
+      operationId: deleteProfessor(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of professor deleted
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: professor not found
+  /professors/{id}/preferences/{preference_id}:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors/{id}/preferences/{preference-id}
+      description: Gets preferences for a specific professor
+      operationId: getProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: preference_id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: professor not found
+    post:
+      tags:
+        - Professors
+      summary: POST /professors/{id}/preferences
+      description: |
+        Adds a new professor preferences to the database
+      operationId: postProfessorPreferences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of professor's preferences
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding professor
+    put:
+      tags:
+        - Professors
+      summary: PUT /professors/{id}/preferences/{preference_id}
+      description: Updates preferences for a specific professor
+      operationId: putProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: preference_id
+          in: path
+          description: ID of professor's preferences to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+    delete:
+      tags:
+        - Professors
+      summary: DELETE /professors/{id}/preferences/{preference_id}
+      description: Deletes a specific professor's preferences
+      operationId: deleteProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: preference_id
+          in: path
+          description: ID of professor's preferences to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: professor not found
+  /courses:
+    get:
+      tags:
+        - Courses
+      summary: GET /courses
+      description: Get list of courses and their UUIDs.
+      operationId: getCourses
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Courses
+      summary: POST /courses
+      description: |
+        Adds a new course to database
+      operationId: postCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of course
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding course
+  /courses/{id}:
+    get:
+      tags:
+        - Courses
+      summary: GET /courses/{id}
+      description: Gets information for a specific course
+      operationId: getCourse(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of course to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: course not found
+    delete:
+      tags:
+        - Courses
+      summary: DELETE /courses/{id}
+      description: Deletes a specific course
+      operationId: deleteCourse(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of course to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of course deleted
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: course not found
+  /admins:
+    get:
+      tags:
+        - Admins
+      summary: GET /admins
+      description: Get list of admins and their UUIDs.
+      operationId: getAdmins
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        '404':
+          description: admins not found
+    post:
+      tags:
+        - Admins
+      summary: POST /admins
+      description: |
+        Adds a new admin to database
+      operationId: postAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of admin
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding admin
+  /admins/{id}:
+    get:
+      tags:
+        - Admins
+      summary: GET /admins/{id}
+      description: Gets information for a specific admin
+      operationId: getAdmin(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of admin to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        '404':
+          description: admin not found
+    delete:
+      tags:
+        - Admins
+      summary: DELETE /admins/{id}
+      description: Deletes a specific admin
+      operationId: deleteAdmin(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of admin to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of admin deleted
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: admin not found
+  /schedules:
+    get:
+      tags:
+        - Schedules
+      summary: GET /schedules
+      description: Get list of schedules, their year semester and UUIDs.
+      operationId: getSchedules
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Schedules
+      summary: POST /schedules
+      description: |
+        Adds a new schedule to database
+      operationId: postSchedule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of schedule
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding schedule
+  /schedules/{id}:
+    get:
+      tags:
+        - Schedules
+      summary: GET /schedules/{id}
+      description: Gets information for a specific schedule
+      operationId: getSchedule(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of schedule to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+        '404':
+          description: schedule not found
+    delete:
+      tags:
+        - Schedules
+      summary: DELETE /schedules/{id}
+      description: Deletes a specific schedule
+      operationId: deleteSchedule(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of schedule to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of schedule deleted
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: schedule not found
+components:
+  securitySchemes:
+    main_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://example.com/api/oauth/dialog
+          scopes:
+            read:users: read users info
+            write:users: modify or remove users
+    api_key:
+      type: apiKey
+      in: header
+      name: api_key
+    basic_auth:
+      type: http
+      scheme: basic
+  schemas:
+    Professor:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - is_peng
+        - email
+        - is_teaching
+        - department
+      properties:
+        id:
+          description: uuid of professor
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        first_name:
+          description: First name of this professor
+          type: string
+          example: Bill
+        last_name:
+          description: Last name of this professor
+          type: string
+          example: Bird
+        is_peng:
+          description: boolean representing if the professor a peng
+          type: boolean
+          example: true
+        email:
+          description: professor's email address
+          type: string
+          example: bbird@uvic.ca
+        is_teaching:
+          description: boolean representing if the professor is a teaching professor
+          type: boolean
+          example: true
+        department:
+          description: professor's department (ECE or CSC)
+          type: string
+    Course:
+      type: object
+      required:
+        - id
+        - course_code
+        - course_name
+        - min_offering
+        - spring_required
+        - summer_required
+        - fall_required
+        - spring_peng_req
+        - summer_peng_req
+        - fall_peng req
+      properties:
+        id:
+          description: uuid of course
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        course_code:
+          description: course code of the course
+          type: string
+          example: CSC111
+        course_name:
+          description: name of course
+          type: string
+          example: Fundamentals of Progrogramming I with Engineering Applications
+        min_offering:
+          description: minimum number of times a year this course should be offered
+          type: integer
+          example: 2
+        spring_required:
+          description: is this course required to run in the spring?
+          type: boolean
+          example: false
+        summer_required:
+          description: is this course required to run in the summer?
+          type: boolean
+          example: true
+        fall_required:
+          description: is this course required to run in the fall?
+          type: boolean
+          example: true
+        spring_peng_req:
+          description: is this course required to be taught by a PEng in the spring?
+          type: boolean
+          example: false
+        summer_peng_req:
+          description: is this course required to be taught by a PEng in the summer?
+          type: boolean
+          example: true
+        fall_peng_req:
+          description: is this course required to be taught by a PEng in the fall?
+          type: boolean
+          example: false
+    Admin:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - email
+        - is_prof
+      properties:
+        id:
+          description: uuid of admin
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        first_name:
+          description: First name of admin
+          type: string
+          example: Rich
+        last_name:
+          description: Last name of admin
+          type: string
+          example: Little
+        email:
+          description: Email of the admin
+          type: string
+          example: richlittle@uvic.ca
+        is_prof:
+          description: is this admin also a prof?
+          type: boolean
+          example: true
