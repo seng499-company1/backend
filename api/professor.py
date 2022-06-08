@@ -2,8 +2,8 @@
 contains all API /professors endpoints
 '''
 from flask import Blueprint, jsonify
-professor_bp = Blueprint('professor', __name__)
-@professor_bp.route('/hello/')
+PROFESSOR_BP = Blueprint('professor', __name__)
+@PROFESSOR_BP.route('/hello/')
 def hello():
     '''
     blah
@@ -27,52 +27,54 @@ RELIEFS = [
 ]
 UUIDS = [prof['uuid'] for prof in PROFESSORS]
 
-@professor_bp.route('/', methods=['GET'])
+@PROFESSOR_BP.route('/', methods=['GET'])
 def get_all_professors():
     '''
     returns all professors
     '''
     return jsonify(PROFESSORS), 200
 
-@professor_bp.route('/<professor_id>', methods=['GET'])
+@PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
     '''
     returns a professor with an ID
     '''
     return jsonify(PROFESSORS[UUIDS.index(professor_id)]), 200
 
-@professor_bp.route('/<professor_id>/preferences', methods=['GET'])
+@PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
 def get_professor_preferences(professor_id):
     '''
     returns all of professor's preferences
     '''
     return jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
 
-@professor_bp.route('/<professor_id>/preferences/<preference_id>', methods=['GET'])
+@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['GET'])
 def get_professor_preference(professor_id, preference_id):
     '''
     returns a professor's preferences for a certain year
     '''
+    response = ''
     if RELIEFS[UUIDS.index(professor_id)]['id'] != int(preference_id):
-        return 'couldn\'t find that preference id', 404
+        response = 'couldn\'t find that preference id', 404
     else:
-        return jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
+        response = jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
+    return response
 
-@professor_bp.route('/', methods=['POST'])
+@PROFESSOR_BP.route('/', methods=['POST'])
 def post_professor():
     '''
     adds a new professor
     '''
     return 'posted a professor', 200
 
-@professor_bp.route('/<professor_id>/preferences', methods=['POST'])
+@PROFESSOR_BP.route('/<professor_id>/preferences', methods=['POST'])
 def post_professor_preferences(professor_id):
     '''
     adds a new professor's preferences
     '''
     return f'updates a prof with professor_id {professor_id}', 200
 
-@professor_bp.route('/<professor_id>/preferences/<preference_id>', methods=['PUT'])
+@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['PUT'])
 def update_professor_preferences(professor_id, preference_id):
     '''
     updates a professor's preferences
@@ -80,16 +82,17 @@ def update_professor_preferences(professor_id, preference_id):
     return f'updates the preferences with id {preference_id} for \
      professor with id {professor_id}', 200
 
-@professor_bp.route('/<professor_id>', methods=['DELETE'])
+@PROFESSOR_BP.route('/<professor_id>', methods=['DELETE'])
 def delete_professor(professor_id):
     '''
     deletes a professor
     '''
     return f'deleted prof with id {professor_id}', 200
 
-@professor_bp.route('/<professor_id>/preferences/<preference_id>', methods=['DELETE'])
+@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['DELETE'])
 def delete_professor_preferences(professor_id, preference_id):
     '''
     deletes a professor's preferences
     '''
-    return f'deleted preference with id {preference_id} for professor with id {professor_id}', 200
+    return f'deleted preference with id {preference_id} for \
+     professor with id {professor_id}', 200
