@@ -4,7 +4,6 @@ This documentation may be a good example of overengineering a simple problem. Cu
 1. Navigate to /openapi folder
 2. Run
     ```
-    redocly bundle openapi.yaml --output bundled.yaml
     redocly preview-docs bundled.yaml
     ```
 3. Navigate to http://127.0.0.1:8080 to view documentation. 
