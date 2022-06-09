@@ -7,12 +7,12 @@
 
 To build docker images for web and database
 ```
-$ docker-compose build
+docker-compose build
 ```
 
 To create and start web and database containers in detached mode (run in background)
 ```
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 Expected:
@@ -28,7 +28,7 @@ Current Endpoints are:
 
 To stop services:
 ```
-$ docker-compose stop
+docker-compose stop
 ```
 
 **To run just the Web App (API):**
@@ -37,7 +37,7 @@ $ docker-compose stop
 
 To build image
 ```
-docker build --tag api
+docker build --tag api .
 ```
 
 To run container
@@ -50,9 +50,13 @@ To run container in detached mode (run in background)
 docker run -d -p 5000:5000 api
 ```
 
+To view running containers
+```
+docker ps
+```
 To stop container
 ```
-docker run -d -p 5000:5000 api
+docker stop <container_id>
 ```
 
 
@@ -82,18 +86,7 @@ Current Endpoints are:
 
 ## Database
 The database is a mysql database built using docker. The data for the database is stored inside the docker image however, the data will be persistent as long 
-as the image for the container is not deleted. This means that the container can be started and stopped without any loss of data. To build a docker image for
-the database (and hopefully later the entire backend) run 
-
-```
-$ docker-compose build
-```
-
-To start the mysql docker container in the background (and hopefully later the entire backend) run
-
-```
-$ docker-compose up -d
-```
+as the image for the container is not deleted. This means that the container can be started and stopped without any loss of data. To build and run the database along with the rest of the backend server, see *Docker* section.
 
 Note: If the container is being started for the first time scripts in [/database/sql/](/database/sql/) will be run in alphabetical order to create and initialize the database. 
 
