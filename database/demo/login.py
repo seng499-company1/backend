@@ -12,5 +12,6 @@ DB_CONN = mysql.connector.connect(user='api_user',
 CURSOR = DB_CONN.cursor()
 
 CURSOR.execute("SHOW TABLES;")
+print(CURSOR.fetchall())
 
 DB_CONN.close()
