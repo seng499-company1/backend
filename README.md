@@ -7,12 +7,12 @@
 
 To build docker images for web and database
 ```
-$ docker-compose build
+docker-compose build
 ```
 
 To create and start web and database containers in detached mode (run in background)
 ```
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 Expected:
@@ -28,7 +28,7 @@ Current Endpoints are:
 
 To stop services:
 ```
-$ docker-compose stop
+docker-compose stop
 ```
 
 **To run just the Web App (API):**
@@ -37,7 +37,7 @@ $ docker-compose stop
 
 To build image
 ```
-docker build --tag api
+docker build --tag api .
 ```
 
 To run container
@@ -50,9 +50,13 @@ To run container in detached mode (run in background)
 docker run -d -p 5000:5000 api
 ```
 
+To view running containers
+```
+docker ps
+```
 To stop container
 ```
-docker run -d -p 5000:5000 api
+docker stop <container_id>
 ```
 
 
