@@ -1,0 +1,38 @@
+get:
+  tags:
+    - Admins
+  summary: GET /admins
+  description: Get list of admins and their UUIDs.
+  operationId: getAdmins
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Admin.yaml
+    '404':
+      description: 'admins not found'
+post:
+  tags:
+    - Admins
+  summary: POST /admins
+  description: |
+    Adds a new admin to database
+  operationId: postAdmin
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/Admin.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: string
+            description: UUID of admin
+            example: 78c74a60-281c-45f4-9536-7d128701ddb5
+    '400':
+      description: error adding admin

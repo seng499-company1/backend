@@ -1,0 +1,48 @@
+get:
+  tags:
+    - Schedules
+  summary: GET /schedules/{id}
+  description: Gets information for a specific schedule
+  operationId: getSchedule(id)
+  parameters:
+    - name: id
+      in: path
+      description: ID of schedule to return 
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Professor.yaml
+    '404':
+      description: schedule not found
+delete:
+  tags:
+    - Schedules
+  summary: DELETE /schedules/{id}
+  description: Deletes a specific schedule
+  operationId: deleteSchedule(id)
+  parameters:
+    - name: id
+      in: path
+      description: ID of schedule to delete
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: string
+            description: UUID of schedule deleted
+            example: 78c74a60-281c-45f4-9536-7d128701ddb5
+    '404':
+      description: schedule not found

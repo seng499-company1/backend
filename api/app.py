@@ -3,10 +3,10 @@ starting point for API
 '''
 from flask import Flask
 
-from admin import ADMIN_BP
-from professor import PROFESSOR_BP
-from schedule import SCHEDULE_BP
-from course import COURSE_BP
+from .admin import ADMIN_BP
+from .professor import PROFESSOR_BP
+from .schedule import SCHEDULE_BP
+from .course import COURSE_BP
 
 APP = Flask(__name__)
 @APP.route('/')

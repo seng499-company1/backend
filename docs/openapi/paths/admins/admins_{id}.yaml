@@ -1,0 +1,48 @@
+get:
+  tags:
+    - Admins
+  summary: GET /admins/{id}
+  description: Gets information for a specific admin
+  operationId: getAdmin(id)
+  parameters:
+    - name: id
+      in: path
+      description: ID of admin to return 
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Admin.yaml
+    '404':
+      description: admin not found
+delete:
+  tags:
+    - Admins
+  summary: DELETE /admins/{id}
+  description: Deletes a specific admin
+  operationId: deleteAdmin(id)
+  parameters:
+    - name: id
+      in: path
+      description: ID of admin to delete
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: string
+            description: UUID of admin deleted
+            example: 78c74a60-281c-45f4-9536-7d128701ddb5
+    '404':
+      description: admin not found

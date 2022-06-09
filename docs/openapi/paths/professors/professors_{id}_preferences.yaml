@@ -1,0 +1,115 @@
+  get:
+    tags:
+      - Professors
+    summary: GET /professors/{id}/preferences/{preference-id}
+    description: Gets preferences for a specific professor
+    operationId: getProfessorPreferences(id)
+    parameters:
+      - name: id
+        in: path
+        description: ID of professor to return
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: preference_id
+        in: path
+        description: ID of professor to return
+        required: true
+        schema:
+          type: string
+          format: uuid
+
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: ../../components/schemas/Professor.yaml
+      '404':
+        description: professor not found
+  post:
+    tags:
+      - Professors
+    summary: POST /professors/{id}/preferences
+    description: |
+      Adds a new professor preferences to the database
+    operationId: postProfessorPreferences
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Professor.yaml
+    parameters:
+      - name: id
+        in: path
+        description: ID of professor to return
+        required: true
+        schema:
+          type: string
+          format: uuid
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: string
+              description: UUID of professor's preferences
+              example: 78c74a60-281c-45f4-9536-7d128701ddb5
+      '400':
+        description: error adding professor
+  put:
+    tags:
+      - Professors
+    summary: PUT /professors/{id}/preferences/{preference_id}
+    description: Updates preferences for a specific professor
+    operationId: putProfessorPreferences(id)
+    parameters:
+      - name: id
+        in: path
+        description: ID of professor to return
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: preference_id
+        in: path
+        description: ID of professor's preferences to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+  delete:
+    tags:
+      - Professors
+    summary: DELETE /professors/{id}/preferences/{preference_id}
+    description: Deletes a specific professor's preferences
+    operationId: deleteProfessorPreferences(id)
+    parameters:
+      - name: id
+        in: path
+        description: ID of professor to return
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: preference_id
+        in: path
+        description: ID of professor's preferences to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: string
+              description: UUID of preferences deleted
+              example: 78c74a60-281c-45f4-9536-7d128701ddb5
+      '404':
+        description: professor not found

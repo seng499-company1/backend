@@ -1,0 +1,28 @@
+type: object
+required:
+  - id
+  - first_name
+  - last_name
+  - email
+  - is_prof
+properties:
+  id:
+    description: uuid of admin
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  first_name:
+    description: First name of admin
+    type: string
+    example: Rich
+  last_name:
+    description: Last name of admin
+    type: string
+    example: Little
+  email:
+    description: Email of the admin
+    type: string
+    example: richlittle@uvic.ca
+  is_prof:
+    description: is this admin also a prof?
+    type: boolean
+    example: true

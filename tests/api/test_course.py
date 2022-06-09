@@ -9,4 +9,4 @@ def test_course_hello():
     response = requests.get(url=SERVICE_URL+endpoint)
     assert response.status_code == 200
     assert response.text == "Hello from Courses"
-    
+   
