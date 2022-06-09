@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: SENG 499 Company 1 API
+  termsOfService: 'https://example.com/terms/'
+  contact:
+    email: contact@example.com
+    url: 'http://example.com/contact'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: 'https://redocly.github.io/openapi-template/logo.png'
+  description: >
+    This site documents SENG 499 Company 1's API.  
+tags:
+  - name: Professors
+    description: Operations about professors.
+  - name: Courses
+    description: Operations about courses.
+  - name: Admins
+    description: Operations about admins.
+  - name: Schedules
+    description: Operations about schedules.
+servers:
+  - url: 'https://{tenant}/api/v1'
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
+  - url: 'https://example.com/api/v1'
+paths:
+  /professors:
+    $ref: paths/professors/professors.yaml
+  /professors/{id}:
+    $ref: paths/professors/professors_{id}.yaml
+  /professors/{id}/preferences/{preference_id}:
+    $ref: paths/professors/professors_{id}_preferences.yaml
+  /courses:
+    $ref: paths/courses/courses.yaml
+  /courses/{id}:
+    $ref: paths/courses/courses_{id}.yaml
+  /admins:
+    $ref: paths/admins/admins.yaml
+  /admins/{id}:
+    $ref: paths/admins/admins_{id}.yaml
+  /schedules:
+    $ref: paths/schedules/schedules.yaml
+  /schedules/{id}:
+    $ref: paths/schedules/schedules_{id}.yaml
+components:
+  securitySchemes:
+    main_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://example.com/api/oauth/dialog'
+          scopes:
+            'read:users': read users info
+            'write:users': modify or remove users
+    api_key:
+      type: apiKey
+      in: header
+      name: api_key
+    basic_auth:
+      type: http
+      scheme: basic
