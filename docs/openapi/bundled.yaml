@@ -126,7 +126,7 @@ paths:
         - Professors
       summary: GET /professors/{id}/preferences
       description: Gets all preferences for a specific professor
-      operationId: getProfessorPreferences(id)
+      operationId: getProfessorPreferences
       parameters:
         - name: id
           in: path
