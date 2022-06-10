@@ -1,0 +1,15 @@
+type: object
+required: 
+  - courseCode
+  - enthusiasmScore
+properties:
+  courseCode:
+    description: course code
+    type: string
+    example: CSC111
+  enthusiasmScore:
+    description: enthusiasm score
+    type: integer
+    maximum: 180
+    minimum: 0
+    example: 40

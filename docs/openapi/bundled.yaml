@@ -653,7 +653,7 @@ components:
         - course_preferences
       properties:
         id:
-          description: uuid of professor
+          description: uuid of preferences
           type: string
           example: 61587323-6632-4dcf-bae8-2a51ed8585a0
         year:
@@ -1095,6 +1095,26 @@ components:
           description: is this admin also a prof?
           type: boolean
           example: true
+    CoursePreference:
+      type: object
+      required:
+        - courseCode
+        - enthusiasmScore
+      properties:
+        courseCode:
+          description: course code
+          type: string
+          example: CSC111
+        enthusiasmScore:
+          description: enthusiasm score
+          type: integer
+          maximum: 180
+          minimum: 0
+          example: 40
+    CoursePreferences:
+      type: array
+      items:
+        $ref: '#/components/schemas/CoursePreference'
     AlgProfessor:
       type: object
       required:
@@ -1214,14 +1234,7 @@ components:
                 preferredDay: true
         coursePreferences:
           description: a prof's preferences
-          type: array
-          example:
-            - courseCode: CSC111
-              enthusiasmScore: 195
-            - courseCode: CSC115
-              enthusiasmScore: 20
-            - courseCode: CSC230
-              enthusiasmScore: 40
+          $ref: '#/components/schemas/CoursePreferences'
         coursesPerSemester:
           description: >-
             number of courses a professor wants to teach each semester along

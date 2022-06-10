@@ -51,8 +51,7 @@ properties:
   
   coursePreferences: 
     description: a prof's preferences 
-    type: array
-    example: [{'courseCode': 'CSC111', 'enthusiasmScore': 195}, {'courseCode': 'CSC115', 'enthusiasmScore': 20}, {'courseCode': 'CSC230','enthusiasmScore': 40}]
+    $ref: 'CoursePreferences.yaml'
   coursesPerSemester:
     description: number of courses a professor wants to teach each semester along with their total obligation
     type: object
