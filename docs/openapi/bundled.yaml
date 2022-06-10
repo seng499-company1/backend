@@ -1111,7 +1111,7 @@ components:
           maximum: 180
           minimum: 0
           example: 40
-    CoursePreferences:
+    ArrayCoursePreference:
       type: array
       items:
         $ref: '#/components/schemas/CoursePreference'
@@ -1234,7 +1234,7 @@ components:
                 preferredDay: true
         coursePreferences:
           description: a prof's preferences
-          $ref: '#/components/schemas/CoursePreferences'
+          $ref: '#/components/schemas/ArrayCoursePreference'
         coursesPerSemester:
           description: >-
             number of courses a professor wants to teach each semester along

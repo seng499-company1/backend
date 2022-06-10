@@ -51,7 +51,7 @@ properties:
   
   coursePreferences: 
     description: a prof's preferences 
-    $ref: 'CoursePreferences.yaml'
+    $ref: 'ArrayCoursePreference.yaml'
   coursesPerSemester:
     description: number of courses a professor wants to teach each semester along with their total obligation
     type: object
