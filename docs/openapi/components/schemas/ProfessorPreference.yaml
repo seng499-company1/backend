@@ -10,7 +10,7 @@ required:
   - course_preferences
 properties:
   id:
-    description: uuid of professor
+    description: uuid of preferences
     type: string
     example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   year:
