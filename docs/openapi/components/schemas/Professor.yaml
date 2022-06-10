@@ -1,0 +1,39 @@
+type: object
+required:
+  - id
+  - first_name
+  - last_name
+  - is_peng
+  - email
+  - is_teaching
+  - department
+properties:
+  id:
+    description: uuid of professor
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  first_name:
+    description: First name of this professor
+    type: string
+    example: Bill
+  last_name:
+    description: Last name of this professor
+    type: string
+    example: Bird
+  is_peng:
+    description: boolean representing if the professor a peng
+    type: boolean
+    example: true
+  email:
+    description: professor's email address
+    type: string
+    example: bbird@uvic.ca
+  is_teaching:
+    description: >-
+      boolean representing if the professor is a teaching
+      professor
+    type: boolean
+    example: true
+  department:
+    description: professor's department (ECE or CSC)
+    type: string

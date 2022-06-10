@@ -1,0 +1,53 @@
+type: object
+required:
+  - id
+  - course_code
+  - course_name
+  - min_offering
+  - spring_required
+  - summer_required
+  - fall_required
+  - spring_peng_req
+  - summer_peng_req
+  - fall_peng req
+properties:
+  id:
+    description: uuid of course
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  course_code:
+    description: course code of the course
+    type: string
+    example: CSC111
+  course_name:
+    description: name of course
+    type: string
+    example: Fundamentals of Progrogramming I with Engineering Applications
+  min_offering:
+    description: minimum number of times a year this course should be offered
+    type: integer
+    example: 2
+  spring_required:
+    description: is this course required to run in the spring?
+    type: boolean
+    example: false
+  summer_required:
+    description: is this course required to run in the summer?
+    type: boolean
+    example: true
+  fall_required:
+    description: is this course required to run in the fall?
+    type: boolean
+    example: true
+  spring_peng_req:
+    description: is this course required to be taught by a PEng in the spring?
+    type: boolean
+    example: false
+  summer_peng_req:
+    description: is this course required to be taught by a PEng in the summer?
+    type: boolean
+    example: true
+  fall_peng_req:
+    description: is this course required to be taught by a PEng in the fall?
+    type: boolean
+    example: false

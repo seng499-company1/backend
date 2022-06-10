@@ -1,0 +1,38 @@
+get:
+  tags:
+    - Courses
+  summary: GET /courses
+  description: Get list of courses and their UUIDs.
+  operationId: getCourses
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Course.yaml
+    '404':
+      description: Not Found
+post:
+  tags:
+    - Courses
+  summary: POST /courses
+  description: |
+    Adds a new course to database
+  operationId: postCourse
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/Course.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: string
+            description: UUID of course
+            example: 78c74a60-281c-45f4-9536-7d128701ddb5
+    '400':
+      description: error adding course
