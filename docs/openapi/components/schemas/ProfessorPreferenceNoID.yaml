@@ -1,6 +1,5 @@
 type: object
 required:
-  - id
   - year
   - num_relief
   - num_fall_courses
@@ -9,10 +8,6 @@ required:
   - preferred_times
   - course_preferences
 properties:
-  id:
-    description: uuid of professor
-    type: string
-    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   year:
     description: Year of the preferences
     type: integer

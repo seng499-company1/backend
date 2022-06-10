@@ -10,7 +10,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../components/schemas/Course.yaml
+            $ref: ../../components/schemas/ArrayCourses.yaml
     '404':
       description: Not Found
 post:

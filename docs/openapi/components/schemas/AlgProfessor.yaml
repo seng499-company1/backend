@@ -36,28 +36,23 @@ properties:
     description: preferred times for teaching
     type: object
     example: {'fall':
-    {'monday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false},
-    'tuesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'wednesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'thursday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false}, 
-    'friday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}},
-    'spring':
-    {'monday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false},
-    'tuesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'wednesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'thursday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false}, 
-    'friday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}}, 
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}},
+    'spring':{}, 
     'summer':
-    {'monday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false},
-    'tuesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'wednesday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}, 
-    'thursday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': false}, 
-    'friday':{'times':{'start': '9:00','end':'15:00'}, 'preferredDay': true}}}
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
   
   coursePreferences: 
     description: a prof's preferences 
     type: array
-    example: [{'CSC111', 195}, {'CSC115', 20}, {'CSC230':40}]
+    example: [{'courseCode': 'CSC111', 'enthusiasmScore': 195}, {'courseCode': 'CSC115', 'enthusiasmScore': 20}, {'courseCode': 'CSC230','enthusiasmScore': 40}]
   coursesPerSemester:
     description: number of courses a professor wants to teach each semester along with their total obligation
     type: object

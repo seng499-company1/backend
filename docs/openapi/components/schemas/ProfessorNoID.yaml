@@ -1,0 +1,35 @@
+type: object
+required:
+  - first_name
+  - last_name
+  - is_peng
+  - is_teaching
+  - email
+  - department
+properties:
+  first_name:
+    description: First name of this professor
+    type: string
+    example: Bill
+  last_name:
+    description: Last name of this professor
+    type: string
+    example: Bird
+  is_peng:
+    description: Represents if the professor a PEng
+    type: boolean
+    example: true
+  is_teaching:
+    description: Represents if the professor a teaching professor
+    type: boolean
+    example: true
+  email:
+    description: Professor's email
+    type: string
+    example: email@uvic.ca
+  department:
+    description: Professor's department
+    type: string
+    enum:
+    - CSC
+    - ECE
