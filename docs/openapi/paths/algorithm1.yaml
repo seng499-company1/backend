@@ -1,0 +1,12 @@
+get:
+  tags:
+    - Algorithm 1
+  summary: Get schedule
+  description: |
+    Adds a new schedule to database
+  operationId: getScheduleFromAlgo
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AlgProfessor.yaml
