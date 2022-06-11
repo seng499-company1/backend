@@ -2,6 +2,8 @@
 contains all API /professors endpoints
 '''
 from flask import Blueprint, jsonify
+#from .dbconn import DB_CONN
+
 PROFESSOR_BP = Blueprint('professor', __name__)
 @PROFESSOR_BP.route('/hello/')
 def hello():
@@ -32,6 +34,12 @@ def get_all_professors():
     '''
     returns all professors
     '''
+    global DB_CONN
+    cursor = DB_CONN.cursor()
+
+    cursor.execute("SHOW TABLES;")
+    print(cursor.fetchall())
+
     return jsonify(PROFESSORS), 200
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
