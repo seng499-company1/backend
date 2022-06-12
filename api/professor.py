@@ -1,7 +1,7 @@
 '''
 contains all API /professors endpoints
 '''
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from .dbconn import DB_CONN
 
 PROFESSOR_BP = Blueprint('professor', __name__)
@@ -70,7 +70,8 @@ def post_professor():
     '''
     adds a new professor
     '''
-    return 'posted a professor', 200
+    data = request.json
+    return 'posted a professor successfully', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['POST'])
 def post_professor_preferences(professor_id):
