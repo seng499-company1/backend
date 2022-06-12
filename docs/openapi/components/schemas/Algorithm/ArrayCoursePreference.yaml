@@ -1,0 +1,17 @@
+type: array
+items:
+  $ref: 'CoursePreference.yaml'
+example: [
+{
+"courseCode": "CSC111",
+"enthusiasmScore": 40
+},
+{
+"courseCode": "CSC115",
+"enthusiasmScore": 120
+},
+{
+"courseCode": "CSC230",
+"enthusiasmScore": 180
+},
+]

@@ -453,7 +453,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/ArraySchedules'
         '404':
           description: Not Found
     post:
@@ -467,7 +467,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Professor'
+              $ref: '#/components/schemas/ScheduleNoID'
       responses:
         '200':
           description: OK
@@ -500,7 +500,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/Schedule'
         '404':
           description: schedule not found
     delete:
@@ -532,15 +532,24 @@ paths:
     get:
       tags:
         - Algorithm 1
-      summary: Get schedule
+      summary: Call Algo 1 Library Function
       description: |
-        Adds a new schedule to database
+        Call to Algo 1 Library Function
       operationId: getScheduleFromAlgo
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AlgProfessor'
+              $ref: '#/components/schemas/ScheduleInput'
+      responses:
+        '200':
+          description: Everything worked!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleOutput'
+        '400':
+          description: Error creating schedule
 components:
   securitySchemes:
     main_auth:
@@ -1018,7 +1027,7 @@ components:
           description: is this course required to be taught by a PEng in the fall?
           type: boolean
           example: false
-        description:
+        course_desc:
           description: A description of this course.
           type: string
           example: >-
@@ -1028,7 +1037,7 @@ components:
             language, which is needed by many engineering disciplines, but the
             programming skills taught in this course are language-agnostic and
             can be applied to other programming languages as well.
-        prof_qualifications:
+        prof_prereq:
           description: >-
             A list of qualifications a prof who wants to teach this course
             should have.
@@ -1071,6 +1080,17 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Admin'
+      example:
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Rich
+          last_name: Little
+          email: richlittle@uvic.ca
+          is_prof: true
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Dan
+          last_name: Mai
+          email: danmai@uvic.ca
+          is_prof: false
     AdminNoID:
       type: object
       required:
@@ -1095,6 +1115,26 @@ components:
           description: is this admin also a prof?
           type: boolean
           example: true
+    AlgCourse:
+      type: object
+      properties:
+        code:
+          description: Alphanumeric string uniquely identifying the course.
+          type: string
+          example: CSC225
+        title:
+          description: Title of the course
+          type: string
+          example: Algorithms and Data Structures I
+        pengRequired:
+          description: >-
+            A flag indicating whether the course must be taught by an professor
+            with a P.Eng certification.
+          type: object
+          example:
+            fall: true
+            spring: true
+            summer: false
     CoursePreference:
       type: object
       required:
@@ -1115,6 +1155,13 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/CoursePreference'
+      example:
+        - courseCode: CSC111
+          enthusiasmScore: 40
+        - courseCode: CSC115
+          enthusiasmScore: 120
+        - courseCode: CSC230
+          enthusiasmScore: 180
     AlgProfessor:
       type: object
       required:
@@ -1122,22 +1169,23 @@ components:
         - name
         - isPeng
         - facultyType
-        - preferredTimes
         - coursePreferences
-        - coursesPerSemester
+        - teachingObligations
+        - preferredTimes
+        - preferredCoursesPerSemester
         - preferredNonTeachingSemester
-        - preferredCourseHoursAllocation
+        - preferredCourseDaySpreads
       properties:
         id:
           description: uuid of professor
           type: string
           example: 61587323-6632-4dcf-bae8-2a51ed8585a0
         name:
-          description: Name of professor
+          description: Name of the professor
           type: string
           example: Celina Berg
         isPeng:
-          description: boolean representing if the professor a PEng
+          description: True if the professor has their P.Eng certification.
           type: boolean
           example: false
         facultyType:
@@ -1148,15 +1196,19 @@ components:
           enum:
             - TEACHING
             - RESEARCH
-        availability:
-          description: what semesters is the professor able to teach
-          type: object
-          example:
-            fall: true
-            spring: false
-            summer: true
+        coursePreferences:
+          description: >-
+            Contains a list of course codes corresponding to the courses the
+            professor is qualified to teach.
+          $ref: '#/components/schemas/ArrayCoursePreference'
+        teachingObligations:
+          description: The number of courses a professor must teach in the years.
+          type: integer
+          minimum: 0
+          maximum: 6
+          example: 3
         preferredTimes:
-          description: preferred times for teaching
+          description: Contains the professor’s preferred times per semester.
           type: object
           example:
             fall:
@@ -1232,34 +1284,137 @@ components:
                   - start: '12:00'
                     end: '13:00'
                 preferredDay: true
-        coursePreferences:
-          description: a prof's preferences
-          $ref: '#/components/schemas/ArrayCoursePreference'
-        coursesPerSemester:
-          description: >-
-            number of courses a professor wants to teach each semester along
-            with their total obligation
+        preferredCoursesPerSemester:
+          description: The number of courses a professor would like to teach each semester.
           type: object
           example:
-            oblligation: 4
-            fall: 2
+            fall: 1
             spring: 2
             summer: 0
         preferredNonTeachingSemester:
-          description: what semester this prof would prefer to have off
+          description: An enum indicating the professor’s preferred non-teaching semester.
           type: string
           enum:
             - FALL
             - SPRING
             - SUMMER
-        preferredCourseHoursAllocation:
+        preferredCourseDaySpreads:
           description: professor's preferred allocation of lecture hours
-          type: string
-          enum:
+          type: array
+          example:
             - TWF
-            - MTh
-            - M
-            - T
             - W
-            - Th
-            - F
+    CourseSection:
+      type: object
+      properties:
+        professor:
+          $ref: '#/components/schemas/AlgProfessor'
+        capacity:
+          description: The capacity (number of students) of the course offering.
+          type: integer
+          example: 80
+        timeSlots:
+          description: >-
+            The time ranges of the lectures for the course section. Undefined in
+            alg 1 input and alg 2 output.
+          type: array
+          example:
+            - MONDAY:
+                '12:00': null
+                '13:20': null
+            - THURSDAY:
+                '12:00': null
+                '13:20': null
+    CourseOffering:
+      type: object
+      properties:
+        course:
+          description: The course being offered
+          $ref: '#/components/schemas/AlgCourse'
+        sections:
+          description: The sections being offered
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSection'
+    AlgSchedule:
+      type: object
+      properties:
+        fall:
+          description: A list of courses to be scheduled in the Fall semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+        spring:
+          description: A list of courses to be scheduled in the Spring semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+        summer:
+          description: A list of courses to be scheduled in the Summer semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+    Schedule:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - email
+        - is_prof
+      properties:
+        id:
+          description: uuid of schedule
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        year:
+          description: Year of schedule
+          type: integer
+          example: 2022
+        schedule:
+          description: The schedule for the year.
+          $ref: '#/components/schemas/AlgSchedule'
+    ArraySchedules:
+      type: array
+      items:
+        $ref: '#/components/schemas/Schedule'
+    ScheduleNoID:
+      type: object
+      required:
+        - year
+        - schedule
+      properties:
+        year:
+          description: Year of schedule
+          type: integer
+          example: 2022
+        schedule:
+          description: The schedule for the year.
+          $ref: '#/components/schemas/AlgSchedule'
+    ScheduleInput:
+      type: object
+      properties:
+        historicalData:
+          description: Historical Data
+          $ref: '#/components/schemas/AlgSchedule'
+        professors:
+          description: Array of professors
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgProfessor'
+        schedule:
+          description: An empty schedule
+          $ref: '#/components/schemas/AlgSchedule'
+    ScheduleOutput:
+      type: object
+      properties:
+        schedule:
+          description: >-
+            Contains the best schedule found, or null if none were found or
+            there was an error.
+          $ref: '#/components/schemas/AlgSchedule'
+        error:
+          description: >-
+            If a schedule could not be found or there was some error, this will
+            have an error code
+          type: string

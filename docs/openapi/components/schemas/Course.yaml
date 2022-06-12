@@ -52,11 +52,11 @@ properties:
     description: is this course required to be taught by a PEng in the fall?
     type: boolean
     example: false
-  description:
+  course_desc:
     description: A description of this course.
     type: string
     example: CSC 111 is an introduction to computational problem solving and computer programming, with a particular emphasis on applications to engineering problems. This course teaches programming using the C language, which is needed by many engineering disciplines, but the programming skills taught in this course are language-agnostic and can be applied to other programming languages as well.
-  prof_qualifications:
+  prof_prereq:
     description: A list of qualifications a prof who wants to teach this course should have.
     type: string
     example: Knowledge of the C programming language.

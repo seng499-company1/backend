@@ -4,22 +4,23 @@ required:
   - name
   - isPeng
   - facultyType
-  - preferredTimes
   - coursePreferences
-  - coursesPerSemester
+  - teachingObligations
+  - preferredTimes
+  - preferredCoursesPerSemester
   - preferredNonTeachingSemester
-  - preferredCourseHoursAllocation
+  - preferredCourseDaySpreads
 properties:
   id:
     description: uuid of professor
     type: string
     example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   name:
-    description: Name of professor
+    description: Name of the professor
     type: string
     example: Celina Berg
   isPeng:
-    description: boolean representing if the professor a PEng
+    description: True if the professor has their P.Eng certification.
     type: boolean
     example: false
   facultyType:
@@ -28,12 +29,17 @@ properties:
     enum:
     - TEACHING
     - RESEARCH
-  availability:
-    description: what semesters is the professor able to teach
-    type: object
-    example: {'fall': true, 'spring': false, 'summer': true}
+  coursePreferences: 
+    description: Contains a list of course codes corresponding to the courses the professor is qualified to teach.
+    $ref: 'ArrayCoursePreference.yaml'
+  teachingObligations:
+    description: The number of courses a professor must teach in the years. 
+    type: integer
+    minimum: 0
+    maximum: 6
+    example: 3
   preferredTimes:
-    description: preferred times for teaching
+    description: Contains the professor’s preferred times per semester.
     type: object
     example: {'fall':
     {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
@@ -48,31 +54,27 @@ properties:
     'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
     'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
     'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
-  
-  coursePreferences: 
-    description: a prof's preferences 
-    $ref: 'ArrayCoursePreference.yaml'
-  coursesPerSemester:
-    description: number of courses a professor wants to teach each semester along with their total obligation
+  preferredCoursesPerSemester:
+    description: The number of courses a professor would like to teach each semester.
     type: object
-    example: {'oblligation': 4, 'fall': 2, 'spring': 2, 'summer': 0}
+    example: {
+      'fall': 1,
+      'spring': 2,
+      'summer': 0
+    }
   preferredNonTeachingSemester:
-    description: what semester this prof would prefer to have off
+    description: An enum indicating the professor’s preferred non-teaching semester.
     type: string
     enum:
     - FALL
     - SPRING
     - SUMMER
-  preferredCourseHoursAllocation:
+  preferredCourseDaySpreads:
     description: professor's preferred allocation of lecture hours
-    type: string
-    enum:
-    - TWF
-    - MTh
-    - M
-    - T
-    - W
-    - Th
-    - F
+    type: array
+    example: [
+      'TWF',
+      'W'
+    ]
 
   

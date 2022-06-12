@@ -1,0 +1,17 @@
+type: object
+properties:
+  fall:
+    description: A list of courses to be scheduled in the Fall semester.
+    type: array
+    items:
+      $ref: 'CourseOffering.yaml'
+  spring:
+    description: A list of courses to be scheduled in the Spring semester.
+    type: array
+    items:
+      $ref: 'CourseOffering.yaml'
+  summer:
+    description: A list of courses to be scheduled in the Summer semester.
+    type: array
+    items:
+      $ref: 'CourseOffering.yaml'

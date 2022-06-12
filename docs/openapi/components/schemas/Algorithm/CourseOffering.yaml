@@ -1,0 +1,10 @@
+type: object
+properties:
+  course:
+    description: The course being offered
+    $ref: 'AlgCourse.yaml'
+  sections:
+    description: The sections being offered
+    type: array
+    items:
+      $ref: 'CourseSection.yaml'
