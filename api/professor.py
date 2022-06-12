@@ -39,6 +39,19 @@ def get_all_professors():
 
     return jsonify(cursor.fetchall()), 200
 
+@PROFESSOR_BP.route('/', methods=['POST'])
+def post_professor():
+    '''
+    adds a new professor
+    '''
+    data = request.json
+    db_conn = DB_CONN.get()
+    cursor = db_conn.cursor()
+    sql = f"INSERT INTO Professor Values(UUID_TO_BIN(UUID()), \"{data['first_name']}\", \"{data['last_name']}\", \"{data['email']}\", \"{data['department']}\", {data['is_teaching']}, {data['is_peng']});"
+    cursor.execute(sql)
+    db_conn.commit()
+    return 'posted a professor successfully', 200
+
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
     '''
@@ -64,14 +77,6 @@ def get_professor_preference(professor_id, preference_id):
     else:
         response = jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
     return response
-
-@PROFESSOR_BP.route('/', methods=['POST'])
-def post_professor():
-    '''
-    adds a new professor
-    '''
-    data = request.json
-    return 'posted a professor successfully', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['POST'])
 def post_professor_preferences(professor_id):
