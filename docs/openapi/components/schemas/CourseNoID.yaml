@@ -1,0 +1,57 @@
+type: object
+required:
+  - course_code
+  - course_name
+  - min_offering
+  - spring_required
+  - summer_required
+  - fall_required
+  - spring_peng_req
+  - summer_peng_req
+  - fall_peng_req
+  - description
+properties:
+  course_code:
+    description: course code of the course
+    type: string
+    example: CSC111
+  course_name:
+    description: name of course
+    type: string
+    example: Fundamentals of Progrogramming I with Engineering Applications
+  min_offering:
+    description: minimum number of times a year this course should be offered
+    type: integer
+    example: 2
+  spring_required:
+    description: is this course required to run in the spring?
+    type: boolean
+    example: false
+  summer_required:
+    description: is this course required to run in the summer?
+    type: boolean
+    example: true
+  fall_required:
+    description: is this course required to run in the fall?
+    type: boolean
+    example: true
+  spring_peng_req:
+    description: is this course required to be taught by a PEng in the spring?
+    type: boolean
+    example: false
+  summer_peng_req:
+    description: is this course required to be taught by a PEng in the summer?
+    type: boolean
+    example: true
+  fall_peng_req:
+    description: is this course required to be taught by a PEng in the fall?
+    type: boolean
+    example: false
+  course_desc:
+    description: A description of this course.
+    type: string
+    example: CSC 111 is an introduction to computational problem solving and computer programming, with a particular emphasis on applications to engineering problems. This course teaches programming using the C language, which is needed by many engineering disciplines, but the programming skills taught in this course are language-agnostic and can be applied to other programming languages as well.
+  prof_prereq:
+    description: A list of qualifications a prof who wants to teach this course should have.
+    type: string
+    example: Knowledge of the C programming language.

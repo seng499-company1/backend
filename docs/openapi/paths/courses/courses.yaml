@@ -24,7 +24,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Course.yaml
+          $ref: ../../components/schemas/CourseNoID.yaml
   responses:
     '200':
       description: OK
