@@ -50,7 +50,8 @@ def post_professor():
     adds a new professor
     '''
     data = request.json
-    sql = f"""INSERT INTO Professor Values(UUID_TO_BIN(UUID()),
+    uuid = DB_CONN.uuid()
+    sql = f"""INSERT INTO Professor Values(UUID_TO_BIN(\"{uuid}\"),
                                            \"{data['first_name']}\",
                                            \"{data['last_name']}\",
                                            \"{data['email']}\", 
@@ -58,7 +59,7 @@ def post_professor():
                                            {data['is_teaching']}, 
                                            {data['is_peng']});"""
     DB_CONN.insert(sql)
-    return 'posted a professor successfully', 200
+    return uuid, 200
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
