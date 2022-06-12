@@ -7,13 +7,14 @@ import mysql.connector
 class DBConn:
     """This class maintains a consistent connection to the mysql database. Creating the db
     connection when a user first tries to get the connection instead of when the object is created
-    allows the database time to fully start up before a connection is established. 
+    allows the database time to fully start up before a connection is established.
     """
-  
+
     def __init__(self):
         self.conn = None
 
-    def connect(self):
+    @staticmethod
+    def connection():
         """Creates a database connection and returns it."""
         return mysql.connector.connect(user='api_user',
                                        password='password',
@@ -23,7 +24,7 @@ class DBConn:
     def get(self):
         """Returns the database connection if it exists, else create it then return it."""
         if self.conn is None:
-            self.conn = self.connect()
+            self.conn = DBConn.connection()
 
         return self.conn
 
