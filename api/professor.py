@@ -61,7 +61,13 @@ def post_professor():
     data = request.json
     db_conn = DB_CONN.get()
     cursor = db_conn.cursor()
-    sql = f"INSERT INTO Professor Values(UUID_TO_BIN(UUID()), \"{data['first_name']}\", \"{data['last_name']}\", \"{data['email']}\", \"{data['department']}\", {data['is_teaching']}, {data['is_peng']});"
+    sql = f"""INSERT INTO Professor Values(UUID_TO_BIN(UUID()),
+                                           \"{data['first_name']}\",
+                                           \"{data['last_name']}\",
+                                           \"{data['email']}\", 
+                                           \"{data['department']}\", 
+                                           {data['is_teaching']}, 
+                                           {data['is_peng']});"""
     cursor.execute(sql)
     db_conn.commit()
     return 'posted a professor successfully', 200
