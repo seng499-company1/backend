@@ -17,10 +17,23 @@ class DBConn:
     @staticmethod
     def connection():
         """Creates a database connection and returns it."""
-        return mysql.connector.connect(user='api_user',
-                                       password='password',
-                                       host='127.0.0.1',
-                                       database='scheduler')
+        config = {
+            "user": 'api_user',
+            "password": 'password',
+            "host": 'db',
+            "database": 'scheduler'
+        }
+
+        try:
+            retval = mysql.connector.connect(**config)
+        except mysql.connector.errors.DatabaseError:
+            # This exception will be thrown if using a local dev environment instead of docker
+            # so this sets the host to localhost which is used when not using docker. If an 
+            # expection is thrown again then something is actually wrong.
+            config['host'] = '127.0.0.1'
+            retval = mysql.connector.connect(**config)
+
+        return retval
 
     def get_conn(self):
         """Returns the database connection if it exists, else create it then return it."""
