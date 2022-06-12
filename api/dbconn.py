@@ -21,11 +21,25 @@ class DBConn:
                                        host='127.0.0.1',
                                        database='scheduler')
 
-    def get(self):
+    def get_conn(self):
         """Returns the database connection if it exists, else create it then return it."""
         if self.conn is None:
             self.conn = DBConn.connection()
 
         return self.conn
+
+    def insert(self, sql):
+        """Takes an sql insert statement to run and performs the neccessary calls to run it."""
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        conn.commit()
+
+    def select(self, sql):
+        """Takes an sql select statement to run and performs the neccessary calls to run it.
+        Returns a dictionary of the results."""
+        cursor = self.get_conn().cursor(dictionary=True)
+        cursor.execute(sql)
+        return cursor.fetchall()
 
 DB_CONN = DBConn()

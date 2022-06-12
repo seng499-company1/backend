@@ -41,10 +41,7 @@ def get_all_professors():
                     department, 
                     is_teaching, 
                     is_peng FROM Professor"""
-
-    cursor = DB_CONN.get().cursor(dictionary=True)
-    cursor.execute(sql)
-    results = cursor.fetchall()
+    results = DB_CONN.select(sql)
 
     # changes all 1s and 0s returned by mysql to Python True and false
     for i, result in enumerate(results):
@@ -59,8 +56,6 @@ def post_professor():
     adds a new professor
     '''
     data = request.json
-    db_conn = DB_CONN.get()
-    cursor = db_conn.cursor()
     sql = f"""INSERT INTO Professor Values(UUID_TO_BIN(UUID()),
                                            \"{data['first_name']}\",
                                            \"{data['last_name']}\",
@@ -68,8 +63,7 @@ def post_professor():
                                            \"{data['department']}\", 
                                            {data['is_teaching']}, 
                                            {data['is_peng']});"""
-    cursor.execute(sql)
-    db_conn.commit()
+    DB_CONN.insert(sql)
     return 'posted a professor successfully', 200
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
