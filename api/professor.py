@@ -41,14 +41,8 @@ def get_all_professors():
                     department, 
                     is_teaching, 
                     is_peng FROM Professor"""
-    results = DB_CONN.select(sql)
-
-    # changes all 1s and 0s returned by mysql to Python True and false
-    for i, result in enumerate(results):
-        results[i]['is_teaching'] = not result['is_teaching']
-        results[i]['is_peng'] = not result['is_peng']
-
-    return jsonify(results), 200
+    results = DB_CONN.select(sql, ['is_teaching', 'is_peng'])
+    return results, 200
 
 @PROFESSOR_BP.route('/', methods=['POST'])
 def post_professor():

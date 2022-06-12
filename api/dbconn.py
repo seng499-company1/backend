@@ -3,6 +3,7 @@ This file holds a lobal variable which allows the API to maintain a consitent co
 mysql database and the class that allows that.
 """
 import mysql.connector
+from flask import jsonify
 
 class DBConn:
     """This class maintains a consistent connection to the mysql database. Creating the db
@@ -35,11 +36,20 @@ class DBConn:
         cursor.execute(sql)
         conn.commit()
 
-    def select(self, sql):
+    def select(self, sql, bool_fields=None):
         """Takes an sql select statement to run and performs the neccessary calls to run it.
-        Returns a dictionary of the results."""
+        Returns a json object of the results. bool_fields are the fields which should be changed
+        from sql's 1s and 0s to json true and false."""
         cursor = self.get_conn().cursor(dictionary=True)
         cursor.execute(sql)
-        return cursor.fetchall()
+        results = cursor.fetchall()
+
+        # changes all 1s and 0s returned by mysql to Python True and false
+        if bool_fields:
+            for i, result in enumerate(results):
+                for field in bool_fields:
+                    results[i][field] = not result[field]
+
+        return jsonify(results)
 
 DB_CONN = DBConn()
