@@ -34,10 +34,24 @@ def get_all_professors():
     '''
     returns all professors
     '''
-    cursor = DB_CONN.get().cursor()
-    cursor.execute("SHOW TABLES;")
+    sql = """SELECT BIN_TO_UUID(id) as id,
+                    first_name, 
+                    last_name, 
+                    email, 
+                    department, 
+                    is_teaching, 
+                    is_peng FROM Professor"""
 
-    return jsonify(cursor.fetchall()), 200
+    cursor = DB_CONN.get().cursor(dictionary=True)
+    cursor.execute(sql)
+    results = cursor.fetchall()
+
+    # changes all 1s and 0s returned by mysql to Python True and false
+    for i, result in enumerate(results):
+        results[i]['is_teaching'] = not result['is_teaching']
+        results[i]['is_peng'] = not result['is_peng']
+
+    return jsonify(results), 200
 
 @PROFESSOR_BP.route('/', methods=['POST'])
 def post_professor():
