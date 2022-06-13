@@ -23,7 +23,7 @@ properties:
   is_peng:
     description: Represents if the professor a PEng
     type: boolean
-    example: true
+    example: false
   is_teaching:
     description: Represents if the professor a teaching professor
     type: boolean
