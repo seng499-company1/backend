@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Algorithm 1
+  summary: Call Algo 1 Library Function
+  description: |
+    Call to Algo 1 Library Function
+  operationId: getScheduleFromAlgo
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Algorithm/ScheduleInput.yaml
+  responses:
+    '200':
+      description: Everything worked!
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Algorithm/ScheduleOutput.yaml
+    '400':
+      description: Error creating schedule

@@ -10,7 +10,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../components/schemas/Professor.yaml
+            $ref: ../../components/schemas/ArraySchedules.yaml
     '404':
       description: Not Found
 post:
@@ -24,7 +24,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Professor.yaml
+          $ref: ../../components/schemas/ScheduleNoID.yaml
   responses:
     '200':
       description: OK

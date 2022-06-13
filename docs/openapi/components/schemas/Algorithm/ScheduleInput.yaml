@@ -1,0 +1,13 @@
+type: object
+properties:
+  historicalData:
+    description: Historical Data
+    $ref: 'AlgSchedule.yaml'
+  professors:
+    description: Array of professors
+    type: array
+    items:
+      $ref: 'AlgProfessor.yaml'
+  schedule:
+    description: An empty schedule
+    $ref: 'AlgSchedule.yaml'

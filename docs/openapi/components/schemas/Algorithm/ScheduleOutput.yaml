@@ -1,0 +1,8 @@
+type: object
+properties:
+  schedule:
+    description: Contains the best schedule found, or null if none were found or there was an error.
+    $ref: 'AlgSchedule.yaml'
+  error:
+    description: If a schedule could not be found or there was some error, this will have an error code
+    type: string

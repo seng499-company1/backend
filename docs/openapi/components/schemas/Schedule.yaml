@@ -1,0 +1,19 @@
+type: object
+required:
+  - id
+  - first_name
+  - last_name
+  - email
+  - is_prof
+properties:
+  id:
+    description: uuid of schedule
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  year:
+    description: Year of schedule
+    type: integer
+    example: 2022
+  schedule:
+    description: The schedule for the year.
+    $ref: './Algorithm/AlgSchedule.yaml'

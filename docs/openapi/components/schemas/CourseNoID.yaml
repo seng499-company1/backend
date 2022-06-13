@@ -1,6 +1,5 @@
 type: object
 required:
-  - id
   - course_code
   - course_name
   - min_offering
@@ -12,10 +11,6 @@ required:
   - fall_peng_req
   - description
 properties:
-  id:
-    description: uuid of course
-    type: string
-    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   course_code:
     description: course code of the course
     type: string
