@@ -1,7 +1,17 @@
-version: '3.1'
+version: '3.2'
 
 services:
+  web:
+    platform: linux/amd64
+    build:
+      context: .
+    ports:
+    - 5000:5000
+    volumes:
+    - ./api:/app
+
   db:
+    platform: linux/amd64
     build:
       context: ./database
       dockerfile: ./Dockerfile
