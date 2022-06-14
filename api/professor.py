@@ -1,7 +1,9 @@
 '''
 contains all API /professors endpoints
 '''
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from .dbconn import DB_CONN
+
 PROFESSOR_BP = Blueprint('professor', __name__)
 @PROFESSOR_BP.route('/hello/')
 def hello():
@@ -32,7 +34,32 @@ def get_all_professors():
     '''
     returns all professors
     '''
-    return jsonify(PROFESSORS), 200
+    sql = """SELECT BIN_TO_UUID(id) as id,
+                    first_name, 
+                    last_name, 
+                    email, 
+                    department, 
+                    is_teaching, 
+                    is_peng FROM Professor"""
+    results = DB_CONN.select(sql, ['is_teaching', 'is_peng'])
+    return results, 200
+
+@PROFESSOR_BP.route('/', methods=['POST'])
+def post_professor():
+    '''
+    adds a new professor
+    '''
+    data = request.json
+    uuid = DB_CONN.uuid()
+    sql = f"""INSERT INTO Professor Values(UUID_TO_BIN(\"{uuid}\"),
+                                           \"{data['first_name']}\",
+                                           \"{data['last_name']}\",
+                                           \"{data['email']}\", 
+                                           \"{data['department']}\", 
+                                           {data['is_teaching']}, 
+                                           {data['is_peng']});"""
+    DB_CONN.insert(sql)
+    return uuid, 200
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
@@ -59,13 +86,6 @@ def get_professor_preference(professor_id, preference_id):
     else:
         response = jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
     return response
-
-@PROFESSOR_BP.route('/', methods=['POST'])
-def post_professor():
-    '''
-    adds a new professor
-    '''
-    return 'posted a professor', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['POST'])
 def post_professor_preferences(professor_id):

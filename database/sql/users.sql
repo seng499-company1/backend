@@ -1,3 +1,3 @@
-CREATE USER 'api_user'@'localhost' IDENTIFIED BY 'password';
-GRANT SELECT, INSERT, UPDATE, DELETE ON scheduler.* TO 'api_user'@localhost;
+CREATE USER 'api_user' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON scheduler.* TO 'api_user';
 FLUSH PRIVILEGES;
