@@ -1,0 +1,80 @@
+type: object
+required:
+  - id
+  - name
+  - isPeng
+  - facultyType
+  - coursePreferences
+  - teachingObligations
+  - preferredTimes
+  - preferredCoursesPerSemester
+  - preferredNonTeachingSemester
+  - preferredCourseDaySpreads
+properties:
+  id:
+    description: uuid of professor
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  name:
+    description: Name of the professor
+    type: string
+    example: Celina Berg
+  isPeng:
+    description: True if the professor has their P.Eng certification.
+    type: boolean
+    example: false
+  facultyType:
+    description: An enum indicating whether the professor is research faculty or teaching faculty.
+    type: string
+    enum:
+    - TEACHING
+    - RESEARCH
+  coursePreferences: 
+    description: Contains a list of course codes corresponding to the courses the professor is qualified to teach.
+    $ref: 'ArrayCoursePreference.yaml'
+  teachingObligations:
+    description: The number of courses a professor must teach in the years. 
+    type: integer
+    minimum: 0
+    maximum: 6
+    example: 3
+  preferredTimes:
+    description: Contains the professor’s preferred times per semester.
+    type: object
+    example: {'fall':
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}},
+    'spring':{}, 
+    'summer':
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
+  preferredCoursesPerSemester:
+    description: The number of courses a professor would like to teach each semester.
+    type: object
+    example: {
+      'fall': 1,
+      'spring': 2,
+      'summer': 0
+    }
+  preferredNonTeachingSemester:
+    description: An enum indicating the professor’s preferred non-teaching semester.
+    type: string
+    enum:
+    - FALL
+    - SPRING
+    - SUMMER
+  preferredCourseDaySpreads:
+    description: professor's preferred allocation of lecture hours
+    type: array
+    example: [
+      'TWF',
+      'W'
+    ]
+
+  

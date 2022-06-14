@@ -22,6 +22,8 @@ tags:
     description: Operations about admins.
   - name: Schedules
     description: Operations about schedules.
+  - name: Algorithm 1
+    description: inputs to algorithm 1 python library
 servers:
   - url: https://{tenant}/api/v1
     variables:
@@ -43,7 +45,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/ArrayProfessors'
         '404':
           description: Not Found
     post:
@@ -57,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Professor'
+              $ref: '#/components/schemas/ProfessorNoID'
       responses:
         '200':
           description: OK
@@ -102,7 +104,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of professor to return
+          description: ID of professor to delete
           required: true
           schema:
             type: string
@@ -118,6 +120,61 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: professor not found
+  /professors/{id}/preferences:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors/{id}/preferences
+      description: Gets all preferences for a specific professor
+      operationId: getProfessorPreferences
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayProfessorPreferences'
+        '404':
+          description: professor not found
+    post:
+      tags:
+        - Professors
+      summary: POST /professors/{id}/preferences
+      description: |
+        Adds a new professor preferences to the database
+      operationId: postProfessorPreferences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessorPreferenceNoID'
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of professor's preferences
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: error adding professor's preferences
   /professors/{id}/preferences/{preference_id}:
     get:
       tags:
@@ -146,40 +203,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/ProfessorPreferenceNoID'
         '404':
           description: professor not found
-    post:
-      tags:
-        - Professors
-      summary: POST /professors/{id}/preferences
-      description: |
-        Adds a new professor preferences to the database
-      operationId: postProfessorPreferences
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Professor'
-      parameters:
-        - name: id
-          in: path
-          description: ID of professor to return
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                description: UUID of professor's preferences
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '400':
-          description: error adding professor
     put:
       tags:
         - Professors
@@ -201,6 +227,11 @@ paths:
           schema:
             type: string
             format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessorPreferenceNoID'
     delete:
       tags:
         - Professors
@@ -232,7 +263,7 @@ paths:
                 description: UUID of preferences deleted
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
-          description: professor not found
+          description: professor's preferences not found
   /courses:
     get:
       tags:
@@ -246,7 +277,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Course'
+                $ref: '#/components/schemas/ArrayCourses'
         '404':
           description: Not Found
     post:
@@ -260,7 +291,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Course'
+              $ref: '#/components/schemas/CourseNoID'
       responses:
         '200':
           description: OK
@@ -334,7 +365,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Admin'
+                $ref: '#/components/schemas/ArrayAdmins'
         '404':
           description: admins not found
     post:
@@ -348,7 +379,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Admin'
+              $ref: '#/components/schemas/AdminNoID'
       responses:
         '200':
           description: OK
@@ -422,7 +453,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/ArraySchedules'
         '404':
           description: Not Found
     post:
@@ -436,7 +467,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Professor'
+              $ref: '#/components/schemas/ScheduleNoID'
       responses:
         '200':
           description: OK
@@ -469,7 +500,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Professor'
+                $ref: '#/components/schemas/Schedule'
         '404':
           description: schedule not found
     delete:
@@ -497,6 +528,28 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: schedule not found
+  /alg1:
+    get:
+      tags:
+        - Algorithm 1
+      summary: Call Algo 1 Library Function
+      description: |
+        Call to Algo 1 Library Function
+      operationId: getScheduleFromAlgo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleInput'
+      responses:
+        '200':
+          description: Everything worked!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleOutput'
+        '400':
+          description: Error creating schedule
 components:
   securitySchemes:
     main_auth:
@@ -522,8 +575,8 @@ components:
         - first_name
         - last_name
         - is_peng
-        - email
         - is_teaching
+        - email
         - department
       properties:
         id:
@@ -539,20 +592,401 @@ components:
           type: string
           example: Bird
         is_peng:
-          description: boolean representing if the professor a peng
+          description: Represents if the professor a PEng
+          type: boolean
+          example: false
+        is_teaching:
+          description: Represents if the professor a teaching professor
           type: boolean
           example: true
         email:
-          description: professor's email address
+          description: Professor's email
           type: string
-          example: bbird@uvic.ca
+          example: email@uvic.ca
+        department:
+          description: Professor's department
+          type: string
+          enum:
+            - CSC
+            - ECE
+    ArrayProfessors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Professor'
+      example:
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Bill
+          last_name: Bird
+          is_peng: false
+          is_teaching: true
+          email: email@uvic.ca
+          department: CSC
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a1
+          first_name: Celina
+          last_name: Berg
+          is_peng: false
+          is_teaching: true
+          email: email@uvic.ca
+          department: CSC
+    ProfessorNoID:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - is_peng
+        - is_teaching
+        - email
+        - department
+      properties:
+        first_name:
+          description: First name of this professor
+          type: string
+          example: Bill
+        last_name:
+          description: Last name of this professor
+          type: string
+          example: Bird
+        is_peng:
+          description: Represents if the professor a PEng
+          type: boolean
+          example: false
         is_teaching:
-          description: boolean representing if the professor is a teaching professor
+          description: Represents if the professor a teaching professor
           type: boolean
           example: true
-        department:
-          description: professor's department (ECE or CSC)
+        email:
+          description: Professor's email
           type: string
+          example: email@uvic.ca
+        department:
+          description: Professor's department
+          type: string
+          enum:
+            - CSC
+            - ECE
+    ProfessorPreference:
+      type: object
+      required:
+        - id
+        - year
+        - num_relief
+        - num_fall_courses
+        - num_spring_courses
+        - num_summer_courses
+        - preferred_times
+        - course_preferences
+      properties:
+        id:
+          description: uuid of preferences
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        year:
+          description: Year of the preferences
+          type: integer
+          example: 2022
+        num_relief:
+          description: How many reliefs this professor has.
+          type: integer
+          example: 2
+        num_summer_courses:
+          description: How many classes this professor would like to teach in the summer.
+          type: integer
+          example: 1
+        num_fall_courses:
+          description: How many classes this professor would like to teach in the fall.
+          type: integer
+          example: 2
+        num_spring_courses:
+          description: How many classes this professor would like to teach in the spring.
+          type: integer
+          example: 1
+        why_relief:
+          description: the reasons this professor has relief
+          type: string
+          example: program advisor & TA manager
+        preferred_times:
+          description: This professor's preferred time slots
+          type: object
+          example:
+            fall:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+            spring:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+            summer:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+        course_preferences:
+          description: This professor's course preferences
+          type: array
+          example:
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: very willing
+              able_to_teach: able
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: 'no'
+              able_to_teach: with effort
+    ArrayProfessorPreferences:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProfessorPreference'
+    ProfessorPreferenceNoID:
+      type: object
+      required:
+        - year
+        - num_relief
+        - num_fall_courses
+        - num_spring_courses
+        - num_summer_courses
+        - preferred_times
+        - course_preferences
+      properties:
+        year:
+          description: Year of the preferences
+          type: integer
+          example: 2022
+        num_relief:
+          description: How many reliefs this professor has.
+          type: integer
+          example: 2
+        num_summer_courses:
+          description: How many classes this professor would like to teach in the summer.
+          type: integer
+          example: 1
+        num_fall_courses:
+          description: How many classes this professor would like to teach in the fall.
+          type: integer
+          example: 2
+        num_spring_courses:
+          description: How many classes this professor would like to teach in the spring.
+          type: integer
+          example: 1
+        why_relief:
+          description: the reasons this professor has relief
+          type: string
+          example: program advisor & TA manager
+        preferred_times:
+          description: This professor's preferred time slots
+          type: object
+          example:
+            fall:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+            spring:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+            summer:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+        course_preferences:
+          description: This professor's course preferences
+          type: array
+          example:
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: very willing
+              able_to_teach: able
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: 'no'
+              able_to_teach: with effort
     Course:
       type: object
       required:
@@ -565,7 +999,8 @@ components:
         - fall_required
         - spring_peng_req
         - summer_peng_req
-        - fall_peng req
+        - fall_peng_req
+        - description
       properties:
         id:
           description: uuid of course
@@ -607,6 +1042,92 @@ components:
           description: is this course required to be taught by a PEng in the fall?
           type: boolean
           example: false
+        course_desc:
+          description: A description of this course.
+          type: string
+          example: >-
+            CSC 111 is an introduction to computational problem solving and
+            computer programming, with a particular emphasis on applications to
+            engineering problems. This course teaches programming using the C
+            language, which is needed by many engineering disciplines, but the
+            programming skills taught in this course are language-agnostic and
+            can be applied to other programming languages as well.
+        prof_prereq:
+          description: >-
+            A list of qualifications a prof who wants to teach this course
+            should have.
+          type: string
+          example: Knowledge of the C programming language.
+    ArrayCourses:
+      type: array
+      items:
+        $ref: '#/components/schemas/Course'
+    CourseNoID:
+      type: object
+      required:
+        - course_code
+        - course_name
+        - min_offering
+        - spring_required
+        - summer_required
+        - fall_required
+        - spring_peng_req
+        - summer_peng_req
+        - fall_peng_req
+        - description
+      properties:
+        course_code:
+          description: course code of the course
+          type: string
+          example: CSC111
+        course_name:
+          description: name of course
+          type: string
+          example: Fundamentals of Progrogramming I with Engineering Applications
+        min_offering:
+          description: minimum number of times a year this course should be offered
+          type: integer
+          example: 2
+        spring_required:
+          description: is this course required to run in the spring?
+          type: boolean
+          example: false
+        summer_required:
+          description: is this course required to run in the summer?
+          type: boolean
+          example: true
+        fall_required:
+          description: is this course required to run in the fall?
+          type: boolean
+          example: true
+        spring_peng_req:
+          description: is this course required to be taught by a PEng in the spring?
+          type: boolean
+          example: false
+        summer_peng_req:
+          description: is this course required to be taught by a PEng in the summer?
+          type: boolean
+          example: true
+        fall_peng_req:
+          description: is this course required to be taught by a PEng in the fall?
+          type: boolean
+          example: false
+        course_desc:
+          description: A description of this course.
+          type: string
+          example: >-
+            CSC 111 is an introduction to computational problem solving and
+            computer programming, with a particular emphasis on applications to
+            engineering problems. This course teaches programming using the C
+            language, which is needed by many engineering disciplines, but the
+            programming skills taught in this course are language-agnostic and
+            can be applied to other programming languages as well.
+        prof_prereq:
+          description: >-
+            A list of qualifications a prof who wants to teach this course
+            should have.
+          type: string
+          example: Knowledge of the C programming language.
     Admin:
       type: object
       required:
@@ -636,3 +1157,345 @@ components:
           description: is this admin also a prof?
           type: boolean
           example: true
+    ArrayAdmins:
+      type: array
+      items:
+        $ref: '#/components/schemas/Admin'
+      example:
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Rich
+          last_name: Little
+          email: richlittle@uvic.ca
+          is_prof: true
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Dan
+          last_name: Mai
+          email: danmai@uvic.ca
+          is_prof: false
+    AdminNoID:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - is_prof
+      properties:
+        first_name:
+          description: First name of admin
+          type: string
+          example: Rich
+        last_name:
+          description: Last name of admin
+          type: string
+          example: Little
+        email:
+          description: Email of the admin
+          type: string
+          example: richlittle@uvic.ca
+        is_prof:
+          description: is this admin also a prof?
+          type: boolean
+          example: true
+    AlgCourse:
+      type: object
+      properties:
+        code:
+          description: Alphanumeric string uniquely identifying the course.
+          type: string
+          example: CSC225
+        title:
+          description: Title of the course
+          type: string
+          example: Algorithms and Data Structures I
+        pengRequired:
+          description: >-
+            A flag indicating whether the course must be taught by an professor
+            with a P.Eng certification.
+          type: object
+          example:
+            fall: true
+            spring: true
+            summer: false
+    CoursePreference:
+      type: object
+      required:
+        - courseCode
+        - enthusiasmScore
+      properties:
+        courseCode:
+          description: course code
+          type: string
+          example: CSC111
+        enthusiasmScore:
+          description: enthusiasm score
+          type: integer
+          maximum: 180
+          minimum: 0
+          example: 40
+    ArrayCoursePreference:
+      type: array
+      items:
+        $ref: '#/components/schemas/CoursePreference'
+      example:
+        - courseCode: CSC111
+          enthusiasmScore: 40
+        - courseCode: CSC115
+          enthusiasmScore: 120
+        - courseCode: CSC230
+          enthusiasmScore: 180
+    AlgProfessor:
+      type: object
+      required:
+        - id
+        - name
+        - isPeng
+        - facultyType
+        - coursePreferences
+        - teachingObligations
+        - preferredTimes
+        - preferredCoursesPerSemester
+        - preferredNonTeachingSemester
+        - preferredCourseDaySpreads
+      properties:
+        id:
+          description: uuid of professor
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        name:
+          description: Name of the professor
+          type: string
+          example: Celina Berg
+        isPeng:
+          description: True if the professor has their P.Eng certification.
+          type: boolean
+          example: false
+        facultyType:
+          description: >-
+            An enum indicating whether the professor is research faculty or
+            teaching faculty.
+          type: string
+          enum:
+            - TEACHING
+            - RESEARCH
+        coursePreferences:
+          description: >-
+            Contains a list of course codes corresponding to the courses the
+            professor is qualified to teach.
+          $ref: '#/components/schemas/ArrayCoursePreference'
+        teachingObligations:
+          description: The number of courses a professor must teach in the years.
+          type: integer
+          minimum: 0
+          maximum: 6
+          example: 3
+        preferredTimes:
+          description: Contains the professor’s preferred times per semester.
+          type: object
+          example:
+            fall:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+            spring: {}
+            summer:
+              monday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              tuesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              wednesday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+              thursday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: false
+              friday:
+                times:
+                  - start: '9:00'
+                    end: '10:00'
+                  - start: '12:00'
+                    end: '13:00'
+                preferredDay: true
+        preferredCoursesPerSemester:
+          description: The number of courses a professor would like to teach each semester.
+          type: object
+          example:
+            fall: 1
+            spring: 2
+            summer: 0
+        preferredNonTeachingSemester:
+          description: An enum indicating the professor’s preferred non-teaching semester.
+          type: string
+          enum:
+            - FALL
+            - SPRING
+            - SUMMER
+        preferredCourseDaySpreads:
+          description: professor's preferred allocation of lecture hours
+          type: array
+          example:
+            - TWF
+            - W
+    CourseSection:
+      type: object
+      properties:
+        professor:
+          $ref: '#/components/schemas/AlgProfessor'
+        capacity:
+          description: The capacity (number of students) of the course offering.
+          type: integer
+          example: 80
+        timeSlots:
+          description: >-
+            The time ranges of the lectures for the course section. Undefined in
+            alg 1 input and alg 2 output.
+          type: array
+          example:
+            - MONDAY:
+                '12:00': null
+                '13:20': null
+            - THURSDAY:
+                '12:00': null
+                '13:20': null
+    CourseOffering:
+      type: object
+      properties:
+        course:
+          description: The course being offered
+          $ref: '#/components/schemas/AlgCourse'
+        sections:
+          description: The sections being offered
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseSection'
+    AlgSchedule:
+      type: object
+      properties:
+        fall:
+          description: A list of courses to be scheduled in the Fall semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+        spring:
+          description: A list of courses to be scheduled in the Spring semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+        summer:
+          description: A list of courses to be scheduled in the Summer semester.
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseOffering'
+    Schedule:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - email
+        - is_prof
+      properties:
+        id:
+          description: uuid of schedule
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        year:
+          description: Year of schedule
+          type: integer
+          example: 2022
+        schedule:
+          description: The schedule for the year.
+          $ref: '#/components/schemas/AlgSchedule'
+    ArraySchedules:
+      type: array
+      items:
+        $ref: '#/components/schemas/Schedule'
+    ScheduleNoID:
+      type: object
+      required:
+        - year
+        - schedule
+      properties:
+        year:
+          description: Year of schedule
+          type: integer
+          example: 2022
+        schedule:
+          description: The schedule for the year.
+          $ref: '#/components/schemas/AlgSchedule'
+    ScheduleInput:
+      type: object
+      properties:
+        historicalData:
+          description: Historical Data
+          $ref: '#/components/schemas/AlgSchedule'
+        professors:
+          description: Array of professors
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgProfessor'
+        schedule:
+          description: An empty schedule
+          $ref: '#/components/schemas/AlgSchedule'
+    ScheduleOutput:
+      type: object
+      properties:
+        schedule:
+          description: >-
+            Contains the best schedule found, or null if none were found or
+            there was an error.
+          $ref: '#/components/schemas/AlgSchedule'
+        error:
+          description: >-
+            If a schedule could not be found or there was some error, this will
+            have an error code
+          type: string

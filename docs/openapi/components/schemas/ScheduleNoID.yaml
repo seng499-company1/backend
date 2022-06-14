@@ -1,0 +1,12 @@
+type: object
+required:
+  - year
+  - schedule
+properties:
+  year:
+    description: Year of schedule
+    type: integer
+    example: 2022
+  schedule:
+    description: The schedule for the year.
+    $ref: './Algorithm/AlgSchedule.yaml'

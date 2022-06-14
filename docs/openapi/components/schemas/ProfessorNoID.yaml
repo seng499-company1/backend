@@ -1,6 +1,5 @@
 type: object
 required:
-  - id
   - first_name
   - last_name
   - is_peng
@@ -8,10 +7,6 @@ required:
   - email
   - department
 properties:
-  id:
-    description: uuid of professor
-    type: string
-    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   first_name:
     description: First name of this professor
     type: string

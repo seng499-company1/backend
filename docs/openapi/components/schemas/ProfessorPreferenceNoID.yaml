@@ -1,0 +1,66 @@
+type: object
+required:
+  - year
+  - num_relief
+  - num_fall_courses
+  - num_spring_courses
+  - num_summer_courses
+  - preferred_times
+  - course_preferences
+properties:
+  year:
+    description: Year of the preferences
+    type: integer
+    example: 2022
+  num_relief:
+    description: How many reliefs this professor has.
+    type: integer
+    example: 2
+  num_summer_courses:
+    description: How many classes this professor would like to teach in the summer.
+    type: integer
+    example: 1
+  num_fall_courses:
+    description: How many classes this professor would like to teach in the fall.
+    type: integer
+    example: 2
+  num_spring_courses:
+    description: How many classes this professor would like to teach in the spring.
+    type: integer
+    example: 1
+  why_relief:
+    description: the reasons this professor has relief
+    type: string
+    example: program advisor & TA manager
+  preferred_times:
+    description: This professor's preferred time slots
+    type: object
+    example: {'fall':
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}},
+    'spring':
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}, 
+    'summer':
+    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
+    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
+    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
+    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
+  course_preferences:
+    description: This professor's course preferences
+    type: array
+    example: [
+      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
+      'will_to_teach':'very willing',
+      'able_to_teach': 'able'},
+      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
+      'will_to_teach':'no',
+      'able_to_teach': 'with effort'},
+    ]

@@ -18,7 +18,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../components/schemas/Professor.yaml
+            $ref: ../../components/schemas/Schedule.yaml
     '404':
       description: schedule not found
 delete:

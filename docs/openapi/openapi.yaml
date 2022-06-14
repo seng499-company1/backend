@@ -22,6 +22,8 @@ tags:
     description: Operations about admins.
   - name: Schedules
     description: Operations about schedules.
+  - name: Algorithm 1
+    description: inputs to algorithm 1 python library
 servers:
   - url: 'https://{tenant}/api/v1'
     variables:
@@ -34,8 +36,10 @@ paths:
     $ref: paths/professors/professors.yaml
   /professors/{id}:
     $ref: paths/professors/professors_{id}.yaml
-  /professors/{id}/preferences/{preference_id}:
+  /professors/{id}/preferences:
     $ref: paths/professors/professors_{id}_preferences.yaml
+  /professors/{id}/preferences/{preference_id}:
+    $ref: paths/professors/professors_{id}_preferences_{preference_id}.yaml
   /courses:
     $ref: paths/courses/courses.yaml
   /courses/{id}:
@@ -48,6 +52,8 @@ paths:
     $ref: paths/schedules/schedules.yaml
   /schedules/{id}:
     $ref: paths/schedules/schedules_{id}.yaml
+  /alg1:
+    $ref: paths/algorithm1.yaml
 components:
   securitySchemes:
     main_auth:

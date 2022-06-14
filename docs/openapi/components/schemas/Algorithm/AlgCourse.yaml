@@ -1,0 +1,18 @@
+type: object
+properties:
+  code:
+    description: Alphanumeric string uniquely identifying the course.
+    type: string
+    example: CSC225
+  title:
+    description: Title of the course
+    type: string
+    example: Algorithms and Data Structures I
+  pengRequired:
+    description: A flag indicating whether the course must be taught by an professor with a P.Eng certification.
+    type: object
+    example: {
+      'fall' : True,
+      'spring': True,
+      'summer': False
+    }

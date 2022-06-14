@@ -10,7 +10,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../components/schemas/Admin.yaml
+            $ref: ../../components/schemas/ArrayAdmins.yaml
     '404':
       description: 'admins not found'
 post:
@@ -24,7 +24,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: ../../components/schemas/Admin.yaml
+          $ref: ../../components/schemas/AdminNoID.yaml
   responses:
     '200':
       description: OK
