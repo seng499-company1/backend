@@ -1,0 +1,23 @@
+type: object
+required:
+  - first_name
+  - last_name
+  - email
+  - is_prof
+properties:
+  first_name:
+    description: First name of admin
+    type: string
+    example: Rich
+  last_name:
+    description: Last name of admin
+    type: string
+    example: Little
+  email:
+    description: Email of the admin
+    type: string
+    example: richlittle@uvic.ca
+  is_prof:
+    description: is this admin also a prof?
+    type: boolean
+    example: true

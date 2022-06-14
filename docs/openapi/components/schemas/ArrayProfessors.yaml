@@ -1,0 +1,24 @@
+type: array
+items:
+  $ref: 'Professor.yaml'
+example: [
+{
+"id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+"first_name": "Bill",
+"last_name": "Bird",
+"is_peng": false,
+"is_teaching": true,
+"email": "email@uvic.ca",
+"department": "CSC"
+},
+{
+"id": "61587323-6632-4dcf-bae8-2a51ed8585a1",
+"first_name": "Celina",
+"last_name": "Berg",
+"is_peng": false,
+"is_teaching": true,
+"email": "email@uvic.ca",
+"department": "CSC"
+}
+
+]

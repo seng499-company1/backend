@@ -1,0 +1,15 @@
+type: object
+properties:
+  professor:
+    $ref: 'AlgProfessor.yaml'
+  capacity:
+    description: The capacity (number of students) of the course offering.
+    type: integer
+    example: 80
+  timeSlots: 
+    description: The time ranges of the lectures for the course section. Undefined in alg 1 input and alg 2 output.
+    type: array
+    example: [
+      {'MONDAY': {'12:00', '13:20'}},
+      {'THURSDAY': {'12:00', '13:20'}}
+    ]

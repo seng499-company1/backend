@@ -1,0 +1,19 @@
+type: array
+items:
+  $ref: 'Admin.yaml'
+example: [
+  {
+    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "first_name": "Rich",
+    "last_name": "Little",
+    "email": "richlittle@uvic.ca",
+    "is_prof": true
+  },
+  {
+    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "first_name": "Dan",
+    "last_name": "Mai",
+    "email": "danmai@uvic.ca",
+    "is_prof": false
+  }
+]

@@ -30,7 +30,7 @@ delete:
   parameters:
     - name: id
       in: path
-      description: ID of professor to return
+      description: ID of professor to delete
       required: true
       schema:
         type: string
