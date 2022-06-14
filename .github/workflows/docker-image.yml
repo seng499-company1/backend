@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+# Run docker tests on push or pull request on any branch
+on: [push]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker images
+      run: docker-compose build
+
+    - name: Run the Docker containers
+      run: docker-compose up -d
+
+    - name: Run test cases
+      run: pytest
+      
+    - name: Stop Docker containers
+      run: docker-compose stop
