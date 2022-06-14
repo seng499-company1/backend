@@ -39,11 +39,4 @@ properties:
   course_preferences:
     description: This professor's course preferences
     type: array
-    example: [
-      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
-      'will_to_teach':'very willing',
-      'able_to_teach': 'able'},
-      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
-      'will_to_teach':'no',
-      'able_to_teach': 'with effort'},
-    ]
+    $ref: './CoursePreference.yaml'

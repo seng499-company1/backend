@@ -707,6 +707,37 @@ components:
           description: JSON object of preferred days and times from Mon-Fri
           type: object
           $ref: '#/components/schemas/AvailabilityDict'
+    CoursePreference:
+      type: array
+      items:
+        required:
+          - course_id
+          - will_to_teach
+          - able_to_teach
+        properties:
+          course_id:
+            description: uuid of the course
+            type: string
+            example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          will_to_teach:
+            description: Professor's willingness to teach the course
+            type: string
+            enum:
+              - VERY_WILLING
+              - WILLING
+              - UNWILLING
+              - 'NO'
+            example:
+              anyOf:
+                - very willing
+          able_to_teach:
+            description: Professors ability to teach the course
+            type: string
+            enum:
+              - ABLE
+              - WITH_EFFORT
+              - 'NO'
+            example: able
     ProfessorPreference:
       type: object
       required:
@@ -754,13 +785,7 @@ components:
         course_preferences:
           description: This professor's course preferences
           type: array
-          example:
-            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-              will_to_teach: very willing
-              able_to_teach: able
-            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-              will_to_teach: 'no'
-              able_to_teach: with effort
+          $ref: '#/components/schemas/CoursePreference'
     ProfessorPreferenceNoID:
       type: object
       required:
@@ -803,13 +828,7 @@ components:
         course_preferences:
           description: This professor's course preferences
           type: array
-          example:
-            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-              will_to_teach: very willing
-              able_to_teach: able
-            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-              will_to_teach: 'no'
-              able_to_teach: with effort
+          $ref: '#/components/schemas/CoursePreference'
     Course:
       type: object
       required:
@@ -1041,7 +1060,7 @@ components:
             fall: true
             spring: true
             summer: false
-    CoursePreference:
+    CourseEnthusiasm:
       type: object
       required:
         - courseCode
@@ -1060,7 +1079,7 @@ components:
     ArrayCoursePreference:
       type: array
       items:
-        $ref: '#/components/schemas/CoursePreference'
+        $ref: '#/components/schemas/CourseEnthusiasm'
       example:
         - courseCode: CSC111
           enthusiasmScore: 40
