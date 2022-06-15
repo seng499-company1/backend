@@ -44,4 +44,4 @@ properties:
   course_preferences:
     description: This professor's course preferences
     type: array
-    $ref: './CoursePreference.yaml'
+    $ref: './CoursePreferenceWithTimestamp.yaml'
