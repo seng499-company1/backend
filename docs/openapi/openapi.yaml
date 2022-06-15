@@ -38,8 +38,6 @@ paths:
     $ref: paths/professors/professors_{id}.yaml
   /professors/{id}/preferences:
     $ref: paths/professors/professors_{id}_preferences.yaml
-  /professors/{id}/preferences/{preference_id}:
-    $ref: paths/professors/professors_{id}_preferences_{preference_id}.yaml
   /courses:
     $ref: paths/courses/courses.yaml
   /courses/{id}:
