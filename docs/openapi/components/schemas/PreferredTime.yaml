@@ -1,0 +1,13 @@
+type: object
+required:
+  - times
+  - preferredDay
+properties: 
+  times: 
+    description: Array of time ranges stored as tuples
+    type: array
+    example: [(“12:00” “13:20”) (“14:00” “15:20”)]
+  preferredDay: 
+    description: Does prof prefer to teach on this day of the week
+    type: boolean
+    example: true

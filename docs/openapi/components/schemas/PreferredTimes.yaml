@@ -1,0 +1,14 @@
+type: object
+properties:
+  fall:
+    description: JSON object of preferred days and times from Mon-Fri
+    type: object
+    $ref: 'AvailabilityDict.yaml'
+  spring:
+    description: JSON object of preferred days and times from Mon-Fri
+    type: object
+    $ref: 'AvailabilityDict.yaml'
+  summer:
+    description: JSON object of preferred days and times from Mon-Fri
+    type: object
+    $ref: 'AvailabilityDict.yaml'
