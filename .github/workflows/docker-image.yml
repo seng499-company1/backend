@@ -24,10 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt 
         
-    - name: Check DB is ready for connections
-      run: |
-        ./wait-for-db.sh   
-        
     - name: Run test cases
       run: pytest
       
