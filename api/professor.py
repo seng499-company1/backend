@@ -1,9 +1,9 @@
 '''
 contains all API /professors endpoints
 '''
+import json
 from flask import Blueprint, jsonify, request
 from .dbconn import DB_CONN
-import json
 
 PROFESSOR_BP = Blueprint('professor', __name__)
 @PROFESSOR_BP.route('/hello/')
@@ -75,8 +75,8 @@ def get_professor(professor_id):
                     is_teaching, 
                     is_peng FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
     result = DB_CONN.select_one(sql, ['is_teaching', 'is_peng'])
-    
-    if result == None:
+
+    if result is None:
         # if empty string - professor not founds
         return 'Not Found', 404
     # return 200 OK

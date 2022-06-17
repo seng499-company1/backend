@@ -26,7 +26,7 @@ class DBConn:
 
         try:
             retval = mysql.connector.connect(**config)
-        except:
+        except: # pylint: disable=bare-except
             # This exception will be thrown if using a local dev environment instead of docker
             # so this sets the host to localhost which is used when not using docker. If an
             # expection is thrown again then something is actually wrong.
@@ -62,9 +62,9 @@ class DBConn:
         cursor = self.get_conn().cursor(dictionary=True)
         cursor.execute(sql)
         result = cursor.fetchone()
-        
+
         #empty result
-        if result == None:
+        if result is None:
             return None
 
         # changes all 1s and 0s returned by mysql to Python True and false
