@@ -26,13 +26,12 @@ class DBConn:
 
         try:
             retval = mysql.connector.connect(**config)
-        except mysql.connector.errors.DatabaseError:
+        except:
             # This exception will be thrown if using a local dev environment instead of docker
             # so this sets the host to localhost which is used when not using docker. If an
             # expection is thrown again then something is actually wrong.
             config['host'] = '127.0.0.1'
             retval = mysql.connector.connect(**config)
-
         return retval
 
     def get_conn(self):
@@ -54,6 +53,26 @@ class DBConn:
         cursor = self.get_conn().cursor(dictionary=True)
         cursor.execute('SELECT UUID() AS uuid')
         return cursor.fetchall()[0]['uuid']
+
+    def select_one(self, sql, bool_fields=None):
+        """Takes an sql select statement to run and performs the neccessary calls to run it.
+        Only returns one object compared to select which returns an array of objects.
+        Returns a json object of the result. bool_fields are the fields which should be changed
+        from sql's 1s and 0s to json true and false."""
+        cursor = self.get_conn().cursor(dictionary=True)
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        
+        #empty result
+        if result == None:
+            return None
+
+        # changes all 1s and 0s returned by mysql to Python True and false
+        if bool_fields:
+            for field in bool_fields:
+                result[field] = not result[field]
+
+        return jsonify(result)
 
     def select(self, sql, bool_fields=None):
         """Takes an sql select statement to run and performs the neccessary calls to run it.

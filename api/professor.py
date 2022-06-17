@@ -3,6 +3,7 @@ contains all API /professors endpoints
 '''
 from flask import Blueprint, jsonify, request
 from .dbconn import DB_CONN
+import json
 
 PROFESSOR_BP = Blueprint('professor', __name__)
 @PROFESSOR_BP.route('/hello/')
@@ -66,7 +67,20 @@ def get_professor(professor_id):
     '''
     returns a professor with an ID
     '''
-    return jsonify(PROFESSORS[UUIDS.index(professor_id)]), 200
+    sql = f"""SELECT BIN_TO_UUID(id) as id,
+                    first_name, 
+                    last_name, 
+                    email, 
+                    department, 
+                    is_teaching, 
+                    is_peng FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
+    result = DB_CONN.select_one(sql, ['is_teaching', 'is_peng'])
+    
+    if result == None:
+        # if empty string - professor not founds
+        return 'Not Found', 404
+    # return 200 OK
+    return json.loads(result.response[0]), 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
 def get_professor_preferences(professor_id):
