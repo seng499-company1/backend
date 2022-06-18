@@ -125,7 +125,7 @@ paths:
       tags:
         - Professors
       summary: GET /professors/{id}/preferences
-      description: Gets all preferences for a specific professor
+      description: Gets the preference for a specific professor
       operationId: getProfessorPreferences
       parameters:
         - name: id
@@ -141,15 +141,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ArrayProfessorPreferences'
+                $ref: '#/components/schemas/ProfessorPreference'
         '404':
           description: professor not found
     post:
       tags:
         - Professors
       summary: POST /professors/{id}/preferences
-      description: |
-        Adds a new professor preferences to the database
+      description: Adds a professor's preference entry to the database
       operationId: postProfessorPreferences
       requestBody:
         content:
@@ -159,7 +158,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of professor to return
+          description: ID of professor
           required: true
           schema:
             type: string
@@ -175,54 +174,16 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '400':
           description: error adding professor's preferences
-  /professors/{id}/preferences/{preference_id}:
-    get:
-      tags:
-        - Professors
-      summary: GET /professors/{id}/preferences/{preference-id}
-      description: Gets preferences for a specific professor
-      operationId: getProfessorPreferences(id)
-      parameters:
-        - name: id
-          in: path
-          description: ID of professor to return
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: preference_id
-          in: path
-          description: ID of professor to return
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProfessorPreferenceNoID'
-        '404':
-          description: professor not found
     put:
       tags:
         - Professors
-      summary: PUT /professors/{id}/preferences/{preference_id}
-      description: Updates preferences for a specific professor
+      summary: PUT /professors/{id}/preferences
+      description: Updates the preference for a specific professor
       operationId: putProfessorPreferences(id)
       parameters:
         - name: id
           in: path
-          description: ID of professor to return
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: preference_id
-          in: path
-          description: ID of professor's preferences to update
+          description: ID of professor
           required: true
           schema:
             type: string
@@ -235,20 +196,13 @@ paths:
     delete:
       tags:
         - Professors
-      summary: DELETE /professors/{id}/preferences/{preference_id}
-      description: Deletes a specific professor's preferences
+      summary: DELETE /professors/{id}/preferences
+      description: Deletes a specific professor's preference
       operationId: deleteProfessorPreferences(id)
       parameters:
         - name: id
           in: path
-          description: ID of professor to return
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: preference_id
-          in: path
-          description: ID of professor's preferences to update
+          description: ID of professor
           required: true
           schema:
             type: string
@@ -664,6 +618,65 @@ components:
           enum:
             - CSC
             - ECE
+    PreferredTime:
+      type: object
+      required:
+        - times
+        - preferredDay
+      properties:
+        times:
+          description: Array of time ranges stored as tuples
+          type: array
+          example:
+            - (“12:00” “13:20”) (“14:00” “15:20”)
+        preferredDay:
+          description: Does prof prefer to teach on this day of the week
+          type: boolean
+          example: true
+    AvailabilityDict:
+      type: object
+      required:
+        - mon
+        - tues
+        - wed
+        - thurs
+        - fri
+      properties:
+        mon:
+          description: JSON object of preferred time range for the day
+          type: object
+          $ref: '#/components/schemas/PreferredTime'
+        tues:
+          description: JSON object of preferred time range for the day
+          type: object
+          $ref: '#/components/schemas/PreferredTime'
+        wed:
+          description: JSON object of preferred time range for the day
+          type: object
+          $ref: '#/components/schemas/PreferredTime'
+        thurs:
+          description: JSON object of preferred time range for the day
+          type: object
+          $ref: '#/components/schemas/PreferredTime'
+        fri:
+          description: JSON object of preferred time range for the day
+          type: object
+          $ref: '#/components/schemas/PreferredTime'
+    PreferredTimes:
+      type: object
+      properties:
+        fall:
+          description: JSON object of preferred days and times from Mon-Fri
+          type: object
+          $ref: '#/components/schemas/AvailabilityDict'
+        spring:
+          description: JSON object of preferred days and times from Mon-Fri
+          type: object
+          $ref: '#/components/schemas/AvailabilityDict'
+        summer:
+          description: JSON object of preferred days and times from Mon-Fri
+          type: object
+          $ref: '#/components/schemas/AvailabilityDict'
     ProfessorPreference:
       type: object
       required:
@@ -685,137 +698,29 @@ components:
           type: integer
           example: 2022
         num_relief:
-          description: How many reliefs this professor has.
+          description: How many reliefs this professor has
           type: integer
           example: 2
         num_summer_courses:
-          description: How many classes this professor would like to teach in the summer.
+          description: How many classes this professor would like to teach in the summer
           type: integer
           example: 1
         num_fall_courses:
-          description: How many classes this professor would like to teach in the fall.
+          description: How many classes this professor would like to teach in the fall
           type: integer
           example: 2
         num_spring_courses:
-          description: How many classes this professor would like to teach in the spring.
+          description: How many classes this professor would like to teach in the spring
           type: integer
           example: 1
         why_relief:
-          description: the reasons this professor has relief
+          description: The reasons this professor has relief
           type: string
           example: program advisor & TA manager
         preferred_times:
           description: This professor's preferred time slots
           type: object
-          example:
-            fall:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-            spring:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-            summer:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
+          $ref: '#/components/schemas/PreferredTimes'
         course_preferences:
           description: This professor's course preferences
           type: array
@@ -826,10 +731,6 @@ components:
             - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
               will_to_teach: 'no'
               able_to_teach: with effort
-    ArrayProfessorPreferences:
-      type: array
-      items:
-        $ref: '#/components/schemas/ProfessorPreference'
     ProfessorPreferenceNoID:
       type: object
       required:
@@ -846,19 +747,19 @@ components:
           type: integer
           example: 2022
         num_relief:
-          description: How many reliefs this professor has.
+          description: How many reliefs this professor has
           type: integer
           example: 2
         num_summer_courses:
-          description: How many classes this professor would like to teach in the summer.
+          description: How many classes this professor would like to teach in the summer
           type: integer
           example: 1
         num_fall_courses:
-          description: How many classes this professor would like to teach in the fall.
+          description: How many classes this professor would like to teach in the fall
           type: integer
           example: 2
         num_spring_courses:
-          description: How many classes this professor would like to teach in the spring.
+          description: How many classes this professor would like to teach in the spring
           type: integer
           example: 1
         why_relief:
@@ -866,117 +767,9 @@ components:
           type: string
           example: program advisor & TA manager
         preferred_times:
-          description: This professor's preferred time slots
+          description: This professor's preferred time slots example
           type: object
-          example:
-            fall:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-            spring:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-            summer:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
+          $ref: '#/components/schemas/PreferredTimes'
         course_preferences:
           description: This professor's course preferences
           type: array
@@ -1291,80 +1084,7 @@ components:
         preferredTimes:
           description: Contains the professor’s preferred times per semester.
           type: object
-          example:
-            fall:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-            spring: {}
-            summer:
-              monday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              tuesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              wednesday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
-              thursday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: false
-              friday:
-                times:
-                  - start: '9:00'
-                    end: '10:00'
-                  - start: '12:00'
-                    end: '13:00'
-                preferredDay: true
+          $ref: '#/components/schemas/PreferredTimes'
         preferredCoursesPerSemester:
           description: The number of courses a professor would like to teach each semester.
           type: object

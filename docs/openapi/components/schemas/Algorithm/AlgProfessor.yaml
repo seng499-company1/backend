@@ -41,19 +41,7 @@ properties:
   preferredTimes:
     description: Contains the professor’s preferred times per semester.
     type: object
-    example: {'fall':
-    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
-    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
-    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}},
-    'spring':{}, 
-    'summer':
-    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
-    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
-    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
+    $ref: '../PreferredTimes.yaml'
   preferredCoursesPerSemester:
     description: The number of courses a professor would like to teach each semester.
     type: object
