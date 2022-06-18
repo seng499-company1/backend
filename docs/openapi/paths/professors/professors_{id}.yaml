@@ -43,6 +43,6 @@ delete:
           schema:
             type: string
             description: UUID of professor deleted
-            example: 78c74a60-281c-45f4-9536-7d128701ddb5
+            example: Deleted prof with id 78c74a60-281c-45f4-9536-7d128701ddb5
     '404':
       description: professor not found
