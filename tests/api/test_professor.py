@@ -66,7 +66,7 @@ def test_post_professor():
     payload1 = '{"first_name":"Mr", "last_name":"Engineer", "is_peng":true, "is_teaching":true,'
     payload2 = ' "email":"email@uvic.ca", "department":"ECE" }'
     payload = payload1 + payload2
-    response = requests.post(url=SERVICE_URL+endpoint, json='{"first_name":"Mr", "last_name":"Engineer", "is_peng":true, "is_teaching":true, "email":"email@uvic.ca", "department":"ECE" }')
+    response = requests.post(url=SERVICE_URL+endpoint, json={"first_name":"Mr", "last_name":"Engineer", "is_peng":true, "is_teaching":true, "email":"email@uvic.ca", "department":"ECE" })
     assert response.status_code == 200
     assert response.text == 'posted a professor'
 
