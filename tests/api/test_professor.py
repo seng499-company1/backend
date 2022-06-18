@@ -19,9 +19,9 @@ def test_get_all_professors():
     '''Tests Get All Professors endpoint of professors service.'''
     endpoint = ""
     response = requests.get(url=SERVICE_URL+endpoint)
-    response_json = json.loads(response.text)
+#   response_json = json.loads(response.text)
     assert response.status_code == 200
-#     assert response_json == professor.PROFESSORS
+#   assert response_json == professor.PROFESSORS
 
 def test_get_professor():
     '''Tests Get Professor endpoint of professors service.'''
