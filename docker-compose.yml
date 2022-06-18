@@ -5,7 +5,7 @@ services:
     platform: linux/amd64
     build:
       context: .
-    depends on:
+    depends_on:
       db:
         condition: service_healthy
     ports:
