@@ -63,7 +63,8 @@ def test_get_professor_preference_invalid():
 def test_post_professor():
     '''Tests Post Professor endpoint of professors service.'''
     endpoint = ""
-    response = requests.post(url=SERVICE_URL+endpoint, data='{"first_name":"Mr", "last_name":"Engineer", "is_peng":true, "is_teaching":true, "email":"email@uvic.ca", "department":"ECE" }')
+    payload = '{"first_name":"Mr", "last_name":"Engineer", "is_peng":true, "is_teaching":true, "email":"email@uvic.ca", "department":"ECE" }'
+    response = requests.post(url=SERVICE_URL+endpoint, data=payload)
     assert response.status_code == 200
     assert response.text == 'posted a professor'
 
