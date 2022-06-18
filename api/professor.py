@@ -59,8 +59,10 @@ def post_professor():
                                            \"{data['department']}\", 
                                            {data['is_teaching']}, 
                                            {data['is_peng']});"""
-    DB_CONN.insert(sql)
+    if not DB_CONN.execute(sql):
+        return 'Error adding professor', 500
     return uuid, 200
+
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
@@ -81,6 +83,16 @@ def get_professor(professor_id):
         return 'Not Found', 404
     # return 200 OK
     return json.loads(result.response[0]), 200
+
+@PROFESSOR_BP.route('/<professor_id>', methods=['DELETE'])
+def delete_professor(professor_id):
+    '''
+    deletes a professor
+    '''
+    sql = f"""DELETE FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
+    if not DB_CONN.execute(sql):
+        return f'Unable to delete prof with id {professor_id}', 500
+    return f'deleted prof with id {professor_id}', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
 def get_professor_preferences(professor_id):
@@ -115,13 +127,6 @@ def update_professor_preferences(professor_id, preference_id):
     '''
     return f'updates the preferences with id {preference_id} for \
      professor with id {professor_id}', 200
-
-@PROFESSOR_BP.route('/<professor_id>', methods=['DELETE'])
-def delete_professor(professor_id):
-    '''
-    deletes a professor
-    '''
-    return f'deleted prof with id {professor_id}', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['DELETE'])
 def delete_professor_preferences(professor_id, preference_id):
