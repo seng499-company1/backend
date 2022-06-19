@@ -92,7 +92,7 @@ def delete_professor(professor_id):
     sql = f"""DELETE FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
     if not DB_CONN.execute(sql):
         return f'Unable to delete prof with id {professor_id}', 500
-    return f'deleted prof with id {professor_id}', 200
+    return f'Deleted prof with id {professor_id}', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
 def get_professor_preferences(professor_id):
