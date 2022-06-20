@@ -4,8 +4,10 @@ contains all API /professors endpoints
 import json
 from flask import Blueprint, jsonify, request
 from .dbconn import DB_CONN
+from .preference import PREFERENCE_BP
 
 PROFESSOR_BP = Blueprint('professor', __name__)
+PROFESSOR_BP.register_blueprint(PREFERENCE_BP, url_prefix='')
 @PROFESSOR_BP.route('/hello/')
 def hello():
     '''
@@ -93,45 +95,3 @@ def delete_professor(professor_id):
     if not DB_CONN.execute(sql):
         return f'Unable to delete prof with id {professor_id}', 500
     return f'Deleted prof with id {professor_id}', 200
-
-@PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
-def get_professor_preferences(professor_id):
-    '''
-    returns all of professor's preferences
-    '''
-    return jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
-
-@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['GET'])
-def get_professor_preference(professor_id, preference_id):
-    '''
-    returns a professor's preferences for a certain year
-    '''
-    response = ''
-    if RELIEFS[UUIDS.index(professor_id)]['id'] != int(preference_id):
-        response = 'couldn\'t find that preference id', 404
-    else:
-        response = jsonify(RELIEFS[UUIDS.index(professor_id)]), 200
-    return response
-
-@PROFESSOR_BP.route('/<professor_id>/preferences', methods=['POST'])
-def post_professor_preferences(professor_id):
-    '''
-    adds a new professor's preferences
-    '''
-    return f'updates a prof with professor_id {professor_id}', 200
-
-@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['PUT'])
-def update_professor_preferences(professor_id, preference_id):
-    '''
-    updates a professor's preferences
-    '''
-    return f'updates the preferences with id {preference_id} for \
-     professor with id {professor_id}', 200
-
-@PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['DELETE'])
-def delete_professor_preferences(professor_id, preference_id):
-    '''
-    deletes a professor's preferences
-    '''
-    return f'deleted preference with id {preference_id} for \
-     professor with id {professor_id}', 200

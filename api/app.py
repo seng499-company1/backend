@@ -7,6 +7,7 @@ from .admin import ADMIN_BP
 from .professor import PROFESSOR_BP
 from .schedule import SCHEDULE_BP
 from .course import COURSE_BP
+from .preference import PREFERENCE_BP
 
 APP = Flask(__name__)
 @APP.route('/')
