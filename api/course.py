@@ -2,7 +2,7 @@
 contains all /courses endpoints
 '''
 import json
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from .dbconn import DB_CONN
 COURSE_BP = Blueprint('course', __name__)
 @COURSE_BP.route('/hello/')
@@ -69,8 +69,8 @@ def get_all_courses():
                     course_desc,
                     prof_prereq
                     FROM CourseOffering"""
-    results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req', 
-                            'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
+    results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req',
+                                   'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
     return results, 200
 
 @COURSE_BP.route('/<course_id>', methods=['GET'])
@@ -92,8 +92,8 @@ def get_course(course_id):
                     prof_prereq
                     FROM CourseOffering 
                     WHERE BIN_TO_UUID(id) = \'{course_id}\'"""
-    result = DB_CONN.select_one(sql, ['spring_req', 'summer_req', 'fall_req', 
-                            'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
+    result = DB_CONN.select_one(sql, ['spring_req', 'summer_req', 'fall_req',
+                                      'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
     if result is None:
         # if empty string - course not found
         return 'Not Found', 404
