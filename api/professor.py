@@ -79,7 +79,7 @@ def get_professor(professor_id):
     result = DB_CONN.select_one(sql, ['is_teaching', 'is_peng'])
 
     if result is None:
-        # if empty string - professor not founds
+        # if empty string - professor not found
         return 'Not Found', 404
     # return 200 OK
     return json.loads(result.response[0]), 200

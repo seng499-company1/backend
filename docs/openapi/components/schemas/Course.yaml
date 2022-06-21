@@ -4,13 +4,14 @@ required:
   - course_code
   - course_name
   - min_offering
-  - spring_required
-  - summer_required
-  - fall_required
+  - spring_req
+  - summer_req
+  - fall_req
   - spring_peng_req
   - summer_peng_req
   - fall_peng_req
-  - description
+  - course_desc
+  - prof_prereq
 properties:
   id:
     description: uuid of course
@@ -28,15 +29,15 @@ properties:
     description: minimum number of times a year this course should be offered
     type: integer
     example: 2
-  spring_required:
+  spring_req:
     description: is this course required to run in the spring?
     type: boolean
     example: false
-  summer_required:
+  summer_req:
     description: is this course required to run in the summer?
     type: boolean
     example: true
-  fall_required:
+  fall_req:
     description: is this course required to run in the fall?
     type: boolean
     example: true
