@@ -39,7 +39,7 @@ CREATE TABLE HistoricalData(
 
 CREATE TABLE CourseOffering (
 	id BINARY(16) PRIMARY KEY,
-	course_name VARCHAR(30) NOT NULL,
+	course_name VARCHAR(100) NOT NULL,
 	course_code VARCHAR(10) NOT NULL, 
 	course_desc VARCHAR(500) NOT NULL,
 	prof_prereq VARCHAR(500),
