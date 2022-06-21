@@ -11,45 +11,6 @@ def hello():
     blah
     '''
     return 'Hello from Courses'
-COURSES = [
-    {
-        'course_code': 'CSC111',
-        'course_name': 'Fundamentals of C Programming',
-        'uuid': '1e90ab30-c380-4034-acdb-238856a88df3',
-        'min_offering': '3',
-        'spring_required': True,
-        'summer_required': False,
-        'fall_required': False,
-        'spring_peng_req': False,
-        'summer_peng_req': False,
-        'fall_peng_req': False,
-    },
-    {
-        'course_code': 'SENG275',
-        'course_name': 'Zastre\'s favourite course',
-        'uuid': '2e90ab30-c380-4034-acdb-238856a88df3',
-        'min_offering': '2',
-        'spring_required': True,
-        'summer_required': True,
-        'fall_required': False,
-        'spring_peng_req': True,
-        'summer_peng_req': True,
-        'fall_peng_req': False,
-    },
-    {
-        'course_code': 'CSC230',
-        'course_name': 'Assembly ARM programming',
-        'uuid': '3e90ab30-c380-4034-acdb-238856a88df3',
-        'min_offering': '2',
-        'spring_required': True,
-        'summer_required': True,
-        'fall_required': True,
-        'spring_peng_req': False,
-        'summer_peng_req': False,
-        'fall_peng_req': False,
-    },
-]
-UUIDS = [course['uuid'] for course in COURSES]
 
 @COURSE_BP.route('/', methods=['GET'])
 def get_all_courses():
