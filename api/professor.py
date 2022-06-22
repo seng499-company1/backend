@@ -2,7 +2,7 @@
 contains all API /professors endpoints
 '''
 import json
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from .dbconn import DB_CONN
 from .preference import PREFERENCE_BP
 
@@ -94,4 +94,5 @@ def delete_professor(professor_id):
     sql = f"""DELETE FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
     if not DB_CONN.execute(sql):
         return f'Unable to delete prof with id {professor_id}', 500
+
     return f'Deleted prof with id {professor_id}', 200
