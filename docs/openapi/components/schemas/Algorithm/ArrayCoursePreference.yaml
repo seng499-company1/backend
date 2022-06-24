@@ -1,6 +1,6 @@
 type: array
 items:
-  $ref: 'CoursePreference.yaml'
+  $ref: './CourseEnthusiasm.yaml'
 example: [
 {
 "courseCode": "CSC111",
