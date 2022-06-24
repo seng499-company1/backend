@@ -19,7 +19,7 @@ def index():
 @APP.after_request
 def add_cors_headers(response):
     '''Allows frontend to connect to the backend.'''
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:3000')
     return response
 
 APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
