@@ -16,6 +16,12 @@ def index():
     '''
     return 'all is good :)'
 
+@APP.after_request
+def add_cors_headers(response):
+    '''Allows frontend to connect to the backend.'''
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
 APP.register_blueprint(PROFESSOR_BP, url_prefix='/professors')
 APP.register_blueprint(SCHEDULE_BP, url_prefix='/schedule')
