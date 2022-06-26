@@ -15,6 +15,7 @@ services:
 
   db:
     platform: linux/amd64
+    command: --secure-file-priv=/init_data
     build:
       context: ./database
       dockerfile: ./Dockerfile
