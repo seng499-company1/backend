@@ -39,9 +39,9 @@ CREATE TABLE HistoricalData(
 
 CREATE TABLE CourseOffering (
 	id BINARY(16) PRIMARY KEY,
-	course_name VARCHAR(30) NOT NULL,
+	course_name VARCHAR(100) NOT NULL,
 	course_code VARCHAR(10) NOT NULL, 
-	course_desc VARCHAR(500) NOT NULL,
+	course_desc VARCHAR(2000) NOT NULL,
 	prof_prereq VARCHAR(500),
 	min_offering INT NOT NULL,
 	spring_req BOOLEAN NOT NULL,
@@ -49,7 +49,8 @@ CREATE TABLE CourseOffering (
 	fall_req BOOLEAN NOT NULL,
 	spring_peng_req BOOLEAN NOT NULL,
 	summer_peng_req BOOLEAN NOT NULL,
-	fall_peng_req BOOLEAN NOT NULL
+	fall_peng_req BOOLEAN NOT NULL,
+	notes VARCHAR(500)
 );
 
 CREATE TABLE ProfessorAvailability (
