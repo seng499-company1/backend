@@ -1,6 +1,7 @@
 '''
 contains all API /professors endpoints
 '''
+import json
 from flask import Blueprint, jsonify, request
 from .dbconn import DB_CONN
 
@@ -58,15 +59,40 @@ def post_professor():
                                            \"{data['department']}\", 
                                            {data['is_teaching']}, 
                                            {data['is_peng']});"""
-    DB_CONN.insert(sql)
+    if not DB_CONN.execute(sql):
+        return 'Error adding professor', 500
     return uuid, 200
+
 
 @PROFESSOR_BP.route('/<professor_id>', methods=['GET'])
 def get_professor(professor_id):
     '''
     returns a professor with an ID
     '''
-    return jsonify(PROFESSORS[UUIDS.index(professor_id)]), 200
+    sql = f"""SELECT BIN_TO_UUID(id) as id,
+                    first_name, 
+                    last_name, 
+                    email, 
+                    department, 
+                    is_teaching, 
+                    is_peng FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
+    result = DB_CONN.select_one(sql, ['is_teaching', 'is_peng'])
+
+    if result is None:
+        # if empty string - professor not found
+        return 'Not Found', 404
+    # return 200 OK
+    return json.loads(result.response[0]), 200
+
+@PROFESSOR_BP.route('/<professor_id>', methods=['DELETE'])
+def delete_professor(professor_id):
+    '''
+    deletes a professor
+    '''
+    sql = f"""DELETE FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
+    if not DB_CONN.execute(sql):
+        return f'Unable to delete prof with id {professor_id}', 500
+    return f'Deleted prof with id {professor_id}', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences', methods=['GET'])
 def get_professor_preferences(professor_id):
@@ -101,13 +127,6 @@ def update_professor_preferences(professor_id, preference_id):
     '''
     return f'updates the preferences with id {preference_id} for \
      professor with id {professor_id}', 200
-
-@PROFESSOR_BP.route('/<professor_id>', methods=['DELETE'])
-def delete_professor(professor_id):
-    '''
-    deletes a professor
-    '''
-    return f'deleted prof with id {professor_id}', 200
 
 @PROFESSOR_BP.route('/<professor_id>/preferences/<preference_id>', methods=['DELETE'])
 def delete_professor_preferences(professor_id, preference_id):

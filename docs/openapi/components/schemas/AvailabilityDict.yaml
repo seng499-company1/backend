@@ -1,0 +1,29 @@
+type: object
+required:
+  - mon
+  - tues
+  - wed
+  - thurs
+  - fri
+properties: 
+  mon: 
+      description: JSON object of preferred time range for the day
+      type: object
+      $ref: 'PreferredTime.yaml'
+  tues: 
+      description: JSON object of preferred time range for the day
+      type: object
+      $ref: 'PreferredTime.yaml'
+  wed: 
+      description: JSON object of preferred time range for the day
+      type: object
+      $ref: 'PreferredTime.yaml'
+  thurs: 
+      description: JSON object of preferred time range for the day
+      type: object
+      $ref: 'PreferredTime.yaml'
+  fri: 
+      description: JSON object of preferred time range for the day
+      type: object
+      $ref: 'PreferredTime.yaml'
+              

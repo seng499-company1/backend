@@ -13,19 +13,19 @@ properties:
     type: integer
     example: 2022
   num_relief:
-    description: How many reliefs this professor has.
+    description: How many reliefs this professor has
     type: integer
     example: 2
   num_summer_courses:
-    description: How many classes this professor would like to teach in the summer.
+    description: How many classes this professor would like to teach in the summer
     type: integer
     example: 1
   num_fall_courses:
-    description: How many classes this professor would like to teach in the fall.
+    description: How many classes this professor would like to teach in the fall
     type: integer
     example: 2
   num_spring_courses:
-    description: How many classes this professor would like to teach in the spring.
+    description: How many classes this professor would like to teach in the spring
     type: integer
     example: 1
   why_relief:
@@ -33,34 +33,10 @@ properties:
     type: string
     example: program advisor & TA manager
   preferred_times:
-    description: This professor's preferred time slots
+    description: This professor's preferred time slots example
     type: object
-    example: {'fall':
-    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
-    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
-    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}},
-    'spring':
-    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
-    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
-    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}, 
-    'summer':
-    {'monday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false},
-    'tuesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'wednesday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}, 
-    'thursday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': false}, 
-    'friday':{'times':[{'start': '9:00','end':'10:00'}, {'start': '12:00','end':'13:00'}], 'preferredDay': true}}}
+    $ref: 'PreferredTimes.yaml'
   course_preferences:
     description: This professor's course preferences
     type: array
-    example: [
-      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
-      'will_to_teach':'very willing',
-      'able_to_teach': 'able'},
-      {'course_id': '61587323-6632-4dcf-bae8-2a51ed8585a0',
-      'will_to_teach':'no',
-      'able_to_teach': 'with effort'},
-    ]
+    $ref: './CoursePreference.yaml'

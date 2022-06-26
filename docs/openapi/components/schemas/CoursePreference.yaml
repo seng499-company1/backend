@@ -1,0 +1,28 @@
+type: array
+items: 
+  required: 
+    - course_id
+    - will_to_teach
+    - able_to_teach
+  properties:
+    course_id:
+      description: uuid of the course
+      type: string
+      example: '61587323-6632-4dcf-bae8-2a51ed8585a0'
+    will_to_teach:
+      description: Professor's willingness to teach the course
+      type: string
+      enum:
+      - VERY_WILLING
+      - WILLING
+      - UNWILLING
+      - NO
+      example: 'VERY_WILLING'
+    able_to_teach:
+      description: Professors ability to teach the course
+      type: string
+      enum:
+      - ABLE
+      - WITH_EFFORT
+      - NO
+      example: 'ABLE'
