@@ -512,6 +512,30 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: schedule not found
+  /schedules/company/{company_num}:
+    get:
+      tags:
+        - Schedules
+      summary: GET /schedules/company/{company_num}
+      description: Generates a schedule from a specific company.
+      operationId: getSchedule(company)
+      parameters:
+        - name: company_num
+          in: path
+          description: number of the company to get a schedule from
+          required: true
+          schema:
+            type: integer
+            format: 1 or 2
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          description: company not found
   /alg1:
     get:
       tags:
