@@ -12,6 +12,7 @@ services:
 
   db:
     platform: linux/amd64
+    command: --secure-file-priv=/docker-entrypoint-initdb.d
     build:
       context: ./database
       dockerfile: ./Dockerfile
