@@ -1,67 +1,67 @@
 first_name,last_name,email,department,is_teaching,is_peng
-Michael D.,Adams,mdadams@ece.uvic.ca,ECE,FALSE,TRUE
-Panajotis,Agathoklis,panagath@ece.uvic.ca,ECE,FALSE,TRUE
-Riham,AlTawny,raltawy@uvic.ca,ECE,FALSE,FALSE
-Amirali,Baniasadi,amiralib@uvic.ca,ECE,FALSE,TRUE
-Ashoka K. S.,Bhat,abhat@ece.uvic.ca,ECE,FALSE,TRUE
-Jens,Bornemann,jbornema@ece.uvic.ca,ECE,FALSE,TRUE
-Alexandra Branzan,Albu,aalbu@ece.uvic.ca,ECE,FALSE,TRUE
-Lin,Cai,cai@ece.uvic.ca,ECE,FALSE,TRUE
-David,Capson,capson@uvic.ca,ECE,FALSE,TRUE
-Thomas E.,Darcie,tdarcie@ece.uvic.ca,ECE,FALSE,TRUE
-Nikitas J.,Dimopoulus,nikitas@ece.uvic.ca,ECE,FALSE,TRUE
-Xiaodai,Dong,xdong@ece.uvic.ca,ECE,FALSE,TRUE
-Peter F.,Driessen,peterd@ece.uvic.ca,ECE,FALSE,TRUE
-Fayez,Gebali,fayez@uvic.ca,ECE,FALSE,TRUE
-Reuven,Gordon,rgordon@uvic.ca,ECE,FALSE,TRUE
-T. Aaron,Gulliver,agullive@ece.uvic.ca,ECE,FALSE,TRUE
-T.,Ilamparithi,ilampari@uvic.ca,ECE,TRUE,FALSE
-Kin Fun,Li,kinli@uvic.ca,ECE,FALSE,TRUE
-Tao,Lu,taolu@uvic.ca,ECE,FALSE,TRUE
-Wu-Sheng,Lu,wslu@ece.uvic.ca,ECE,FALSE,TRUE
-Michael L.,McGuire,mmcguire@ece.uvic.ca,ECE,FALSE,TRUE
-Stephen W.,Neville,sneville@ece.uvic.ca,ECE,FALSE,TRUE
-Chris,Papadopoulos,papadop@ece.uvic.ca,ECE,FALSE,TRUE
-Navneet K.,Popli,npopli@uvic.ca,ECE,TRUE,FALSE
-Daler N.,Rakhmatoc,daler@ece.uvic.ca,ECE,FALSE,TRUE
-Makhsud,Saidaminov,msaidaminov@uvic.ca,ECE,FALSE,FALSE
-Sana,Shuja,sanashuja@uvic.ca,ECE,TRUE,FALSE
-Mihai,Sima,msima@ece.uvic.ca,ECE,FALSE,TRUE
-Levi,Smith,levismith@uvic.ca,ECE,FALSE,FALSE
-Poman P. M.,,poman.so@ece.uvic.ca,ECE,FALSE,TRUE
-Issa,Traore,itraore@ece.uvic.ca,ECE,FALSE,TRUE
-Hong-Chuan,Yang,hy@ece.uvic.ca,ECE,FALSE,TRUE
-Celina,Berg,celinag@uvic.ca,CSC,TRUE,FALSE
-Bill,Bird,bbird@uvic.ca,CSC,TRUE,FALSE
-Sean,Chester,schester@uvic.ca,CSC,FALSE,FALSE
-Yvonne,Coady,ycoady@uvic.ca,CSC,FALSE,FALSE
-Jason,Corless,jcorless@uvic.ca,CSC,TRUE,FALSE
-Daniela,Damian,danielad@uvic.ca,CSC,FALSE,TRUE
-Neil,Ernst,nernst@uvic.ca,CSC,FALSE,FALSE
-Anthony,Estey,aestey@uvic.ca,CSC,TRUE,FALSE
-Sudhakar,Ganti,sganti@uvic.ca,CSC,FALSE,FALSE
-Daniel,German,dmg@uvic.ca,CSC,FALSE,FALSE
-Brandon,Haworth,bhaworth@uvic.ca,CSC,FALSE,FALSE
-Hosna,Jabbari,jabbari@uvic.ca,CSC,FALSE,FALSE
-LillAnne,Jackson,lillanne@uvic.ca,CSC,TRUE,TRUE
-Bruce,Kapron,bmkapron@uvic.ca,CSC,FALSE,FALSE
-Valerie,King,val@uvic.ca,CSC,FALSE,FALSE
-Sajin,Koroth,skoroth@uvic.ca,CSC,FALSE,FALSE
-Rich ,Little,rlittle@uvic.ca,CSC,TRUE,FALSE
-Nishant,Mehta,nmehta@uvic.ca,CSC,FALSE,FALSE
-Hausi,Müller,hausi@uvic.ca,CSC,FALSE,TRUE
-Miguel,Nacenta,nacenta@uvic.ca,CSC,FALSE,FALSE
-Ibrahim,Numanagi?,inumanag@uvic.ca,CSC,FALSE,FALSE
-Jianping,Pan,pan@uvic.ca,CSC,FALSE,FALSE
-Charles,Perin,cperin@uvic.ca,CSC,FALSE,FALSE
-Teseo,Schneider,teseo@uvic.ca,CSC,FALSE,FALSE
-Sowmya,Somanath,sowmyasomanath@uvic.ca,CSC,FALSE,FALSE
-Venkatesh,Srinivasan,srinivas@uvic.ca,CSC,FALSE,FALSE
-Ulrike,Stege,ustege@uvic.ca,CSC,FALSE,FALSE
-Margaret-Anne,Storey,mstorey@uvic.ca,CSC,FALSE,FALSE
-Cecilia,Summers,ceciliasummers@uvic.ca,CSC,FALSE,FALSE
-Alex,Thomo,thomo@uvic.ca,CSC,FALSE,FALSE
-George,Tzanetakis,gtzan@cs.uvic.ca,CSC,FALSE,FALSE
-Jens,Weber,jens@uvic.ca,CSC,FALSE,TRUE
-Ken,Wu,wkui@uvic.ca,CSC,FALSE,TRUE
-Michael,Zastre,zastre@uvic.ca,CSC,TRUE,TRUE
+Michael D.,Adams,mdadams@ece.uvic.ca,ECE,0,1
+Panajotis,Agathoklis,panagath@ece.uvic.ca,ECE,0,1
+Riham,AlTawny,raltawy@uvic.ca,ECE,0,0
+Amirali,Baniasadi,amiralib@uvic.ca,ECE,0,1
+Ashoka K. S.,Bhat,abhat@ece.uvic.ca,ECE,0,1
+Jens,Bornemann,jbornema@ece.uvic.ca,ECE,0,1
+Alexandra Branzan,Albu,aalbu@ece.uvic.ca,ECE,0,1
+Lin,Cai,cai@ece.uvic.ca,ECE,0,1
+David,Capson,capson@uvic.ca,ECE,0,1
+Thomas E.,Darcie,tdarcie@ece.uvic.ca,ECE,0,1
+Nikitas J.,Dimopoulus,nikitas@ece.uvic.ca,ECE,0,1
+Xiaodai,Dong,xdong@ece.uvic.ca,ECE,0,1
+Peter F.,Driessen,peterd@ece.uvic.ca,ECE,0,1
+Fayez,Gebali,fayez@uvic.ca,ECE,0,1
+Reuven,Gordon,rgordon@uvic.ca,ECE,0,1
+T. Aaron,Gulliver,agullive@ece.uvic.ca,ECE,0,1
+T.,Ilamparithi,ilampari@uvic.ca,ECE,1,0
+Kin Fun,Li,kinli@uvic.ca,ECE,0,1
+Tao,Lu,taolu@uvic.ca,ECE,0,1
+Wu-Sheng,Lu,wslu@ece.uvic.ca,ECE,0,1
+Michael L.,McGuire,mmcguire@ece.uvic.ca,ECE,0,1
+Stephen W.,Neville,sneville@ece.uvic.ca,ECE,0,1
+Chris,Papadopoulos,papadop@ece.uvic.ca,ECE,0,1
+Navneet K.,Popli,npopli@uvic.ca,ECE,1,0
+Daler N.,Rakhmatoc,daler@ece.uvic.ca,ECE,0,1
+Makhsud,Saidaminov,msaidaminov@uvic.ca,ECE,0,0
+Sana,Shuja,sanashuja@uvic.ca,ECE,1,0
+Mihai,Sima,msima@ece.uvic.ca,ECE,0,1
+Levi,Smith,levismith@uvic.ca,ECE,0,0
+Poman P. M.,,poman.so@ece.uvic.ca,ECE,0,1
+Issa,Traore,itraore@ece.uvic.ca,ECE,0,1
+Hong-Chuan,Yang,hy@ece.uvic.ca,ECE,0,1
+Celina,Berg,celinag@uvic.ca,CSC,1,0
+Bill,Bird,bbird@uvic.ca,CSC,1,0
+Sean,Chester,schester@uvic.ca,CSC,0,0
+Yvonne,Coady,ycoady@uvic.ca,CSC,0,0
+Jason,Corless,jcorless@uvic.ca,CSC,1,0
+Daniela,Damian,danielad@uvic.ca,CSC,0,1
+Neil,Ernst,nernst@uvic.ca,CSC,0,0
+Anthony,Estey,aestey@uvic.ca,CSC,1,0
+Sudhakar,Ganti,sganti@uvic.ca,CSC,0,0
+Daniel,German,dmg@uvic.ca,CSC,0,0
+Brandon,Haworth,bhaworth@uvic.ca,CSC,0,0
+Hosna,Jabbari,jabbari@uvic.ca,CSC,0,0
+LillAnne,Jackson,lillanne@uvic.ca,CSC,1,1
+Bruce,Kapron,bmkapron@uvic.ca,CSC,0,0
+Valerie,King,val@uvic.ca,CSC,0,0
+Sajin,Koroth,skoroth@uvic.ca,CSC,0,0
+Rich ,Little,rlittle@uvic.ca,CSC,1,0
+Nishant,Mehta,nmehta@uvic.ca,CSC,0,0
+Hausi,Mï¿½ller,hausi@uvic.ca,CSC,0,1
+Miguel,Nacenta,nacenta@uvic.ca,CSC,0,0
+Ibrahim,Numanagi?,inumanag@uvic.ca,CSC,0,0
+Jianping,Pan,pan@uvic.ca,CSC,0,0
+Charles,Perin,cperin@uvic.ca,CSC,0,0
+Teseo,Schneider,teseo@uvic.ca,CSC,0,0
+Sowmya,Somanath,sowmyasomanath@uvic.ca,CSC,0,0
+Venkatesh,Srinivasan,srinivas@uvic.ca,CSC,0,0
+Ulrike,Stege,ustege@uvic.ca,CSC,0,0
+Margaret-Anne,Storey,mstorey@uvic.ca,CSC,0,0
+Cecilia,Summers,ceciliasummers@uvic.ca,CSC,0,0
+Alex,Thomo,thomo@uvic.ca,CSC,0,0
+George,Tzanetakis,gtzan@cs.uvic.ca,CSC,0,0
+Jens,Weber,jens@uvic.ca,CSC,0,1
+Ken,Wu,wkui@uvic.ca,CSC,0,1
+Michael,Zastre,zastre@uvic.ca,CSC,1,1

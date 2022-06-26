@@ -6,3 +6,4 @@ ENV MYSQL_ROOT_PASSWORD=root
 # exists for this container (ie: the container is being started for the first time). The scripts
 # are executed in alphabetical order.
 COPY sql /docker-entrypoint-initdb.d
+COPY csv /csv
