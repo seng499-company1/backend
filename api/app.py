@@ -24,7 +24,7 @@ def add_cors_headers(response):
 
 APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
 APP.register_blueprint(PROFESSOR_BP, url_prefix='/professors')
-APP.register_blueprint(SCHEDULE_BP, url_prefix='/schedule')
+APP.register_blueprint(SCHEDULE_BP, url_prefix='/schedules')
 APP.register_blueprint(COURSE_BP, url_prefix='/courses')
 
 if __name__ == "__main__":

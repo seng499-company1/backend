@@ -1,7 +1,7 @@
 '''Import py requests to support api requests'''
 import requests
 
-SERVICE_URL = "http://127.0.0.1:5000/schedule/"
+SERVICE_URL = "http://127.0.0.1:5000/schedules/"
 
 def test_schedule_hello():
     '''Tests hello endpoint of schedule service.'''
