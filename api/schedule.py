@@ -2,6 +2,9 @@
 contains all /schedule endpoints
 '''
 from flask import Blueprint, request, jsonify
+from c1algo1 import scheduler as c1scheduler
+from forecaster.forecaster import forecast as c2forecast
+
 SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
 def hello():
@@ -89,6 +92,22 @@ def get_all_schedules():
     Return JSON object containing a list of schedules with their year, semester and id
     '''
     return jsonify(SCHEDULES), 200
+
+@SCHEDULE_BP.route('/company/<company_num>', methods=['GET'])
+def get_company_schedule(company_num):
+    '''
+    Return JSON object containing a list of schedules with their year, semester and id  as
+    generated from <company_num>.
+    '''
+    message = f'company {company_num} not recongnized'
+    status = 200
+    if company_num == '1':
+        message = c1scheduler.generate_schedule()
+    elif company_num == '2':
+        message = c2forecast(None, None, None)
+    else:
+        status = 404
+    return message, status
 
 @SCHEDULE_BP.route('<schedule_id>', methods=['GET'])
 def get_schedule(schedule_id):

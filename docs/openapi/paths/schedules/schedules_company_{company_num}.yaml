@@ -1,0 +1,23 @@
+get:
+  tags:
+    - Schedules
+  summary: GET /schedules/company/{company_num}
+  description: Generates a schedule from a specific company.
+  operationId: getSchedule(company)
+  parameters:
+    - name: company_num
+      in: path
+      description: number of the company to get a schedule from
+      required: true
+      schema:
+        type: integer
+        format: 1 or 2
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/Schedule.yaml
+    '404':
+      description: company not found

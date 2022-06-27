@@ -50,6 +50,8 @@ paths:
     $ref: paths/schedules/schedules.yaml
   /schedules/{id}:
     $ref: paths/schedules/schedules_{id}.yaml
+  /schedules/company/{company_num}:
+    $ref: paths/schedules/schedules_company_{company_num}.yaml
   /alg1:
     $ref: paths/algorithm1.yaml
 components:
