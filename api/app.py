@@ -1,8 +1,8 @@
 '''
 starting point for API
 '''
-from flask import Flask
 import os
+from flask import Flask
 from .admin import ADMIN_BP
 from .professor import PROFESSOR_BP
 from .schedule import SCHEDULE_BP
