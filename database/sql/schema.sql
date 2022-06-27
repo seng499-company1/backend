@@ -62,7 +62,7 @@ CREATE TABLE ProfessorAvailability (
 	num_summer_courses INT NOT NULL,
 	num_fall_courses INT NOT NULL,
 	num_spring_courses INT NOT NULL,
-	preferred_times JSON NOT NULL,
+	preferred_times JSON,
 	FOREIGN KEY(prof_id)
 		REFERENCES Professor(id)
 		ON DELETE CASCADE
@@ -75,7 +75,7 @@ CREATE TABLE ProfessorCoursePreference (
 	year INT NOT NULL,
 	will_to_teach VARCHAR(12) NOT NULL,
 	able_to_teach VARCHAR(12) NOT NULL,
-	time_stamp DATETIME NOT NULL,
+	time_stamp DATETIME default now(),
 	FOREIGN KEY(prof_avail_id)
 		REFERENCES ProfessorAvailability(id)
 		ON DELETE CASCADE
