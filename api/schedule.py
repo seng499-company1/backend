@@ -2,8 +2,8 @@
 contains all /schedule endpoints
 '''
 from flask import Blueprint, request, jsonify
-from c1algo1 import scheduler as c1scheduler
-from forecaster.forecaster import forecast as c2forecast
+from c1algo1.scheduler import generate_schedule as c1alg1
+from forecaster.forecaster import forecast as c2alg1
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
@@ -102,9 +102,9 @@ def get_company_schedule(company_num):
     message = f'company {company_num} not recongnized'
     status = 200
     if company_num == '1':
-        message = c1scheduler.generate_schedule()
+        message = c1alg1(None, None, None)
     elif company_num == '2':
-        message = c2forecast(None, None, None)
+        message = c2alg1(None, None, None)
     else:
         status = 404
     return message, status
