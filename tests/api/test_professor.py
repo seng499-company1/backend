@@ -4,7 +4,7 @@ Import requests to support api requests
 '''
 import json
 import requests
-from ...api import professor
+# from ...api import professor
 
 SERVICE_URL = "http://127.0.0.1:5000/professors/"
 
