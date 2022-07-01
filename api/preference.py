@@ -2,6 +2,9 @@
 contains all API /professors/{id}/preferences endpoints
 '''
 import json
+import pymysql
+import yaml
+from pymysql.converters import escape_string
 from flask import Blueprint, request
 from .dbconn import DB_CONN
 
@@ -27,6 +30,7 @@ def get_professor_preferences(professor_id):
                     ProfessorAvailability.num_summer_courses, 
                     ProfessorAvailability.num_fall_courses, 
                     ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
                     BIN_TO_UUID(ProfessorCoursePreference.course_id) as course_id,
                     ProfessorCoursePreference.will_to_teach,
                     ProfessorCoursePreference.able_to_teach,
@@ -47,7 +51,10 @@ def get_professor_preferences(professor_id):
         course_item["able_to_teach"] = entry["able_to_teach"]
         course_item["time_stamp"] = entry["time_stamp"]
         course_pref.append(course_item)
-
+    if my_json == []:
+        return 'Prof preferences not found',404
+    my_str = yaml.safe_load(my_json[0]['preferred_times'])
+    preferred_times_string = my_str.replace('\\u201c', '"').replace('\\u201d', '\"')
     output = {}
     output["id"] = my_json[0]["id"]
     output["year"] = my_json[0]["year"]
@@ -56,7 +63,7 @@ def get_professor_preferences(professor_id):
     output["num_fall_courses"]= my_json[0]["num_fall_courses"]
     output["num_spring_courses"]= my_json[0]["num_spring_courses"]
     output["why_relief"]= my_json[0]["why_relief"]
-    output["preferred_times"] = pref_times[str(my_json[0]["prof_id"])]
+    output["preferred_times"] = preferred_times_string #pref_times[str(my_json[0]["prof_id"])]
     output["course_preference"] = course_pref
     # CASE: PROF DNE; RET 404
     return json.dumps(output), 200
@@ -69,6 +76,8 @@ def post_professor_preferences(professor_id):
     data = request.json
     uuid = DB_CONN.uuid()
     sqls = []
+    json_preferred_times = json.dumps(data['preferred_times'])
+    insert_json = escape_string(json_preferred_times)
     sqls.append(f"""INSERT INTO ProfessorAvailability
                     (
                         id,
@@ -78,7 +87,8 @@ def post_professor_preferences(professor_id):
                         why_relief, 
                         num_summer_courses, 
                         num_fall_courses, 
-                        num_spring_courses
+                        num_spring_courses,
+                        preferred_times
                     ) Values(
                         UUID_TO_BIN(\"{uuid}\"),
                         UUID_TO_BIN(\"{professor_id}\"),
@@ -87,7 +97,8 @@ def post_professor_preferences(professor_id):
                         \"{data['why_relief']}\", 
                         {data['num_summer_courses']}, 
                         {data['num_fall_courses']}, 
-                        {data['num_spring_courses']}
+                        {data['num_spring_courses']},
+                        \'{insert_json}\'
                     );""")
 
     pref_times[str(professor_id)] = data['preferred_times']
