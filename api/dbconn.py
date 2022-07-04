@@ -36,7 +36,7 @@ class DBConn:
 
     def get_conn(self):
         """Returns the database connection if it exists, else create it then return it."""
-        if self.conn is None:
+        if self.conn is None or not self.conn.is_connected():
             self.conn = DBConn.connection()
 
         return self.conn
