@@ -5,14 +5,14 @@ CREATE TABLE Admin (
 	id BINARY(16) PRIMARY KEY,
 	first_name VARCHAR(30),
 	last_name VARCHAR(30),
-	email VARCHAR(60) NOT NULL
+	email VARCHAR(60) NOT NULL UNIQUE
 );
 
 CREATE TABLE Professor (
 	id BINARY(16) PRIMARY KEY,
 	first_name VARCHAR(30),
 	last_name VARCHAR(30),
-	email VARCHAR(60) NOT NULL,
+	email VARCHAR(60) NOT NULL UNIQUE,
 	department VARCHAR(30) NOT NULL,
 	is_teaching BOOLEAN NOT NULL,
 	is_peng BOOLEAN NOT NULL
@@ -39,8 +39,8 @@ CREATE TABLE HistoricalData(
 
 CREATE TABLE CourseOffering (
 	id BINARY(16) PRIMARY KEY,
-	course_name VARCHAR(100) NOT NULL,
-	course_code VARCHAR(10) NOT NULL, 
+	course_name VARCHAR(100) NOT NULL UNIQUE,
+	course_code VARCHAR(10) NOT NULL UNIQUE, 
 	course_desc VARCHAR(2000) NOT NULL,
 	prof_prereq VARCHAR(500),
 	min_offering INT NOT NULL,
