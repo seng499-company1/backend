@@ -103,8 +103,9 @@ def get_company_schedule(company_num):
     generated from <company_num>.
     '''
     prof_array = get_prof_array()
-    print(prof_array)
-    message = f'company {company_num} not recongnized'
+    schedule = get_empty_schedule()
+    # print(prof_array)
+    message = f'company {company_num} not recognized'
     status = 200
     if company_num == '1':
         message = 'Algo 1: ' + c1alg1(None, None, None)
@@ -115,10 +116,56 @@ def get_company_schedule(company_num):
     else:
         status = 404
     return message, status
+def get_empty_schedule():
+    '''Creates and returns an empty schedule pre-populated with courses
+    '''
+    #TODO: Add year_req
+    #TODO: add non-eng classes and timeslots
+    schedule = {}
+    schedule['fall'] = get_course_offering('fall_req')
+    schedule['spring'] = get_course_offering('spring_req')
+    schedule['summer'] = get_course_offering('summer_req')
+    return schedule
+def get_course_offering(semester:str):
+    '''
+    get and return the list of courseOffering for a certain semester
+    PARAMETERS: 'spring_req' or 'summer_req' or 'fall_req'
+    '''
+    sql = f"""SELECT
+                    course_code,
+                    course_name,
+                    spring_req,
+                    summer_req,
+                    fall_req,
+                    spring_peng_req,
+                    summer_peng_req,
+                    fall_peng_req
+            FROM CourseOffering
+            WHERE {semester} = 1;"""
+    results = DB_CONN.select(sql, ['spring_peng_req','summer_peng_req', 'fall_peng_req'])
+    courses_json = results.get_json()
+    courses = []
+    for course in courses_json:
+        new_course = {}
+        new_course['code'] = course['course_code']
+        new_course['title'] = course['course_name']
+        peng_required = {}
+        peng_required['fall'] = course['fall_peng_req']
+        peng_required['spring'] = course['spring_peng_req']
+        peng_required['summer'] = course['summer_peng_req']
+        new_course['pengRequired'] = peng_required
+        course_section = {}
+        course_sections = [course_section]
+        course_offering = {}
+        course_offering['course'] = new_course
+        course_offering['sections'] = course_sections
+        courses.append(course_offering)
+    return courses
 def get_prof_array():
     '''
     Creates and returns an array of Professors
     '''
+    # TODO: Add prof time preferences
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
                     BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
