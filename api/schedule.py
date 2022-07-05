@@ -6,6 +6,7 @@ from c1algo1.scheduler import generate_schedule as c1alg1
 # from c1algo2 import forecast as c1alg2 << not working right now, algo2 needs to debug this
 from coursescheduler import generate_schedule as c2alg1
 from forecaster.forecaster import forecast as c2alg2
+from .dbconn import DB_CONN
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
@@ -101,6 +102,8 @@ def get_company_schedule(company_num):
     Return JSON object containing a list of schedules with their year, semester and id  as
     generated from <company_num>.
     '''
+    prof_array = get_prof_array()
+    print(prof_array)
     message = f'company {company_num} not recongnized'
     status = 200
     if company_num == '1':
@@ -112,7 +115,102 @@ def get_company_schedule(company_num):
     else:
         status = 404
     return message, status
-
+def get_prof_array():
+    '''
+    Creates and returns an array of Professors
+    '''
+    sql = f"""SELECT
+                    BIN_TO_UUID(ProfessorAvailability.id) as id,
+                    BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    Professor.first_name,
+                    Professor.last_name,
+                    Professor.is_peng,
+                    Professor.is_teaching
+            FROM ProfessorAvailability
+            LEFT JOIN Professor
+            ON ProfessorAvailability.prof_id = Professor.id;"""
+    results = DB_CONN.select(sql, ['is_peng', 'is_teaching'])
+    my_json = results.get_json()
+    prof_array = []
+    
+    i = 0
+    for prof in my_json:
+        new_prof = {}
+        prof_avail_id = my_json[i]['id']
+        new_prof['id'] = my_json[i]['prof_id']
+        new_prof['name'] = f"{my_json[i]['first_name']} {my_json[i]['last_name']}"
+        new_prof['isPeng'] = my_json[i]['is_peng']
+        if(my_json[i]['is_teaching']):
+            new_prof['facultyType'] = 'TEACHING'
+            num_classes = 6
+        else:
+            new_prof['facultyType'] = 'RESEARCH'
+            num_classes = 3
+        num_classes -= my_json[i]['num_relief']
+        if(num_classes<0):
+            num_classes = 0
+        new_prof['teachingObligations'] = num_classes
+        preferred_courses_per_semester = {}
+        preferred_courses_per_semester['fall'] = my_json[i]['num_fall_courses']
+        preferred_courses_per_semester['spring'] = my_json[i]['num_spring_courses']
+        preferred_courses_per_semester['summer'] = my_json[i]['num_summer_courses']
+        new_prof['preferredCoursesPerSemester'] = preferred_courses_per_semester
+        if(preferred_courses_per_semester['fall'] == 0):
+            new_prof['preferredNonTeachingSemester'] = 'FALL'
+        elif(preferred_courses_per_semester['spring'] == 0):
+            new_prof['preferredNonTeachingSemester'] = 'SPRING'
+        elif(preferred_courses_per_semester['summer'] == 0):
+            new_prof['preferredNonTeachingSemester'] = 'SUMMER'
+        # now added course Preferences
+        sql = f"""SELECT
+                    ProfessorCoursePreference.will_to_teach,
+                    ProfessorCoursePreference.able_to_teach,
+                    CourseOffering.course_code
+            FROM ProfessorAvailability
+            LEFT JOIN ProfessorCoursePreference
+            ON ProfessorAvailability.id = ProfessorCoursePreference.prof_avail_id
+            LEFT JOIN CourseOffering
+            ON ProfessorCoursePreference.course_id = CourseOffering.id
+            WHERE ProfessorCoursePreference.prof_avail_id = UUID_TO_BIN(\"{prof_avail_id}\");"""
+        results = DB_CONN.select(sql)
+        course_preferences_json = results.get_json()
+        course_preferences = []
+        pref_index = 0
+        for pref in course_preferences_json:
+            new_course_pref = {}
+            new_course_pref['courseCode'] = pref['course_code']
+            new_course_pref['enthusiasmScore'] = get_score(pref['able_to_teach'], pref['will_to_teach'])
+            course_preferences.append(new_course_pref)
+            pref_index += 1
+        new_prof['coursePreferences'] = course_preferences
+        prof_array.append(new_prof)
+        i += 1
+    return prof_array
+def get_score(able_to_teach:str, will_to_teach:str):
+    '''
+    Given an able to teach enum and will to teach returns the numerical score 
+    '''
+    score = 0
+    if able_to_teach== 'WITH_EFFORT':
+        if will_to_teach == 'UNWILLING':
+            score = 20
+        elif will_to_teach == 'WILLING':
+            score = 40
+        elif will_to_teach == 'VERY_WILLING':
+            score = 100
+    elif able_to_teach == 'ABLE':
+        if will_to_teach == 'UNWILLING':
+            score = 39
+        elif will_to_teach == 'WILLING':
+            score = 78
+        elif will_to_teach == 'VERY_WILLING':
+            score = 195
+    return score
 @SCHEDULE_BP.route('<schedule_id>', methods=['GET'])
 def get_schedule(schedule_id):
     '''
