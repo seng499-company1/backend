@@ -4,7 +4,7 @@ Import requests to support api requests
 '''
 import json
 import requests
-from ...api import admin
+# from ...api import admin
 
 SERVICE_URL = "http://127.0.0.1:5000/admins/"
 
@@ -19,7 +19,7 @@ def test_get_all_admins():
     '''Tests Get All Admins endpoint of admins service.'''
     endpoint = ""
     response = requests.get(url=SERVICE_URL+endpoint)
-    response_json = json.loads(response.text)
+    # response_json = json.loads(response.text)
     assert response.status_code == 200
     # assert response_json == admin.ADMINS
 
@@ -43,7 +43,7 @@ def test_get_admin_invalid():
 def test_post_admin():
     '''Tests Post Admin endpoint of admins service.'''
     endpoint = ""
-    payload1 = '{"first_name":"Ad", "last_name":"min", "email":"admin@uvic.ca"}'
+    payload = '{"first_name":"Ad", "last_name":"min", "email":"admin@uvic.ca"}'
     response = requests.post(url=SERVICE_URL+endpoint, json=json.loads(payload))
     assert response.status_code == 200
 
