@@ -50,6 +50,7 @@ CREATE TABLE CourseOffering (
 	spring_peng_req BOOLEAN NOT NULL,
 	summer_peng_req BOOLEAN NOT NULL,
 	fall_peng_req BOOLEAN NOT NULL,
+	year_req INT NOT NULL,
 	notes VARCHAR(500)
 );
 
