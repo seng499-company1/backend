@@ -7,7 +7,6 @@ from .dbconn import DB_CONN
 
 ADMIN_BP = Blueprint('admin', __name__)
 
-
 @ADMIN_BP.route('/hello/')
 def hello():
     '''
@@ -65,6 +64,6 @@ def delete_admin(admin_id):
     '''
     sql = f"""DELETE FROM Admin WHERE BIN_TO_UUID(id) = \'{admin_id}\'"""
     if not DB_CONN.execute(sql):
-        return f'Unable to delete prof with id {admin_id}', 500
+        return f'Unable to delete admin with id {admin_id}', 500
 
     return f'Deleted admin with id {admin_id}', 200
