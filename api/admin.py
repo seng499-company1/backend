@@ -14,13 +14,6 @@ def hello():
     says hello
     '''
     return "Hello from Admins", 200
-ADMINS = [
-    {'uuid': 'd86a6640-d267-42f0-9dcd-8c0d06bf884c', 'first_name': 'Rich', 'last_name': 'Little',
-     'email': 'richlittle@uvic.ca'},
-    {'uuid': 'ace7c38c-a6dd-467a-b73f-aaaafe9a38b2', 'first_name': 'Dan', 'last_name': 'Mai',
-     'email': 'danmai@uvic.ca'}
-]
-UUIDS = [admin['uuid'] for admin in ADMINS]
 
 @ADMIN_BP.route('/', methods=['GET'])
 def get_all_admins():
