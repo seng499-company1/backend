@@ -28,7 +28,8 @@ def get_all_courses():
                     summer_peng_req,
                     fall_peng_req,
                     course_desc,
-                    prof_prereq
+                    prof_prereq,
+                    year_req
                     FROM CourseOffering"""
     results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req',
                                    'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
@@ -50,7 +51,8 @@ def get_course(course_id):
                     summer_peng_req,
                     fall_peng_req,
                     course_desc,
-                    prof_prereq
+                    prof_prereq,
+                    year_req
                     FROM CourseOffering 
                     WHERE BIN_TO_UUID(id) = \'{course_id}\'"""
     result = DB_CONN.select_one(sql, ['spring_req', 'summer_req', 'fall_req',
@@ -81,7 +83,8 @@ def add_course():
                                             {data['fall_req']},
                                             {data['spring_peng_req']},
                                             {data['summer_peng_req']},
-                                            {data['fall_peng_req']});
+                                            {data['fall_peng_req']},
+                                            {data['year_req']});
                                             """
     if not DB_CONN.execute(sql):
         return 'Error adding course', 500
@@ -103,7 +106,8 @@ def put_course(course_id):
                                         fall_req = {data['fall_req']},
                                         spring_peng_req = {data['spring_peng_req']},
                                         summer_peng_req = {data['summer_peng_req']},
-                                        fall_peng_req = {data['fall_peng_req']}
+                                        fall_peng_req = {data['fall_peng_req']},
+                                        year_req = {data['year_req']}
                                         WHERE BIN_TO_UUID(id) = \'{course_id}\';"""
     if not DB_CONN.execute(sql):
         return 'Error updating course', 500
