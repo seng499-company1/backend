@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Login
+  summary: POST /login
+  description: |
+    Attempts to authenticate a user.
+  operationId: postLogin
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/LoginInput.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/LoginResponse.yaml
+    '401':
+      description: authentication failed
