@@ -40,10 +40,12 @@ def get_professor_preferences(professor_id):
             WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\"{professor_id}\");"""
     results = DB_CONN.select(sql)
     my_json = results.get_json()
+
     if my_json == []:
         return 'Prof preferences not found', 404
 
     course_pref = []
+
     for entry in my_json:
         if entry["course_id"] is None:
             continue
@@ -53,6 +55,7 @@ def get_professor_preferences(professor_id):
         course_item["able_to_teach"] = entry["able_to_teach"]
         course_item["time_stamp"] = entry["time_stamp"]
         course_pref.append(course_item)
+
     preferred_times_string = yaml.safe_load(my_json[0]['preferred_times'])
     output = {}
     output["id"] = my_json[0]["id"]
@@ -64,6 +67,7 @@ def get_professor_preferences(professor_id):
     output["why_relief"]= my_json[0]["why_relief"]
     output["preferred_times"] = preferred_times_string
     output["course_preference"] = course_pref
+
     return json.dumps(output), 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['POST'])
@@ -100,6 +104,7 @@ def post_professor_preferences(professor_id):
                     );""")
 
     course_prefs = data['course_preferences']
+
     for course in course_prefs:
         sqls.append(f"""INSERT INTO ProfessorCoursePreference
                             (
@@ -115,9 +120,12 @@ def post_professor_preferences(professor_id):
                                 \"{course['will_to_teach']}\",
                                 \"{course['able_to_teach']}\"
                             );""")
+
     result = DB_CONN.multi_execute(sqls)
-    if result is False:
-        return 'Did not successfully insert due to invalid JSON or column value', 400
+
+    if result is not True:
+        return result, 400
+
     return uuid, 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['PUT'])
@@ -140,16 +148,19 @@ def update_professor_preferences(professor_id):
                     WHERE BIN_TO_UUID(prof_id)=\"{professor_id}\";""")
 
     course_prefs = data['course_preferences']
+
     for course in course_prefs:
         sqls.append(f"""UPDATE ProfessorCoursePreference SET
                                 year = {data['year']},
                                 will_to_teach = \"{course['will_to_teach']}\",
                                 able_to_teach = \"{course['able_to_teach']}\"
                             WHERE BIN_TO_UUID(course_id)=\"{course['course_id']}\";""")
+
     result = DB_CONN.multi_execute(sqls)
-    if result is False:
-        return 'Did not successfully update due to invalid JSON \
-            or column value or preference does not exist', 400
+
+    if result is not True:
+        return result, 400
+
     return f'updates the preferences for \
      professor with id {professor_id}', 200
 
@@ -159,9 +170,12 @@ def delete_professor_preferences(professor_id):
     '''
     deletes a professor's preferences
     '''
-    sql = """DELETE FROM ProfessorCoursePreference
+    sql = """DELETE FROM ProfessorAvailability
                     WHERE BIN_TO_UUID(prof_id) = \'{professor_id}\'"""
-    if not DB_CONN.execute(sql):
-        return f'Unable to delete prof pref with id {professor_id}', 500
+
+    result = DB_CONN.execute(sql)
+    if result is not True:
+        return result, 400
+
     return f'deleted preference for \
      professor with id {professor_id}', 200
