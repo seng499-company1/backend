@@ -1,8 +1,24 @@
 from .dbconn import DB_CONN
-def get_empty_schedule():
-    '''Creates and returns an empty schedule pre-populated with courses
+import json
+TimeRange = tuple[str,str]
+START = 0
+END = 1
+def get_previous_enrolment()->dict[str:dict]:
     '''
-    #TODO: Add year_req
+    Gets and returns a dictionary of previous enrollment stored in json file
+    TODO: Make this more efficient - static data, we don't need to read from file everytime 
+    '''
+    f = open('../database/init_data/algo_data/previous_enrolment.json')
+    data = json.load(f)
+
+    f.close()
+    return {'enrolmentByCalendarYear': data}
+def get_historical_data()->list:
+    return []
+def get_empty_schedule():
+    '''
+    Creates and returns an empty schedule pre-populated with courses
+    '''
     #TODO: add non-eng classes and timeslots
     schedule = {}
     schedule['fall'] = get_course_offering('fall_req')
@@ -22,7 +38,8 @@ def get_course_offering(semester:str):
                     fall_req,
                     spring_peng_req,
                     summer_peng_req,
-                    fall_peng_req
+                    fall_peng_req,
+                    year_req
             FROM CourseOffering
             WHERE {semester} = 1;"""
     results = DB_CONN.select(sql, ['spring_peng_req','summer_peng_req', 'fall_peng_req'])
@@ -37,6 +54,7 @@ def get_course_offering(semester:str):
         peng_required['spring'] = course['spring_peng_req']
         peng_required['summer'] = course['summer_peng_req']
         new_course['pengRequired'] = peng_required
+        new_course['yearRequired'] = course['year_req']
         course_section = {}
         course_sections = [course_section]
         course_offering = {}
@@ -48,7 +66,6 @@ def get_prof_array():
     '''
     Creates and returns an array of Professors
     '''
-    # TODO: Add prof time preferences
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
                     BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
@@ -57,6 +74,7 @@ def get_prof_array():
                     ProfessorAvailability.num_summer_courses, 
                     ProfessorAvailability.num_fall_courses, 
                     ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
                     Professor.first_name,
                     Professor.last_name,
                     Professor.is_peng,
@@ -96,6 +114,9 @@ def get_prof_array():
             new_prof['preferredNonTeachingSemester'] = 'SPRING'
         elif(preferred_courses_per_semester['summer'] == 0):
             new_prof['preferredNonTeachingSemester'] = 'SUMMER'
+        # add preferred Times
+        new_prof['preferredTimes'] = get_preferred_times(my_json[i]['preferred_times'])
+        new_prof['preferredCourseDaySpreads'] = get_preferred_day_spread(my_json[i]['preferred_times'])
         # now added course Preferences
         sql = f"""SELECT
                     ProfessorCoursePreference.will_to_teach,
@@ -121,6 +142,72 @@ def get_prof_array():
         prof_array.append(new_prof)
         i += 1
     return prof_array
+def get_preferred_day_spread(preferred_times:str)->list[str]:
+    '''
+    Creates and returns a list of the prof's preferred day spreads: M, T, W, Th, F, TWF, MTh
+    TODO: There is probably a better way to do this
+    '''
+    list_of_day_spreads = []
+    fall_input = json.loads(preferred_times)['fall']
+    if fall_input['mon']['preferredDay']:
+        list_of_day_spreads.append("M")
+    if fall_input['tues']['preferredDay']:
+        list_of_day_spreads.append("T")
+    if fall_input['wed']['preferredDay']:
+        list_of_day_spreads.append("W")
+    if fall_input['thurs']['preferredDay']:
+        list_of_day_spreads.append("Th")
+    if fall_input['fri']['preferredDay']:
+        list_of_day_spreads.append("F")
+    if fall_input['fri']['preferredDay'] and fall_input['wed']['preferredDay'] and fall_input['tues']['preferredDay']:
+        list_of_day_spreads.append("TWF")
+    if fall_input['mon']['preferredDay'] and fall_input['thurs']['preferredDay']:
+        list_of_day_spreads.append("MTh")
+    return list_of_day_spreads
+
+def get_preferred_times(preferred_times:str)-> dict[str, dict]:
+    '''
+    Creates a dictionary of the professor's preferred times 
+    TODO: Optimize this  
+    '''
+    my_json = json.loads(preferred_times)
+    fall_input  = my_json['fall']
+    fall_output = {}
+    fall_output['monday'] = get_daily_times_list('mon', fall_input)
+    fall_output['tuesday'] = get_daily_times_list('tues', fall_input)
+    fall_output['wednesday'] = get_daily_times_list('wed', fall_input)
+    fall_output['thursday'] = get_daily_times_list('thurs', fall_input)
+    fall_output['friday'] = get_daily_times_list('fri', fall_input)
+
+    spring_input  = my_json['spring']
+    spring_output = {}
+    spring_output['monday'] = get_daily_times_list('mon', spring_input)
+    spring_output['tuesday'] = get_daily_times_list('tues', spring_input)
+    spring_output['wednesday'] = get_daily_times_list('wed', spring_input)
+    spring_output['thursday'] = get_daily_times_list('thurs', spring_input)
+    spring_output['friday'] = get_daily_times_list('fri', spring_input)
+
+    summer_input  = my_json['summer']
+    summer_output = {}
+    summer_output['monday'] = get_daily_times_list('mon', summer_input)
+    summer_output['tuesday'] = get_daily_times_list('tues', summer_input)
+    summer_output['wednesday'] = get_daily_times_list('wed', summer_input)
+    summer_output['thursday'] = get_daily_times_list('thurs', summer_input)
+    summer_output['friday'] = get_daily_times_list('fri', summer_input)
+    preferred_times_dict = {'fall':fall_output, 'spring':spring_output, 'summer':summer_output}
+    return preferred_times_dict
+
+def get_daily_times_list(day_of_week:str, input_json)->list[TimeRange]:
+    '''
+    Creates and returns a list of TimeRange tuples indicating the starting and ending times a prof would like to teach for one day.
+    '''
+    list_of_times = input_json[day_of_week]['times'][0].replace("(","").replace(")","").replace(u"\u201c", "").replace(u"\u201d", "").split()
+    index = 0
+    list_of_tuples = []
+    while index < len(list_of_times):
+        list_of_tuples.append((list_of_times[index], list_of_times[index+1]))
+        index += 2
+    return list_of_tuples
 def get_score(able_to_teach:str, will_to_teach:str):
     '''
     Given an able to teach enum and will to teach returns the numerical score 

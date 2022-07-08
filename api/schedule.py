@@ -3,10 +3,10 @@ contains all /schedule endpoints
 '''
 from flask import Blueprint, request, jsonify
 from c1algo1.scheduler import generate_schedule as c1alg1
-#from c1algo2 import forecast as c1alg2 ## not working right now, algo2 needs to debug this
+from c1algo2.forecaster import forecast ## not working right now, algo2 needs to debug this
 from coursescheduler import generate_schedule as c2alg1
-from forecaster.forecaster import forecast as c2alg2
-from .helper import get_prof_array, get_empty_schedule
+# from forecaster.forecaster import forecast as c2alg2
+from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data
 from .dbconn import DB_CONN
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
@@ -50,6 +50,8 @@ def get_company_schedule(company_num):
     '''
     prof_array = get_prof_array()
     schedule = get_empty_schedule()
+    previous_enrolment = get_previous_enrolment()
+    historical_data = get_historical_data()
     message = f'company {company_num} not recognized'
     status = 200
     # input to Algo 2
@@ -63,10 +65,10 @@ def get_company_schedule(company_num):
     # return schedule
     if company_num == '1':
         message = 'Algo 1: ' + c1alg1(None, None, None)
-        # message += ' Algo 2: ' + c1alg2(None, None, None) << not working same as above
+        message += ' Algo 2: ' + forecast(None, None, None)# << not working same as above
     elif company_num == '2':
         message = 'Algo 1: ' + c2alg1(None, None, None)
-        message += ' Algo 2: ' + c2alg2(None, None, None)
+        # message += ' Algo 2: ' + c2alg2(None, None, None)
     else:
         status = 404
     return message, status
