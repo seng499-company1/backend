@@ -1092,6 +1092,12 @@ components:
             should have.
           type: string
           example: Knowledge of the C programming language.
+        year_req:
+          description: >-
+            The year of study a student is intended to take the course. For
+            example, a course in term 3B would be represented as 3.
+          type: integer
+          example: 3
     Admin:
       type: object
       required:
