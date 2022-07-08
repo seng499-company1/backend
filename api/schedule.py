@@ -64,8 +64,8 @@ def get_company_schedule(company_num):
     # post schedule
     # return schedule
     if company_num == '1':
-        message = 'Algo 1: ' + c1alg1(None, None, None)
-        message += ' Algo 2: ' + forecast(None, None, None)# << not working same as above
+        message = 'Algo 1: ' + c1alg1(historical_data, previous_enrolment, schedule)
+        message += ' Algo 2: ' + forecast(historical_data, previous_enrolment, schedule)# << not working same as above
     elif company_num == '2':
         message = 'Algo 1: ' + c2alg1(None, None, None)
         # message += ' Algo 2: ' + c2alg2(None, None, None)

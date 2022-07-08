@@ -1,5 +1,6 @@
-from .dbconn import DB_CONN
 import json
+from .dbconn import DB_CONN
+
 TimeRange = tuple[str,str]
 START = 0
 END = 1
@@ -8,13 +9,19 @@ def get_previous_enrolment()->dict[str:dict]:
     Gets and returns a dictionary of previous enrollment stored in json file
     TODO: Make this more efficient - static data, we don't need to read from file everytime 
     '''
-    f = open('../database/init_data/algo_data/previous_enrolment.json')
-    data = json.load(f)
+    file_handle = open('../database/init_data/algo_data/previous_enrolment.json')
+    data = json.load(file_handle)
 
-    f.close()
+    file_handle.close()
     return {'enrolmentByCalendarYear': data}
 def get_historical_data()->list:
-    return []
+    '''
+    Gets and returns a list of the historical data
+    '''
+    file_handle = open('../database/init_data/algo_data/historical_data.json')
+    data = json.load(file_handle)
+    file_handle.close()
+    return data
 def get_empty_schedule():
     '''
     Creates and returns an empty schedule pre-populated with courses
