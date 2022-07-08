@@ -4,7 +4,7 @@ contains all API /professors/{id}/preferences endpoints
 import json
 import yaml
 from pymysql.converters import escape_string
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from .dbconn import DB_CONN
 
 PREFERENCE_BP = Blueprint('preference', __name__)
@@ -15,6 +15,23 @@ def hello():
     '''
     return "Hello from Professor Preferences"
 
+@PREFERENCE_BP.route('/preferences/times', methods=['GET'])
+def get_professor_preference_entry_times():
+    '''
+    returns a list of professor preference entry times
+    '''
+    sql = """SELECT
+                    BIN_TO_UUID(Professor.id) as id,
+                    Professor.first_name,
+                    Professor.last_name,
+                    ProfessorAvailability.time_stamp
+            FROM ProfessorAvailability
+            LEFT JOIN Professor
+            ON ProfessorAvailability.prof_id = Professor.id;"""
+
+    return DB_CONN.select(sql), 200
+
+
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
 def get_professor_preferences(professor_id):
     '''
@@ -23,6 +40,7 @@ def get_professor_preferences(professor_id):
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
                     BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                    ProfessorAvailability.time_stamp, 
                     ProfessorAvailability.year, 
                     ProfessorAvailability.semester_off,
                     ProfessorAvailability.num_relief,
@@ -33,8 +51,7 @@ def get_professor_preferences(professor_id):
                     ProfessorAvailability.preferred_times,
                     BIN_TO_UUID(ProfessorCoursePreference.course_id) as course_id,
                     ProfessorCoursePreference.will_to_teach,
-                    ProfessorCoursePreference.able_to_teach,
-                    ProfessorCoursePreference.time_stamp
+                    ProfessorCoursePreference.able_to_teach
             FROM ProfessorAvailability 
             LEFT JOIN ProfessorCoursePreference 
             ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
@@ -54,12 +71,12 @@ def get_professor_preferences(professor_id):
         course_item["course_id"] = entry["course_id"]
         course_item["will_to_teach"] = entry["will_to_teach"]
         course_item["able_to_teach"] = entry["able_to_teach"]
-        course_item["time_stamp"] = entry["time_stamp"]
         course_pref.append(course_item)
 
     preferred_times_string = yaml.safe_load(my_json[0]['preferred_times'])
     output = {}
     output["id"] = my_json[0]["id"]
+    output["time_stamp"] = my_json[0]["time_stamp"]
     output["year"] = my_json[0]["year"]
     output["semester_off"] = my_json[0]["semester_off"]
     output["num_relief"] = my_json[0]["num_relief"]
@@ -70,7 +87,7 @@ def get_professor_preferences(professor_id):
     output["preferred_times"] = preferred_times_string
     output["course_preference"] = course_pref
 
-    return json.dumps(output), 200
+    return jsonify(output), 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['POST'])
 def post_professor_preferences(professor_id):
