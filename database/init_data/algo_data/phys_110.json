@@ -1,0 +1,118 @@
+[
+    {
+        "fall": [
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n10:30 AM - 11:20 AM\nBuilding: Elliott Building\nRoom: 167\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "1 of 148 seats remain.\n0 of 15 waitlist seats remain.\nOpen Seats Reserved for Waitlisted Only.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:20 PM\nBuilding: Elliott Building\nRoom: 168\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 180 seats remain.\n8 of 20 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Mark Laidlaw\nTravis Martin (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n01:30 PM - 02:20 PM\nBuilding: Bob Wright Centre\nRoom: B150\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "59 of 340 seats remain.\n40 of 40 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A04"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)"
+        },
+        {
+        "time": "None\nS\nM\nT\nW\nT\nF\nS\n-\nBuilding: None\nRoom: None\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "52 of 100 seats remain.\n15 of 15 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "spring": [
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)\nTravis Martin"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n01:00 PM - 02:20 PM\nBuilding: Elliott Building\nRoom: 168\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "51 of 180 seats remain.\n10 of 10 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics I\nLecture"
+        },
+        {
+        "code": "PHYS110"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)\nTravis Martin"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:20 PM\nBuilding: Elliott Building\nRoom: 062\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "10 of 73 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]

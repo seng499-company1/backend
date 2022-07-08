@@ -1,0 +1,140 @@
+[
+    {
+        "fall": [
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Svetlana Oshkai (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n03:30 PM - 04:20 PM\nBuilding: David Strong Building\nRoom: C103\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "2 of 180 seats remain.\n26 of 50 waitlist seats remain.\nOpen Seats Reserved for Waitlisted Only.\nLINKED"
+        }
+        ]
+    },
+    {
+        "spring": [
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Muhammad Awais (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:50 AM\nBuilding: Engineering Comp Science Bldg\nRoom: 123\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "86 of 215 seats remain.\n150 of 150 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Torsten Schoeneberg (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n02:30 PM - 03:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "154 of 210 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Tom Thompson (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:20 AM\nBuilding: Hickman Building\nRoom: 105\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "24 of 210 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A04"
+        },
+        {
+        "professor": "Tom Thompson (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n12:30 PM - 01:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "28 of 210 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A05"
+        },
+        {
+        "professor": "Majid Mazrooei (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n01:30 PM - 02:20 PM\nBuilding: Hickman Building\nRoom: 105\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "92 of 210 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Calculus II\nLecture"
+        },
+        {
+        "code": "MATH101"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Muhammad Awais (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n02:30 PM - 03:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "92 of 190 seats remain.\n50 of 50 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]

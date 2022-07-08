@@ -1,0 +1,95 @@
+[
+    {
+        "fall": [
+        {
+        "title": "Introduction to Calculus\nLecture"
+        },
+        {
+        "code": "MATH109"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:20 AM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "64 of 250 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introduction to Calculus\nLecture"
+        },
+        {
+        "code": "MATH109"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n12:30 PM - 01:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 250 seats remain.\n96 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introduction to Calculus\nLecture"
+        },
+        {
+        "code": "MATH109"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n01:30 PM - 02:20 PM\nBuilding: MacLaurin Building\nRoom: A144\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "112 of 250 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "spring": [
+        {
+        "title": "Introduction to Calculus\nLecture"
+        },
+        {
+        "code": "MATH109"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Nahid Pourdolat Safari (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n10:00 AM - 11:20 AM\nBuilding: Hickman Building\nRoom: 105\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "32 of 195 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Introduction to Calculus\nLecture"
+        },
+        {
+        "code": "MATH109"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Shangzhi Zeng (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n10:30 AM - 11:20 AM\nBuilding: Clearihue Building\nRoom: A224\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "24 of 75 seats remain.\n15 of 15 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]
