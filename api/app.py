@@ -1,8 +1,8 @@
 '''
 starting point for API
 '''
+import os
 from flask import Flask
-
 from .admin import ADMIN_BP
 from .professor import PROFESSOR_BP
 from .schedule import SCHEDULE_BP
@@ -28,4 +28,7 @@ APP.register_blueprint(PROFESSOR_BP, url_prefix='/professors')
 APP.register_blueprint(SCHEDULE_BP, url_prefix='/schedules')
 APP.register_blueprint(COURSE_BP, url_prefix='/courses')
 APP.register_blueprint(LOGIN_BP, url_prefix='/login')
-APP.run()
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT',5000))
+    APP.run(host="0.0.0.0",port=port,debug=True)
