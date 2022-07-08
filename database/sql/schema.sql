@@ -58,6 +58,7 @@ CREATE TABLE ProfessorAvailability (
 	id  BINARY(16) PRIMARY KEY,
 	prof_id  BINARY(16) NOT NULL,
 	year INT NOT NULL,
+	semester_off INT NOT NULL,
 	num_relief INT NOT NULL,
 	why_relief VARCHAR(100),
 	num_summer_courses INT NOT NULL,

@@ -24,6 +24,7 @@ def get_professor_preferences(professor_id):
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
                     BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
                     ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
                     ProfessorAvailability.num_relief,
                     ProfessorAvailability.why_relief, 
                     ProfessorAvailability.num_summer_courses, 
@@ -60,6 +61,7 @@ def get_professor_preferences(professor_id):
     output = {}
     output["id"] = my_json[0]["id"]
     output["year"] = my_json[0]["year"]
+    output["semester_off"] = my_json[0]["semester_off"]
     output["num_relief"] = my_json[0]["num_relief"]
     output["num_summer_courses"]= my_json[0]["num_summer_courses"]
     output["num_fall_courses"]= my_json[0]["num_fall_courses"]
@@ -85,6 +87,7 @@ def post_professor_preferences(professor_id):
                         id,
                         prof_id, 
                         year, 
+                        semester_off,
                         num_relief, 
                         why_relief, 
                         num_summer_courses, 
@@ -95,6 +98,7 @@ def post_professor_preferences(professor_id):
                         UUID_TO_BIN(\"{uuid}\"),
                         UUID_TO_BIN(\"{professor_id}\"),
                         {data['year']},
+                        {data['semester_off']},
                         {data['num_relief']},
                         \"{data['why_relief']}\", 
                         {data['num_summer_courses']}, 
@@ -139,6 +143,7 @@ def update_professor_preferences(professor_id):
     insert_json = escape_string(json_preferred_times)
     sqls.append(f"""UPDATE ProfessorAvailability SET
                         year = {data['year']},
+                        semester_off = {data['semester_off']},
                         num_relief = {data['num_relief']},
                         why_relief = \"{data['why_relief']}\",
                         num_summer_courses = {data['num_summer_courses']},
