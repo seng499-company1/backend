@@ -21,6 +21,7 @@ def index():
 def add_cors_headers(response):
     '''Allows frontend to connect to the backend.'''
     response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE')
     return response
 
 APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
