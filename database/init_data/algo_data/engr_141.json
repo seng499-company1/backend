@@ -1,0 +1,64 @@
+[
+    {
+        "spring": [
+        {
+        "title": "Engineering Mechanics\nLecture"
+        },
+        {
+        "code": "ENGR141"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Flavio Firmani (Primary)\nSaeedeh Saghlatoun"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:50 PM\nBuilding: Hickman Building\nRoom: 105\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "30 of 210 seats remain.\n30 of 30 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Engineering Mechanics\nLecture"
+        },
+        {
+        "code": "ENGR141"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Flavio Firmani (Primary)\nSaeedeh Saghlatoun"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n03:30 PM - 04:50 PM\nBuilding: Hickman Building\nRoom: 105\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "66 of 210 seats remain.\n20 of 20 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Engineering Mechanics\nLecture"
+        },
+        {
+        "code": "ENGR141"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Saeedeh Saghlatoun (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n10:00 AM - 11:20 AM\nBuilding: Clearihue Building\nRoom: A224\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "35 of 70 seats remain.\n10 of 10 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]

@@ -1,0 +1,22 @@
+[
+    { 
+        "fall": [
+        {
+        "title": "Introduction to Economics and Financial Project Evaluation",
+        "code": "ECON180",
+        "professor": "Christopher Willmore",
+        "time": "Tuesday,Wednesday,Friday\n11:30 AM - 12:20 PM"
+        }
+        ]
+    },
+    { 
+        "summer": [
+        {
+        "title": "Introduction to Economics and Financial Project Evaluation",
+        "code": "ECON180",
+        "professor": "Moein Amini",
+        "time": "Monday,Thursday\n01:00 PM - 02:20 PM"
+        }
+        ]
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "fall": [
+        {
+        "title": "Calculus I\nLecture"
+        },
+        {
+        "code": "MATH100"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Christopher Bose (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:50 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 250 seats remain.\n58 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus I\nLecture"
+        },
+        {
+        "code": "MATH100"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Ryan Budney (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n02:30 PM - 03:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 250 seats remain.\n99 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Calculus I\nLecture"
+        },
+        {
+        "code": "MATH100"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Tom Thompson (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n03:30 PM - 04:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 250 seats remain.\n40 of 50 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "spring": [
+        {
+        "title": "Calculus I\nLecture"
+        },
+        {
+        "code": "MATH100"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Svetlana Oshkai (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n03:30 PM - 04:20 PM\nBuilding: David Turpin Building\nRoom: A120\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "83 of 200 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]
