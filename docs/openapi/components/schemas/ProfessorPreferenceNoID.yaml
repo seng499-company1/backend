@@ -1,6 +1,7 @@
 type: object
 required:
   - year
+  - semester_off
   - num_relief
   - num_fall_courses
   - num_spring_courses
@@ -12,6 +13,21 @@ properties:
     description: Year of the preferences
     type: integer
     example: 2022
+  semester_off:
+    type: integer
+    description: |
+      The professor's official non teaching semester  
+
+      | Value | Description |
+      |---|---------------|
+      | 0 | No semester off |
+      | 1 | Fall semester off |
+      | 2 | Spring semester off |
+      | 3 | Summer semester off |
+
+    minimum: 0
+    maximum: 1
+    example: 3
   num_relief:
     description: How many reliefs this professor has
     type: integer
