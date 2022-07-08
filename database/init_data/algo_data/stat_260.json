@@ -1,0 +1,58 @@
+[    
+    {
+        "fall": [
+        {
+        "title": "Introduction to Probability and Statistics I\nLecture"
+        },
+        {
+        "code": "STAT260"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n03:30 PM - 04:20 PM\nBuilding: Human & Social Development\nRoom: A240\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "87 of 150 seats remain.\n100 of 100 waitlist seats remain."
+        },
+        {
+        "title": "Introduction to Probability and Statistics I\nLecture"
+        },
+        {
+        "code": "STAT260"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n12:30 PM - 01:20 PM\nBuilding: Human & Social Development\nRoom: A240\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 150 seats remain.\n0 of 30 waitlist seats remain."
+        }
+        ]
+   },
+   {
+        "summer": [
+        {
+        "title": "Introduction to Probability and Statistics I\nLecture"
+        },
+        {
+        "code": "STAT260"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Chi Kou (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:20 AM\nBuilding: Human & Social Development\nRoom: A240\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "41 of 140 seats remain.\n50 of 50 waitlist seats remain."
+        }
+        ]
+    }
+]
