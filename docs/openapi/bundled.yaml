@@ -24,6 +24,8 @@ tags:
     description: Operations about schedules.
   - name: Algorithm 1
     description: inputs to algorithm 1 python library
+  - name: Login
+    description: Login operations.
 servers:
   - url: https://{tenant}/api/v1
     variables:
@@ -558,6 +560,28 @@ paths:
                 $ref: '#/components/schemas/ScheduleOutput'
         '400':
           description: Error creating schedule
+  /login:
+    post:
+      tags:
+        - Login
+      summary: POST /login
+      description: |
+        Attempts to authenticate a user.
+      operationId: postLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: authentication failed
 components:
   securitySchemes:
     main_auth:
@@ -773,6 +797,7 @@ components:
       required:
         - id
         - year
+        - semester_off
         - num_relief
         - num_fall_courses
         - num_spring_courses
@@ -788,6 +813,20 @@ components:
           description: Year of the preferences
           type: integer
           example: 2022
+        semester_off:
+          type: integer
+          description: |
+            The professor's official non teaching semester  
+
+            | Value | Description |
+            |---|---------------|
+            | 0 | No semester off |
+            | 1 | Fall semester off |
+            | 2 | Spring semester off |
+            | 3 | Summer semester off |
+          minimum: 0
+          maximum: 1
+          example: 3
         num_relief:
           description: How many reliefs this professor has
           type: integer
@@ -849,6 +888,7 @@ components:
       type: object
       required:
         - year
+        - semester_off
         - num_relief
         - num_fall_courses
         - num_spring_courses
@@ -860,6 +900,20 @@ components:
           description: Year of the preferences
           type: integer
           example: 2022
+        semester_off:
+          type: integer
+          description: |
+            The professor's official non teaching semester  
+
+            | Value | Description |
+            |---|---------------|
+            | 0 | No semester off |
+            | 1 | Fall semester off |
+            | 2 | Spring semester off |
+            | 3 | Summer semester off |
+          minimum: 0
+          maximum: 1
+          example: 3
         num_relief:
           description: How many reliefs this professor has
           type: integer
@@ -903,6 +957,7 @@ components:
         - fall_peng_req
         - course_desc
         - prof_prereq
+        - year_req
       properties:
         id:
           description: uuid of course
@@ -960,6 +1015,12 @@ components:
             should have.
           type: string
           example: Knowledge of the C programming language.
+        year_req:
+          description: >-
+            The year of study a student is intended to take the course. For
+            example, a course in term 3B would be represented as 3.
+          type: integer
+          example: 3
     ArrayCourses:
       type: array
       items:
@@ -1031,6 +1092,12 @@ components:
             should have.
           type: string
           example: Knowledge of the C programming language.
+        year_req:
+          description: >-
+            The year of study a student is intended to take the course. For
+            example, a course in term 3B would be represented as 3.
+          type: integer
+          example: 3
     Admin:
       type: object
       required:
@@ -1329,3 +1396,31 @@ components:
             If a schedule could not be found or there was some error, this will
             have an error code
           type: string
+    LoginInput:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          description: netlink id of the user trying to sign in
+          type: string
+          example: admin
+        password:
+          description: the password of the user
+          type: string
+          example: password
+    LoginResponse:
+      type: object
+      required:
+        - id
+        - permissions
+      properties:
+        id:
+          description: uuid of user being logged in
+          type: string
+          example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        permissions:
+          description: Permissions of the user. Either 'admin' or 'professor'.
+          type: string
+          example: admin

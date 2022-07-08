@@ -1,0 +1,13 @@
+type: object
+required:
+  - id
+  - permissions
+properties:
+  id:
+    description: uuid of user being logged in
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  permissions:
+    description: Permissions of the user. Either 'admin' or 'professor'.
+    type: string
+    example: 'admin'

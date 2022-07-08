@@ -12,6 +12,7 @@ required:
   - fall_peng_req
   - course_desc
   - prof_prereq
+  - year_req
 properties:
   id:
     description: uuid of course
@@ -61,3 +62,7 @@ properties:
     description: A list of qualifications a prof who wants to teach this course should have.
     type: string
     example: Knowledge of the C programming language.
+  year_req:
+    description: The year of study a student is intended to take the course. For example, a course in term 3B would be represented as 3.
+    type: integer
+    example: 3
