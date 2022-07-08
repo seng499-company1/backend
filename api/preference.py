@@ -2,6 +2,8 @@
 contains all API /professors/{id}/preferences endpoints
 '''
 import json
+import yaml
+from pymysql.converters import escape_string
 from flask import Blueprint, request
 from .dbconn import DB_CONN
 
@@ -12,7 +14,7 @@ def hello():
     blah
     '''
     return "Hello from Professor Preferences"
-pref_times = {}
+
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
 def get_professor_preferences(professor_id):
     '''
@@ -27,6 +29,7 @@ def get_professor_preferences(professor_id):
                     ProfessorAvailability.num_summer_courses, 
                     ProfessorAvailability.num_fall_courses, 
                     ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
                     BIN_TO_UUID(ProfessorCoursePreference.course_id) as course_id,
                     ProfessorCoursePreference.will_to_teach,
                     ProfessorCoursePreference.able_to_teach,
@@ -37,7 +40,12 @@ def get_professor_preferences(professor_id):
             WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\"{professor_id}\");"""
     results = DB_CONN.select(sql)
     my_json = results.get_json()
+
+    if my_json == []:
+        return 'Prof preferences not found', 404
+
     course_pref = []
+
     for entry in my_json:
         if entry["course_id"] is None:
             continue
@@ -48,6 +56,7 @@ def get_professor_preferences(professor_id):
         course_item["time_stamp"] = entry["time_stamp"]
         course_pref.append(course_item)
 
+    preferred_times_string = yaml.safe_load(my_json[0]['preferred_times'])
     output = {}
     output["id"] = my_json[0]["id"]
     output["year"] = my_json[0]["year"]
@@ -56,9 +65,9 @@ def get_professor_preferences(professor_id):
     output["num_fall_courses"]= my_json[0]["num_fall_courses"]
     output["num_spring_courses"]= my_json[0]["num_spring_courses"]
     output["why_relief"]= my_json[0]["why_relief"]
-    output["preferred_times"] = pref_times[str(my_json[0]["prof_id"])]
+    output["preferred_times"] = preferred_times_string
     output["course_preference"] = course_pref
-    # CASE: PROF DNE; RET 404
+
     return json.dumps(output), 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['POST'])
@@ -69,6 +78,8 @@ def post_professor_preferences(professor_id):
     data = request.json
     uuid = DB_CONN.uuid()
     sqls = []
+    json_preferred_times = json.dumps(data['preferred_times'])
+    insert_json = escape_string(json_preferred_times)
     sqls.append(f"""INSERT INTO ProfessorAvailability
                     (
                         id,
@@ -78,7 +89,8 @@ def post_professor_preferences(professor_id):
                         why_relief, 
                         num_summer_courses, 
                         num_fall_courses, 
-                        num_spring_courses
+                        num_spring_courses,
+                        preferred_times
                     ) Values(
                         UUID_TO_BIN(\"{uuid}\"),
                         UUID_TO_BIN(\"{professor_id}\"),
@@ -87,11 +99,12 @@ def post_professor_preferences(professor_id):
                         \"{data['why_relief']}\", 
                         {data['num_summer_courses']}, 
                         {data['num_fall_courses']}, 
-                        {data['num_spring_courses']}
+                        {data['num_spring_courses']},
+                        \'{insert_json}\'
                     );""")
 
-    pref_times[str(professor_id)] = data['preferred_times']
     course_prefs = data['course_preferences']
+
     for course in course_prefs:
         sqls.append(f"""INSERT INTO ProfessorCoursePreference
                             (
@@ -107,8 +120,12 @@ def post_professor_preferences(professor_id):
                                 \"{course['will_to_teach']}\",
                                 \"{course['able_to_teach']}\"
                             );""")
-    DB_CONN.multi_execute(sqls)
-    # CASE INVALID JSON; RET 400
+
+    result = DB_CONN.multi_execute(sqls)
+
+    if result is not True:
+        return result, 400
+
     return uuid, 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['PUT'])
@@ -118,26 +135,32 @@ def update_professor_preferences(professor_id):
     '''
     data = request.json
     sqls = []
+    json_preferred_times = json.dumps(data['preferred_times'])
+    insert_json = escape_string(json_preferred_times)
     sqls.append(f"""UPDATE ProfessorAvailability SET
                         year = {data['year']},
                         num_relief = {data['num_relief']},
                         why_relief = \"{data['why_relief']}\",
                         num_summer_courses = {data['num_summer_courses']},
                         num_fall_courses = {data['num_fall_courses']},
-                        num_spring_courses = {data['num_spring_courses']}
+                        num_spring_courses = {data['num_spring_courses']},
+                        preferred_times = \'{insert_json}\'
                     WHERE BIN_TO_UUID(prof_id)=\"{professor_id}\";""")
 
-    pref_times[str(professor_id)] = data['preferred_times']
-
     course_prefs = data['course_preferences']
+
     for course in course_prefs:
         sqls.append(f"""UPDATE ProfessorCoursePreference SET
                                 year = {data['year']},
                                 will_to_teach = \"{course['will_to_teach']}\",
                                 able_to_teach = \"{course['able_to_teach']}\"
                             WHERE BIN_TO_UUID(course_id)=\"{course['course_id']}\";""")
-    DB_CONN.multi_execute(sqls)
-    # CASE PROF DNE; RET 404
+
+    result = DB_CONN.multi_execute(sqls)
+
+    if result is not True:
+        return result, 400
+
     return f'updates the preferences for \
      professor with id {professor_id}', 200
 
@@ -147,9 +170,12 @@ def delete_professor_preferences(professor_id):
     '''
     deletes a professor's preferences
     '''
-    sql = """DELETE FROM ProfessorCoursePreference
+    sql = """DELETE FROM ProfessorAvailability
                     WHERE BIN_TO_UUID(prof_id) = \'{professor_id}\'"""
-    if not DB_CONN.execute(sql):
-        return f'Unable to delete prof pref with id {professor_id}', 500
+
+    result = DB_CONN.execute(sql)
+    if result is not True:
+        return result, 400
+
     return f'deleted preference for \
      professor with id {professor_id}', 200
