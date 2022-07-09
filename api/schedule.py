@@ -5,7 +5,7 @@ from flask import Blueprint, request, jsonify
 from c1algo1.scheduler import generate_schedule as c1alg1
 # from c1algo2 import forecast as c1alg2 << not working right now, algo2 needs to debug this
 from coursescheduler import generate_schedule as c2alg1
-from forecaster.forecaster import forecast as c2alg2
+#from forecaster.forecaster import forecast as c2alg2
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
@@ -108,7 +108,7 @@ def get_company_schedule(company_num):
         # message += ' Algo 2: ' + c1alg2(None, None, None) << not working same as above
     elif company_num == '2':
         message = 'Algo 1: ' + c2alg1(None, None, None)
-        message += ' Algo 2: ' + c2alg2(None, None, None)
+        #message += ' Algo 2: ' + c2alg2(None, None, None)
     else:
         status = 404
     return message, status
