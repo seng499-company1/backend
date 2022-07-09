@@ -14,7 +14,7 @@ SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
 def hello():
     '''
-    blah
+    Sanity Endpoint
     '''
     return 'Hello from Schedules'
 
@@ -49,7 +49,7 @@ def get_company_schedule(company_num):
     Return JSON object containing a list of schedules with their year, semester and id  as
     generated from <company_num>.
     '''
-    prof_array = get_prof_array()
+    professors = get_prof_array()
     schedule = get_empty_schedule()
     previous_enrolment = get_previous_enrolment()
     historical_data = get_historical_data()
@@ -77,8 +77,9 @@ def get_company_schedule(company_num):
         message = 'Algo 1: ' + c1alg1(historical_data, previous_enrolment, schedule)
         message += ' Algo 2: ' + forecast(historical_data, previous_enrolment, schedule)# << not working same as above
     elif company_num == '2':
-        message = c2alg1(historical_data,prof_array,schedule)
-        print(schedule)
+        input_sch = schedule 
+        message = c2alg1(historical_data,professors, schedule)
+        print(schedule == input_sch)
         #message += ' Algo 2: ' + c2alg2(None, None, None)
     else:
         status = 404

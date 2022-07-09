@@ -1,0 +1,232 @@
+[
+    {
+        "course":{
+            "code": "CHEM101",
+            "title": "Fundamentals of Chemistry from Atoms to Materials",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Genevieve Boice"},
+                "capacity": 358,
+                "timeSlots": {"dayOfWeek":["MONDAY","THURSDAY"], "timeRange":"13:00 14:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Genevieve Boice"},
+                "capacity": 358,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY", "FRIDAY"], "timeRange":"9:30 10:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Genevieve Boice"},
+                "capacity": 299,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY", "FRIDAY"], "timeRange":"12:30 13:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "ENGR110",
+            "title": "Design and Communication I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Flavio Firmani"},
+                "capacity": 150,
+                "timeSlots": {"dayOfWeek":["TUESDAY"], "timeRange":"14:30 15:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Flavio Firmani"},
+                "capacity": 150,
+                "timeSlots": {"dayOfWeek":["TUESDAY"], "timeRange":"15:30 16:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "ENGR130",
+            "title": "Introduction to Professional Practice",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Leo Spalteholz"},
+                "capacity": 260,
+                "timeSlots": {"dayOfWeek":["MONDAY","THURSDAY"], "timeRange":"9:00 9:50"}
+            },
+            {
+                "professor":{"id":0, "name":"Ash Senini"},
+                "capacity": 130,
+                "timeSlots": {"dayOfWeek":["WEDNESDAY","FRIDAY"], "timeRange":"15:30 16:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Ash Senini"},
+                "capacity": 130,
+                "timeSlots": {"dayOfWeek":["WEDNESDAY","FRIDAY"], "timeRange":"15:30 16:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH100",
+            "title": "Calculus I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Christopher Bose"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["MONDAY","THURSDAY"], "timeRange":"11:30 12:50"}
+            },
+            {
+                "professor":{"id":0, "name":"Ryan Budney"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["MONDAY","WEDNESDAY","THURSDAY"], "timeRange":"15:30 16:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Tom Thompson"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["MONDAY","WEDNESDAY","THURSDAY"], "timeRange":"15:30 16:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH109",
+            "title": "Introduction to Calculus",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"8:30 9:20"}
+            },
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"12:30 13:20"}
+            },
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 250,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"13:30 14:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH110",
+            "title": "Matrix Algebra for Engineers",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Christopher Eagle"},
+                "capacity": 160,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"12:30 13:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Christopher Eagle"},
+                "capacity": 151,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"10:30 11:20"}
+            },
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 160,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"8:30 9:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "PHYS110",
+            "title": "Introductory Physics I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Mark Laidlaw"},
+                "capacity": 148,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"10:30 11:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Mark Laidlaw"},
+                "capacity": 180,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"11:30 12:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Mark Laidlaw"},
+                "capacity": 340,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"13:30 14:20"}
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "STAT260",
+            "title": "Introduction to Probability and Statistics I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 150,
+                "timeSlots": {"dayOfWeek":["MONDAY","WEDNESDAY","THURSDAY"], "timeRange":"15:30 16:20"}
+            },
+            {
+                "professor":{"id":0, "name":"TBD"},
+                "capacity": 150,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY","FRIDAY"], "timeRange":"12:30 13:20"}
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH122",
+            "title": "Logic and Foundations",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Natasha Morrison"},
+                "capacity": 80,
+                "timeSlots": {"dayOfWeek":["MONDAY","THURSDAY"], "timeRange":"8:30 9:50"}
+            },
+            {
+                "professor":{"id":0, "name":"Natasha Morrison"},
+                "capacity": 80,
+                "timeSlots": {"dayOfWeek":["TUESDAY","THURSDAY"], "timeRange":"16:30 17:50"}
+            },
+            {
+                "professor":{"id":0, "name":"Jon Noel"},
+                "capacity": 80,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY", "FRIDAY"], "timeRange":"9:30 10:20"}
+            },
+            {
+                "professor":{"id":0, "name":"Jon Noel"},
+                "capacity": 80,
+                "timeSlots": {"dayOfWeek":["TUESDAY","WEDNESDAY", "FRIDAY"], "timeRange":"11:30 12:20"}
+            }
+        ]
+    }
+
+]

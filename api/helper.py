@@ -10,7 +10,7 @@ def get_previous_enrolment()->dict[str:dict]:
     Gets and returns a dictionary of previous enrollment stored in json file
     TODO: Make this more efficient - static data, we don't need to read from file everytime 
     '''
-    file_handle = open('../database/init_data/algo_data/previous_enrolment.json')
+    file_handle = open('previous_enrolment.json')
     data = json.load(file_handle)
 
     file_handle.close()
@@ -19,7 +19,7 @@ def get_historical_data()->list:
     '''
     Gets and returns a list of the historical data
     '''
-    file_handle = open('../database/init_data/algo_data/historical_data.json')
+    file_handle = open('historical_data.json')
     data = json.load(file_handle)
     file_handle.close()
     return data
@@ -64,19 +64,21 @@ def get_course_offering(semester:str, filename:str):
         peng_required['summer'] = course['summer_peng_req']
         new_course['pengRequired'] = peng_required
         new_course['yearRequired'] = random.randint(1,4)#course['year_req']
-        course_section = {'professor':{}, 'capacity':0, 'timeSlots':[]}
+        course_section = {'professor':None, 'capacity':0, 'timeslots':None}
         course_sections = [course_section]
         course_offering = {}
         course_offering['course'] = new_course
         course_offering['sections'] = course_sections
         courses.append(course_offering)
-    file_handle = open(f'../database/init_data/algo_data/{filename}')
+    file_handle = open(filename)
     data = json.load(file_handle)
     for course in data:
         for section in course['sections']:
             #changes info from a string of start and end times to a tuple
             start, end = section['timeSlots']['timeRange'].split(' ')
+            section['timeslots'] = section['timeSlots']
             section['timeSlots']['timeRange'] = (start, end)
+            section.pop('timeSlots')
         courses.append(course)
     file_handle.close()
     return courses
