@@ -1,4 +1,5 @@
 import json
+import random
 from .dbconn import DB_CONN
 
 TimeRange = tuple[str,str]
@@ -28,14 +29,16 @@ def get_empty_schedule():
     '''
     #TODO: add non-eng classes and timeslots
     schedule = {}
-    schedule['fall'] = get_course_offering('fall_req')
-    schedule['spring'] = get_course_offering('spring_req')
-    schedule['summer'] = get_course_offering('summer_req')
+    schedule['fall'] = get_course_offering('fall_req', 'fall_static_courses.json')
+    schedule['spring'] = get_course_offering('spring_req', 'spring_static_courses.json')
+    schedule['summer'] = get_course_offering('summer_req', 'summer_static_courses.json')
     return schedule
-def get_course_offering(semester:str):
+def get_course_offering(semester:str, filename:str):
     '''
     get and return the list of courseOffering for a certain semester
     PARAMETERS: 'spring_req' or 'summer_req' or 'fall_req'
+    ,
+                    year_req
     '''
     sql = f"""SELECT
                     course_code,
@@ -45,8 +48,7 @@ def get_course_offering(semester:str):
                     fall_req,
                     spring_peng_req,
                     summer_peng_req,
-                    fall_peng_req,
-                    year_req
+                    fall_peng_req
             FROM CourseOffering
             WHERE {semester} = 1;"""
     results = DB_CONN.select(sql, ['spring_peng_req','summer_peng_req', 'fall_peng_req'])
@@ -61,13 +63,22 @@ def get_course_offering(semester:str):
         peng_required['spring'] = course['spring_peng_req']
         peng_required['summer'] = course['summer_peng_req']
         new_course['pengRequired'] = peng_required
-        new_course['yearRequired'] = course['year_req']
-        course_section = {}
+        new_course['yearRequired'] = random.randint(1,4)#course['year_req']
+        course_section = {'professor':{}, 'capacity':0, 'timeSlots':[]}
         course_sections = [course_section]
         course_offering = {}
         course_offering['course'] = new_course
         course_offering['sections'] = course_sections
         courses.append(course_offering)
+    file_handle = open(f'../database/init_data/algo_data/{filename}')
+    data = json.load(file_handle)
+    for course in data:
+        for section in course['sections']:
+            #changes info from a string of start and end times to a tuple
+            start, end = section['timeSlots']['timeRange'].split(' ')
+            section['timeSlots']['timeRange'] = (start, end)
+        courses.append(course)
+    file_handle.close()
     return courses
 def get_prof_array():
     '''
