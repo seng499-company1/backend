@@ -13,7 +13,7 @@ def get_previous_enrolment()->dict[str:dict]:
     Gets and returns a dictionary of previous enrollment stored in json file
     TODO: Make this more efficient - static data, we don't need to read from file everytime
     '''
-    with open('previous_enrolment.json', 'r', encoding='UTF-8') as file_handle:
+    with open('init_data/previous_enrolment.json', 'r', encoding='UTF-8') as file_handle:
         data = json.load(file_handle)
     int_key_data = {}
     for year in data:
@@ -24,7 +24,7 @@ def get_historical_data()->list:
     '''
     Gets and returns a list of the historical data
     '''
-    with open('historical_data.json', 'r', encoding='UTF-8') as file_handle:
+    with open('init_data/historical_data.json', 'r', encoding='UTF-8') as file_handle:
         data = json.load(file_handle)
     return data
 
@@ -75,7 +75,7 @@ def get_course_offering(semester:str, filename:str):
         course_offering['course'] = new_course
         course_offering['sections'] = course_sections
         courses.append(course_offering)
-    with open(filename, 'r',encoding='UTF-8') as file_handle:
+    with open(f'init_data/{filename}', 'r',encoding='UTF-8') as file_handle:
         data = json.load(file_handle)
 
     for course in data:
