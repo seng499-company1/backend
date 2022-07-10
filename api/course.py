@@ -33,6 +33,8 @@ def get_all_courses():
                     FROM CourseOffering"""
     results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req',
                                    'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
+    with open('populate_prof_prefs/curr_courses.json', 'w', encoding='utf-8') as file_handle:
+        json.dump(results.json,file_handle)
     return results, 200
 
 @COURSE_BP.route('/<course_id>', methods=['GET'])

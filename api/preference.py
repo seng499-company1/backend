@@ -97,6 +97,7 @@ def post_professor_preferences(professor_id):
     data = request.json
     uuid = DB_CONN.uuid()
     sqls = []
+    data = json.loads(data)
     json_preferred_times = json.dumps(data['preferred_times'])
     insert_json = escape_string(json_preferred_times)
     sqls.append(f"""INSERT INTO ProfessorAvailability

@@ -11,12 +11,12 @@
             {
                 "professor":{"id":0, "name":"Ilamparithi Thirumarai Chelvan"},
                 "capacity": 165,
-                "timeSlots": {"dayOfWeek":["TUESDAY"], "timeRange":"14:30 15:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"14:30 15:20"}]
             },
             {
                 "professor":{"id":0, "name":"Ilamparithi Thirumarai Chelvan"},
                 "capacity": 165,
-                "timeSlots": {"dayOfWeek":["TUESDAY"], "timeRange":"15:30 16:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"15:30 16:20"}]
             }
 
         ]
@@ -33,12 +33,12 @@
             {
                 "professor":{"id":0, "name":"Flavio Firmani"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["MONDAY", "THURSDAY"], "timeRange":"11:30 12:50"}
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"11:30 12:50"},{"dayOfWeek":"THURSDAY", "timeRange":"11:30 12:50"}]
             },
             {
                 "professor":{"id":0, "name":"Flavio Firmani"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["MONDAY", "THURSDAY"], "timeRange":"15:30 16:20"}
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"15:30 16:20"},{"dayOfWeek":"THURSDAY", "timeRange":"15:30 16:20"}]
             }
 
         ]
@@ -55,27 +55,27 @@
             {
                 "professor":{"id":0, "name":"Muhammad Awais"},
                 "capacity": 215,
-                "timeSlots": {"dayOfWeek":["MONDAY", "THURSDAY"], "timeRange":"8:30 9:50"}
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"8:30 9:50"},{"dayOfWeek":"THURSDAY", "timeRange":"8:30 9:50"}]
             },
             {
                 "professor":{"id":0, "name":"Torsten Schoeneberg"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["MONDAY", "WEDNESDAY","THURSDAY"], "timeRange":"14:30 15:20"}
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"THURSDAY", "timeRange":"14:30 15:20"}]
             },
             {
                 "professor":{"id":0, "name":"Tom Thompson"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY","FRIDAY"], "timeRange":"8:30 9:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"8:30 9:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"8:30 9:20"},{"dayOfWeek":"FRIDAY", "timeRange":"8:30 9:20"}]
             },
             {
                 "professor":{"id":0, "name":"Tom Thompson"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY","FRIDAY"], "timeRange":"12:30 1:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"12:30 13:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"12:30 13:20"},{"dayOfWeek":"FRIDAY", "timeRange":"12:30 13:20"}]
             },
             {
                 "professor":{"id":0, "name":"Majid Mazrooei"},
                 "capacity": 210,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY","FRIDAY"], "timeRange":"13:30 14:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"FRIDAY", "timeRange":"13:30 14:20"}]
             }
 
         ]
@@ -92,17 +92,17 @@
             {
                 "professor":{"id":0, "name":"Mark Laidlaw"},
                 "capacity": 180,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY", "FRIDAY"], "timeRange":"10:30 11:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"10:30 11:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"10:30 11:20"},{"dayOfWeek":"FRIDAY", "timeRange":"10:30 11:20"}]
             },
             {
                 "professor":{"id":0, "name":"Bob Kowalewski"},
                 "capacity": 180,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY","FRIDAY"], "timeRange":"11:30 12:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"11:30 12:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"11:30 12:20"},{"dayOfWeek":"FRIDAY", "timeRange":"11:30 12:20"}]
             },
             {
                 "professor":{"id":0, "name":"Mark Laidlaw"},
                 "capacity": 180,
-                "timeSlots": {"dayOfWeek":["TUESDAY", "WEDNESDAY","FRIDAY"], "timeRange":"13:30 14:20"}
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"FRIDAY", "timeRange":"13:30 14:20"}]
             }
         ]
     }
