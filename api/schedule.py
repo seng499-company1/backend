@@ -2,11 +2,12 @@
 contains all /schedule endpoints
 '''
 import json
+import pickle
 import yaml
 from flask import Blueprint, jsonify
 from pymysql.converters import escape_string
 from c1algo1 import scheduler as c1alg1
-# from c1algo2.forecaster import forecast ## not working right now, algo2 needs to debug this
+from c1algo2.forecaster import forecast as c1alg2
 from coursescheduler import generate_schedule as c2alg1
 from forecaster.forecaster import forecast as c2alg2
 from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data
@@ -70,8 +71,8 @@ def get_company_schedule(company_num):
     historical_data = get_historical_data()
 
     if company_num == '1':
+        schedule = c1alg2(historical_data, previous_enrolment, schedule)
         final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
-        # message += ' Algo 2: ' + forecast(historical_data, previous_enrolment, schedule)
     elif company_num == '2':
         schedule = c2alg2(historical_data, previous_enrolment, schedule)
         final_schedule = c2alg1(professors, schedule)
