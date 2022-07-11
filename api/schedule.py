@@ -76,7 +76,7 @@ def get_company_schedule(company_num):
         final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
     elif company_num == '2':
         schedule = c2alg2(historical_data, previous_enrolment, schedule)
-        final_schedule = c2alg1(professors, schedule)
+        final_schedule, err = c2alg1(professors, schedule)
     else:
         return f'Company {company_num} Not Found.', 404
     # post schedule
