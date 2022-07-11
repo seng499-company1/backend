@@ -9,6 +9,9 @@ __pycache__/
 #prof pref files
 api/populate_prof_prefs/curr_courses.json
 api/populate_prof_prefs/curr_professors.json
+
+#schedule.json that ALgo1 creates
+api/schedule.json
 # C extensions
 *.so
 
