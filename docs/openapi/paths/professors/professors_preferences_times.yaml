@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Professors
+  summary: GET /professors/preferences/times/{year}
+  description: Gets a list of all professor preference entries for the year
+  operationId: getProfessorPreferenceTimes
+  parameters:
+    - name: year
+      in: path
+      description: the year of the preference entries
+      required: true
+      schema:
+        type: integer
+        format: positive 4 digits
+  responses:
+    '200':
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/ArrayProfessorPreferenceTimes.yaml
+    '404':
+      description: No entries exist for the year
+    '400':
+      description: Bad sql query or invalid input parameter
