@@ -153,7 +153,7 @@ paths:
       tags:
         - Professors
       summary: GET /professors/{id}/preferences
-      description: Gets the preference for a specific professor
+      description: Gets a history of a professor's preference entries
       operationId: getProfessorPreferences
       parameters:
         - name: id
@@ -169,7 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProfessorPreference'
+                $ref: '#/components/schemas/ArrayProfessorPreference'
         '404':
           description: professor not found
     post:
@@ -193,7 +193,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: OK
+          description: successful operation
           content:
             application/json:
               schema:
@@ -202,50 +202,6 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '400':
           description: error adding professor's preferences
-    put:
-      tags:
-        - Professors
-      summary: PUT /professors/{id}/preferences
-      description: Updates the preference for a specific professor
-      operationId: putProfessorPreferences(id)
-      parameters:
-        - name: id
-          in: path
-          description: ID of professor
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProfessorPreferenceNoID'
-    delete:
-      tags:
-        - Professors
-      summary: DELETE /professors/{id}/preferences
-      description: Deletes a specific professor's preference
-      operationId: deleteProfessorPreferences(id)
-      parameters:
-        - name: id
-          in: path
-          description: ID of professor
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: string
-                description: UUID of preferences deleted
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '404':
-          description: professor's preferences not found
   /professors/{id}/remind:
     post:
       tags:
@@ -267,6 +223,85 @@ paths:
           description: OK
         '401':
           description: Reminder failed.
+  /professors/preferences/{id}:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors/preferences/{id}
+      description: Gets a single preference entry
+      operationId: getProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of preference entry
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessorPreference'
+        '404':
+          description: preference entry not found
+    put:
+      tags:
+        - Professors
+      summary: PUT /professors/preferences/{id}
+      description: Updates a preference entry
+      operationId: putProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of preference entry
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessorPreferenceNoID'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of preference updated
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: preference entry not found
+    delete:
+      tags:
+        - Professors
+      summary: DELETE /professors/preferences/{id}
+      description: Deletes a preference entry
+      operationId: deleteProfessorPreferences(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of preference entry
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of preferences deleted
+                example: 78c74a60-281c-45f4-9536-7d128701ddb5
+        '404':
+          description: preference entry not found
   /courses:
     get:
       tags:
@@ -942,6 +977,19 @@ components:
           description: This professor's course preferences
           type: array
           $ref: '#/components/schemas/CoursePreference'
+    ArrayProfessorPreference:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProfessorPreference'
+      example:
+        - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Rich
+          last_name: Little
+          time_stamp: '2022-06-25 10:34:06'
+        - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          first_name: Dan
+          last_name: Mai
+          time_stamp: '2022-06-21 09:30:26'
     ProfessorPreferenceNoID:
       type: object
       required:
