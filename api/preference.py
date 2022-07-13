@@ -15,7 +15,7 @@ def hello():
     '''
     return "Hello from Professor Preferences"
 
-@PREFERENCE_BP.route('/preferences/times', methods=['GET'])
+@PREFERENCE_BP.route('/preferences/times/', methods=['GET'])
 def get_professor_preference_entry_times():
     '''
     returns a list of professor preference entry times
