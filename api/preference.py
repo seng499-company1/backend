@@ -4,7 +4,7 @@ contains all API /professors/{id}/preferences endpoints
 import json
 import yaml
 from pymysql.converters import escape_string
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Response
 from .dbconn import DB_CONN
 
 PREFERENCE_BP = Blueprint('preference', __name__)
@@ -15,21 +15,29 @@ def hello():
     '''
     return "Hello from Professor Preferences"
 
-@PREFERENCE_BP.route('/preferences/times/', methods=['GET'])
-def get_professor_preference_entry_times():
+@PREFERENCE_BP.route('/preferences/times/<year>', methods=['GET'])
+def get_professor_preference_entry_times(year):
     '''
-    returns a list of professor preference entry times
+    returns a list of professor preference entry times for the specified year
     '''
-    sql = """SELECT
-                    BIN_TO_UUID(Professor.id) as id,
+    sql = f"""SELECT
+                    BIN_TO_UUID(Professor.id) as prof_id,
                     Professor.first_name,
                     Professor.last_name,
                     ProfessorAvailability.time_stamp
             FROM ProfessorAvailability
             LEFT JOIN Professor
-            ON ProfessorAvailability.prof_id = Professor.id;"""
+            ON ProfessorAvailability.prof_id = Professor.id
+            WHERE ProfessorAvailability.year = {year};"""
+    result = DB_CONN.select(sql)
 
-    return DB_CONN.select(sql), 200
+    if not isinstance(result, Response):
+        return result, 400
+
+    if result.get_json() == []:
+        return f'No preference entries exist for year {year}', 404
+
+    return result, 200
 
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
