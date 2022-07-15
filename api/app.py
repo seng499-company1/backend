@@ -12,7 +12,7 @@ from .course import COURSE_BP
 from .login import LOGIN_BP
 
 APP = Flask(__name__)
-CORS(APP)
+CORS(APP, supports_credentials=True)
 @APP.route('/')
 def index():
     '''
