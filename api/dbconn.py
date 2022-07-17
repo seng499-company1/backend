@@ -150,7 +150,7 @@ class DBConn:
         if bool_fields:
             for i, result in enumerate(results):
                 for field in bool_fields:
-                    results[i][field] = not result[field]
+                    results[i][field] = bool(result[field])
 
         return jsonify(results)
 

@@ -20,7 +20,7 @@ def get_all_courses():
     sql = """SELECT BIN_TO_UUID(id) as id,
                     course_code,
                     course_name,
-                    min_offering
+                    min_offering,
                     spring_req,
                     summer_req,
                     fall_req,
