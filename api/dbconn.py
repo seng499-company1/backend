@@ -63,6 +63,7 @@ class DBConn:
             errmsg = f'Failed to execute query\
                         \n{sql}\
                         \nError: {errmsg}\n'
+            conn.close()
             return errmsg
 
         conn.commit()
@@ -89,6 +90,7 @@ class DBConn:
                 errmsg = f'Failed to execute query\
                             \n{sql}\
                             \nError: {errmsg}\n'
+                conn.close()
                 return errmsg
 
         conn.commit()
@@ -113,7 +115,15 @@ class DBConn:
         from sql's 1s and 0s to json true and false."""
         conn = self.get_conn()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute(sql)
+        try:
+            cursor.execute(sql)
+        except mysql.connector.Error as errmsg:
+            errmsg = f'Failed to execute query\
+                        \n{sql}\
+                        \nError: {errmsg}\n'
+            cursor.close()
+            return errmsg
+
         result = cursor.fetchone()
         conn.close()
 
