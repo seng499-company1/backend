@@ -31,6 +31,10 @@ def get_all_schedules():
                 result
         FROM Schedule;"""
     results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
     my_json = results.get_json()
     if my_json == []:
         return 'No schedules found',404
@@ -51,9 +55,15 @@ def get_schedule(schedule_id):
         FROM Schedule
         WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
     results = DB_CONN.select_one(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
     my_json = results.get_json()
+
     if results is None:
-        return 'Schedule not found',404
+        return 'Schedule not found', 404
+
     # render json properly
     my_json['result'] = yaml.safe_load(my_json['result'])
     return my_json, 200
@@ -98,7 +108,8 @@ def get_company_schedule(company_num):
                         \'{json_schedule}\'
                     );"""
     result = DB_CONN.execute(sql)
-    if result is not True:
+
+    if isinstance(result, str):
         return result, 400
 
     return {"id": uuid, "year": 2022, "schedule":final_schedule}, 200
@@ -117,6 +128,8 @@ def delete_schedule(schedule_id):
     '''
     sql = f"""DELETE FROM Schedule WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
     result = DB_CONN.execute(sql)
-    if result is not True:
+
+    if isinstance(result, str):
         return result, 400
+
     return f'deleted schedule with id {schedule_id}', 200

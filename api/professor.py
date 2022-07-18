@@ -45,6 +45,10 @@ def get_all_professors():
                     is_teaching, 
                     is_peng FROM Professor"""
     results = DB_CONN.select(sql, ['is_teaching', 'is_peng'])
+
+    if isinstance(results, str):
+        return results, 400
+
     with open('populate_prof_prefs/curr_professors.json', 'w', encoding='utf-8') as file_handle:
         json.dump(results.json,file_handle)
     return results, 200
@@ -63,8 +67,14 @@ def post_professor():
                                            \"{data['department']}\", 
                                            {data['is_teaching']}, 
                                            {data['is_peng']});"""
-    if not DB_CONN.execute(sql):
+    result = DB_CONN.execute(sql)
+
+    if isinstance(result, str):
+        return result, 400
+
+    if not result:
         return 'Error adding professor', 500
+
     return uuid, 200
 
 
@@ -82,9 +92,13 @@ def get_professor(professor_id):
                     is_peng FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
     result = DB_CONN.select_one(sql, ['is_teaching', 'is_peng'])
 
+    if isinstance(result, str):
+        return result, 400
+
     if result is None:
         # if empty string - professor not found
         return 'Not Found', 404
+
     # return 200 OK
     return json.loads(result.response[0]), 200
 
@@ -94,7 +108,12 @@ def delete_professor(professor_id):
     deletes a professor
     '''
     sql = f"""DELETE FROM Professor WHERE BIN_TO_UUID(id) = \'{professor_id}\'"""
-    if not DB_CONN.execute(sql):
+    result = DB_CONN.execute(sql)
+
+    if isinstance(result, str):
+        return result, 400
+
+    if not result:
         return f'Unable to delete prof with id {professor_id}', 500
 
     return f'Deleted prof with id {professor_id}', 200

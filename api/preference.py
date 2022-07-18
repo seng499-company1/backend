@@ -4,7 +4,7 @@ contains all API /professors/{id}/preferences endpoints
 import json
 import yaml
 from pymysql.converters import escape_string
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify
 from .dbconn import DB_CONN
 
 PREFERENCE_BP = Blueprint('preference', __name__)
@@ -31,7 +31,7 @@ def get_professor_preference_entry_times(year):
             WHERE ProfessorAvailability.year = {year};"""
     result = DB_CONN.select(sql)
 
-    if not isinstance(result, Response):
+    if isinstance(result, str):
         return result, 400
 
     if result.get_json() == []:
@@ -65,6 +65,10 @@ def get_professor_preferences(professor_id):
             ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
             WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\"{professor_id}\");"""
     results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
     my_json = results.get_json()
 
     if my_json == []:
@@ -150,10 +154,9 @@ def post_professor_preferences(professor_id):
                                 \"{course['will_to_teach']}\",
                                 \"{course['able_to_teach']}\"
                             );""")
-
     result = DB_CONN.multi_execute(sqls)
 
-    if result is not True:
+    if isinstance(result, str):
         return result, 400
 
     return uuid, 200
@@ -186,10 +189,9 @@ def update_professor_preferences(professor_id):
                                 will_to_teach = \"{course['will_to_teach']}\",
                                 able_to_teach = \"{course['able_to_teach']}\"
                             WHERE BIN_TO_UUID(course_id)=\"{course['course_id']}\";""")
-
     result = DB_CONN.multi_execute(sqls)
 
-    if result is not True:
+    if isinstance(result, str):
         return result, 400
 
     return f'updates the preferences for \
@@ -203,9 +205,9 @@ def delete_professor_preferences(professor_id):
     '''
     sql = """DELETE FROM ProfessorAvailability
                     WHERE BIN_TO_UUID(prof_id) = \'{professor_id}\'"""
-
     result = DB_CONN.execute(sql)
-    if result is not True:
+
+    if isinstance(result, str):
         return result, 400
 
     return f'deleted preference for \
