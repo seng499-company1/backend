@@ -237,8 +237,7 @@ def delete_professor_preferences(preference_id):
     '''
     deletes a preference entry
     '''
-    sql = """DELETE FROM ProfessorAvailability
-                    WHERE BIN_TO_UUID(id) = \'{preference_id}\'"""
+    sql = f"""DELETE FROM ProfessorAvailability WHERE BIN_TO_UUID(id) = \'{preference_id}\'"""
     result = DB_CONN.execute(sql)
 
     if isinstance(result, str):
