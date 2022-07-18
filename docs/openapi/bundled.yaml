@@ -132,7 +132,7 @@ paths:
       parameters:
         - name: year
           in: path
-          description: the year to get the list of preference entries for
+          description: the year of the preference entries
           required: true
           schema:
             type: integer
@@ -144,6 +144,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArrayProfessorPreferenceTimes'
+        '400':
+          description: Bad sql query or invalid input parameter
         '404':
           description: No entries exist for the year
   /professors/{id}/preferences:
@@ -244,6 +246,24 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: professor's preferences not found
+  /professors/remind:
+    post:
+      tags:
+        - Professors
+      summary: POST /professors/remind/
+      description: |
+        Reminds a professor via email to update their preference form.
+      operationId: postRemind
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemindInput'
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Reminder failed.
   /courses:
     get:
       tags:
@@ -977,6 +997,15 @@ components:
           description: This professor's course preferences
           type: array
           $ref: '#/components/schemas/CoursePreference'
+    RemindInput:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: uuid of the professor to be reminded
+          type: string
+          example: ce84c7eb-0627-11ed-9861-0242ac120002
     Course:
       type: object
       required:
