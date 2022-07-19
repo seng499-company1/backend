@@ -43,7 +43,7 @@ paths:
   /professors/{id}/preferences:
     $ref: paths/professors/professors_{id}_preferences.yaml
   /professors/{id}/remind:
-    $ref: paths/professors/remind_{id}.yaml
+    $ref: paths/professors/professors_{id}_remind.yaml.yaml
   /courses:
     $ref: paths/courses/courses.yaml
   /courses/{id}:
