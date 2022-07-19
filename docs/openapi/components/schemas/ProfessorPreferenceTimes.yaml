@@ -1,0 +1,24 @@
+type: object
+required:
+  - prof_id
+  - first_name
+  - last_name
+  - time_stamp
+properties:
+  prof_id:
+    description: uuid of professor
+    type: string
+    example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  first_name:
+    description: professor's first name
+    type: string
+    example: Bill
+  last_name:
+    description: professor's last name
+    type: string
+    example: Bird
+  time_stamp:
+    description: Time of preference entry
+    type: string
+    pattern: "^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9])(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$"
+    example: '2022-06-21 09:30:26'

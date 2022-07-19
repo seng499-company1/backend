@@ -15,21 +15,29 @@ def hello():
     '''
     return "Hello from Professor Preferences"
 
-@PREFERENCE_BP.route('/preferences/times/', methods=['GET'])
-def get_professor_preference_entry_times():
+@PREFERENCE_BP.route('/preferences/times/<year>', methods=['GET'])
+def get_professor_preference_entry_times(year):
     '''
-    returns a list of professor preference entry times
+    returns a list of professor preference entry times for the specified year
     '''
-    sql = """SELECT
-                    BIN_TO_UUID(Professor.id) as id,
+    sql = f"""SELECT
+                    BIN_TO_UUID(Professor.id) as prof_id,
                     Professor.first_name,
                     Professor.last_name,
                     ProfessorAvailability.time_stamp
             FROM ProfessorAvailability
             LEFT JOIN Professor
-            ON ProfessorAvailability.prof_id = Professor.id;"""
+            ON ProfessorAvailability.prof_id = Professor.id
+            WHERE ProfessorAvailability.year = {year};"""
+    result = DB_CONN.select(sql)
 
-    return DB_CONN.select(sql), 200
+    if isinstance(result, str):
+        return result, 400
+
+    if result.get_json() == []:
+        return f'No preference entries exist for year {year}', 404
+
+    return result, 200
 
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
@@ -57,6 +65,10 @@ def get_professor_preferences(professor_id):
             ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
             WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\"{professor_id}\");"""
     results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
     my_json = results.get_json()
 
     if my_json == []:
@@ -142,10 +154,9 @@ def post_professor_preferences(professor_id):
                                 \"{course['will_to_teach']}\",
                                 \"{course['able_to_teach']}\"
                             );""")
-
     result = DB_CONN.multi_execute(sqls)
 
-    if result is not True:
+    if isinstance(result, str):
         return result, 400
 
     return uuid, 200
@@ -178,10 +189,9 @@ def update_professor_preferences(professor_id):
                                 will_to_teach = \"{course['will_to_teach']}\",
                                 able_to_teach = \"{course['able_to_teach']}\"
                             WHERE BIN_TO_UUID(course_id)=\"{course['course_id']}\";""")
-
     result = DB_CONN.multi_execute(sqls)
 
-    if result is not True:
+    if isinstance(result, str):
         return result, 400
 
     return f'updates the preferences for \
@@ -195,9 +205,9 @@ def delete_professor_preferences(professor_id):
     '''
     sql = """DELETE FROM ProfessorAvailability
                     WHERE BIN_TO_UUID(prof_id) = \'{professor_id}\'"""
-
     result = DB_CONN.execute(sql)
-    if result is not True:
+
+    if isinstance(result, str):
         return result, 400
 
     return f'deleted preference for \

@@ -20,7 +20,7 @@ def get_all_courses():
     sql = """SELECT BIN_TO_UUID(id) as id,
                     course_code,
                     course_name,
-                    min_offering
+                    min_offering,
                     spring_req,
                     summer_req,
                     fall_req,
@@ -33,6 +33,10 @@ def get_all_courses():
                     FROM CourseOffering"""
     results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req',
                                    'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
+
+    if isinstance(results, str):
+        return results, 400
+
     with open('populate_prof_prefs/curr_courses.json', 'w', encoding='utf-8') as file_handle:
         json.dump(results.json,file_handle)
     return results, 200
@@ -59,9 +63,14 @@ def get_course(course_id):
                     WHERE BIN_TO_UUID(id) = \'{course_id}\'"""
     result = DB_CONN.select_one(sql, ['spring_req', 'summer_req', 'fall_req',
                                       'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
+
+    if isinstance(result, str):
+        return result, 400
+
     if result is None:
         # if empty string - course not found
         return 'Not Found', 404
+
     # return 200 OK
     return json.loads(result.response[0]), 200
 
@@ -88,8 +97,14 @@ def add_course():
                                             {data['fall_peng_req']},
                                             {data['year_req']});
                                             """
-    if not DB_CONN.execute(sql):
+    result = DB_CONN.execute(sql)
+
+    if isinstance(result, str):
+        return result, 400
+
+    if not result:
         return 'Error adding course', 500
+
     return uuid, 200
 
 @COURSE_BP.route('/<course_id>', methods=['PUT'])
@@ -111,8 +126,14 @@ def put_course(course_id):
                                         fall_peng_req = {data['fall_peng_req']},
                                         year_req = {data['year_req']}
                                         WHERE BIN_TO_UUID(id) = \'{course_id}\';"""
-    if not DB_CONN.execute(sql):
+    result = DB_CONN.execute(sql)
+
+    if isinstance(result, str):
+        return result, 400
+
+    if not result:
         return 'Error updating course', 500
+
     return f'Updated {course_id}', 200
 
 @COURSE_BP.route('/<course_id>', methods=['DELETE'])
@@ -122,6 +143,12 @@ def delete_course(course_id):
     '''
 
     sql = f"""DELETE FROM CourseOffering WHERE BIN_TO_UUID(id) = \'{course_id}\'"""
-    if not DB_CONN.execute(sql):
+    result = DB_CONN.execute(sql)
+
+    if isinstance(result, str):
+        return result, 400
+
+    if not result:
         return f'Unable to delete course with id {course_id}', 500
+
     return course_id, 200
