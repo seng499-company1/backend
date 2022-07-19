@@ -1,7 +1,7 @@
 post:
   tags:
     - Professors
-  summary: POST /professors/remind/{id}/
+  summary: POST /professors/{id}/remind/
   description: |
     Reminds a professor via email to update their preference form.
   operationId: postRemind(id)
