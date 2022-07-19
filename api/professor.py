@@ -100,7 +100,7 @@ def delete_professor(professor_id):
 
     return f'Deleted prof with id {professor_id}', 200
 
-@PROFESSOR_BP.route('/remind/<professor_id>/', methods=['POST'])
+@PROFESSOR_BP.route('/<professor_id>/remind/', methods=['POST'])
 def remind_professor(professor_id):
     '''
     Sends a reminder email to a professor to fill out their preference form.
