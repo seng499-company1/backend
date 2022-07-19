@@ -39,7 +39,9 @@ paths:
   /professors/{id}:
     $ref: paths/professors/professors_{id}.yaml
   /professors/preferences/times/{year}:
-    $ref: paths/professors/professors_preferences_times.yaml
+    $ref: paths/professors/professors_preferences_times_{year}.yaml
+  /professors/{id}/preferences/{year}:
+    $ref: paths/professors/professors_{id}_preferences_{year}.yaml
   /professors/{id}/preferences:
     $ref: paths/professors/professors_{id}_preferences.yaml
   /professors/{id}/remind:

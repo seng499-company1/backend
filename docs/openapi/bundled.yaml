@@ -128,7 +128,7 @@ paths:
         - Professors
       summary: GET /professors/preferences/times/{year}
       description: Gets a list of all professor preference entries for the year
-      operationId: getProfessorPreferenceTimes
+      operationId: getProfessorPreferenceTimes(year)
       parameters:
         - name: year
           in: path
@@ -148,13 +148,48 @@ paths:
           description: Bad sql query or invalid input parameter
         '404':
           description: No entries exist for the year
+  /professors/{id}/preferences/{year}:
+    get:
+      tags:
+        - Professors
+      summary: GET /professors/{id}/preferences/{year}
+      description: Gets a professor preference entry by year
+      operationId: getProfessorPreferenceByYear(id,year)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: year
+          in: path
+          description: the year of the preference entry
+          required: true
+          schema:
+            type: integer
+            format: positive 4 digits
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessorPreference'
+        '400':
+          description: Bad sql query or invalid input parameter
+        '404':
+          description: Professor has no preference entry from the specified year
   /professors/{id}/preferences:
     get:
       tags:
         - Professors
       summary: GET /professors/{id}/preferences
-      description: Gets a history of a professor's preference entries
-      operationId: getProfessorPreferences
+      description: >-
+        Gets a history of a professor's preference entries ordered by time stamp
+        with latest entry first
+      operationId: getProfessorPreferences(id)
       parameters:
         - name: id
           in: path
@@ -171,13 +206,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ArrayProfessorPreference'
         '404':
-          description: professor not found
+          description: Professor has no preference entry
     post:
       tags:
         - Professors
       summary: POST /professors/{id}/preferences
       description: Adds a professor's preference entry to the database
-      operationId: postProfessorPreferences
+      operationId: postProfessorPreferences(id)
       requestBody:
         content:
           application/json:
@@ -228,8 +263,8 @@ paths:
       tags:
         - Professors
       summary: GET /professors/preferences/{id}
-      description: Gets a single preference entry
-      operationId: getProfessorPreferences(id)
+      description: Gets a single preference entry by preference id
+      operationId: getProfessorPreferencesByID(id)
       parameters:
         - name: id
           in: path
@@ -782,6 +817,7 @@ components:
       type: object
       required:
         - prof_id
+        - pref_id
         - first_name
         - last_name
         - time_stamp
@@ -790,6 +826,10 @@ components:
           description: uuid of professor
           type: string
           example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        pref_id:
+          description: uuid of preference entry
+          type: string
+          example: 98277323-6632-4dcf-bae8-2a51ed8626b8
         first_name:
           description: professor's first name
           type: string
@@ -811,10 +851,12 @@ components:
         $ref: '#/components/schemas/ProfessorPreferenceTimes'
       example:
         - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          pref_id: 98277323-6632-4dcf-bae8-2a51ed8626b8
           first_name: Rich
           last_name: Little
           time_stamp: '2022-06-25 10:34:06'
-        - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        - prof_id: 2c883081-06ed-11ed-b074-0242ac120002
+          pref_id: 155bd100-06ed-11ed-b074-0242ac120002
           first_name: Dan
           last_name: Mai
           time_stamp: '2022-06-21 09:30:26'
@@ -982,14 +1024,160 @@ components:
       items:
         $ref: '#/components/schemas/ProfessorPreference'
       example:
-        - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-          first_name: Rich
-          last_name: Little
-          time_stamp: '2022-06-25 10:34:06'
-        - prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
-          first_name: Dan
-          last_name: Mai
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
           time_stamp: '2022-06-21 09:30:26'
+          year: 2022
+          semester_off: 3
+          num_relief: 2
+          num_summer_courses: 1
+          num_fall_courses: 2
+          num_spring_courses: 1
+          why_relief: program advisor & TA manager
+          preferred_times:
+            fall:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+            spring:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+            summer:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+          course_preferences:
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: VERY_WILLING
+              able_to_teach: ABLE
+        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+          time_stamp: '2021-06-21 09:30:26'
+          year: 2021
+          semester_off: 3
+          num_relief: 2
+          num_summer_courses: 1
+          num_fall_courses: 2
+          num_spring_courses: 1
+          why_relief: program advisor & TA manager
+          preferred_times:
+            fall:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+            spring:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+            summer:
+              mon:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              tues:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              wed:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              thurs:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+              fri:
+                times:
+                  - (“12:00” “13:20”) (“14:00” “15:20”)
+                preferredDay: true
+          course_preferences:
+            - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+              will_to_teach: VERY_WILLING
+              able_to_teach: ABLE
     ProfessorPreferenceNoID:
       type: object
       required:

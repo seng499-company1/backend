@@ -2,8 +2,8 @@ get:
   tags:
     - Professors
   summary: GET /professors/{id}/preferences
-  description: Gets a history of a professor's preference entries
-  operationId: getProfessorPreferences
+  description: Gets a history of a professor's preference entries ordered by time stamp with latest entry first
+  operationId: getProfessorPreferences(id)
   parameters:
     - name: id
       in: path
@@ -20,13 +20,13 @@ get:
           schema:
             $ref: ../../components/schemas/ArrayProfessorPreference.yaml
     '404':
-      description: professor not found
+      description: Professor has no preference entry
 post:
   tags:
     - Professors
   summary: POST /professors/{id}/preferences
   description: Adds a professor's preference entry to the database
-  operationId: postProfessorPreferences
+  operationId: postProfessorPreferences(id)
   requestBody:
     content:
       application/json:

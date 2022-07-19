@@ -3,15 +3,235 @@ items:
   $ref: 'ProfessorPreference.yaml'
 example: [
   {
-    "prof_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
-    "first_name": "Rich",
-    "last_name": "Little",
-    "time_stamp": "2022-06-25 10:34:06"
+    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "time_stamp": "2022-06-21 09:30:26",
+    "year": 2022,
+    "semester_off": 3,
+    "num_relief": 2,
+    "num_summer_courses": 1,
+    "num_fall_courses": 2,
+    "num_spring_courses": 1,
+    "why_relief": "program advisor & TA manager",
+    "preferred_times": {
+      "fall": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      },
+      "spring": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      },
+      "summer": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      }
+    },
+    "course_preferences": [
+      {
+        "course_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+        "will_to_teach": "VERY_WILLING",
+        "able_to_teach": "ABLE"
+      }
+    ]
   },
   {
-    "prof_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
-    "first_name": "Dan",
-    "last_name": "Mai",
-    "time_stamp": "2022-06-21 09:30:26"
+    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "time_stamp": "2021-06-21 09:30:26",
+    "year": 2021,
+    "semester_off": 3,
+    "num_relief": 2,
+    "num_summer_courses": 1,
+    "num_fall_courses": 2,
+    "num_spring_courses": 1,
+    "why_relief": "program advisor & TA manager",
+    "preferred_times": {
+      "fall": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      },
+      "spring": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      },
+      "summer": {
+        "mon": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "tues": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "wed": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "thurs": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        },
+        "fri": {
+          "times": [
+            "(“12:00” “13:20”) (“14:00” “15:20”)"
+          ],
+          "preferredDay": true
+        }
+      }
+    },
+    "course_preferences": [
+      {
+        "course_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+        "will_to_teach": "VERY_WILLING",
+        "able_to_teach": "ABLE"
+      }
+    ]
   }
 ]

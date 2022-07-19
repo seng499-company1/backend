@@ -17,10 +17,11 @@ def hello():
 @PREFERENCE_BP.route('/preferences/times/<year>', methods=['GET'])
 def get_professor_preference_entry_times(year):
     '''
-    returns a list of professor preference entry times for the specified year
+    returns a list of professor preference entry times by year
     '''
     sql = f"""SELECT
                     BIN_TO_UUID(Professor.id) as prof_id,
+                    BIN_TO_UUID(ProfessorAvailability.id) as pref_id,
                     Professor.first_name,
                     Professor.last_name,
                     ProfessorAvailability.time_stamp
@@ -42,7 +43,7 @@ def get_professor_preference_entry_times(year):
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
 def get_professor_preference_history(professor_id):
     '''
-    returns a history of professor's preference
+    returns a sorted history of professor's preference entries
     '''
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
@@ -77,6 +78,58 @@ def get_professor_preference_history(professor_id):
                     ProfessorAvailability.num_summer_courses, 
                     ProfessorAvailability.num_fall_courses, 
                     ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times
+            ORDER BY time_stamp DESC;"""
+    results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
+    if results.get_json == []:
+        return f'Professor {professor_id} has no preference entry', 404
+
+    return results, 200
+
+
+@PREFERENCE_BP.route('/<professor_id>/preferences/<year>', methods=['GET'])
+def get_professor_preference_by_year(professor_id, year):
+    '''
+    returns a professor's preference entry by year
+    '''
+    sql = f"""SELECT
+                    BIN_TO_UUID(ProfessorAvailability.id) as id,
+                    BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
+                    JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "course_id", BIN_TO_UUID(ProfessorCoursePreference.course_id),
+                            "will_to_teach", ProfessorCoursePreference.will_to_teach,
+                            "able_to_teach", ProfessorCoursePreference.able_to_teach
+                        )
+                    ) as course_preferences
+            FROM ProfessorAvailability 
+            LEFT JOIN ProfessorCoursePreference 
+            ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
+            WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\'{professor_id}\')
+            AND ProfessorAvailability.year = {year}
+            GROUP BY ProfessorAvailability.id, 
+					ProfessorAvailability.prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
                     ProfessorAvailability.preferred_times;"""
     results = DB_CONN.select(sql)
 
@@ -84,7 +137,7 @@ def get_professor_preference_history(professor_id):
         return results, 400
 
     if results.get_json == []:
-        return f'professor {professor_id} has no preference entry', 404
+        return f'Professor {professor_id} has no preference entry for year {year}', 404
 
     return results, 200
 
@@ -92,7 +145,7 @@ def get_professor_preference_history(professor_id):
 @PREFERENCE_BP.route('/preferences/<preference_id>', methods=['GET'])
 def get_professor_preferences(preference_id):
     '''
-    returns a single preference entry
+    returns a single preference entry by preference id
     '''
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
@@ -141,7 +194,7 @@ def get_professor_preferences(preference_id):
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['POST'])
 def post_professor_preferences(professor_id):
     '''
-    adds a new professor's preferences
+    adds a professor's preference entry
     '''
     data = request.json
     uuid = DB_CONN.uuid()

@@ -131,7 +131,7 @@ def post_prefs():
         prof_id = prof['id']
         url = f'{base_url}/{prof_id}/preferences'
         prefs = {}
-        prefs['year'] = random.randint(2020, 2023)
+        prefs['year'] = 2022
         prefs['num_relief'] = random.randint(0,2)
         prefs['num_summer_courses'] = random.randint(0,2)
         prefs['num_fall_courses'] = random.randint(0,2)

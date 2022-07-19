@@ -3,8 +3,8 @@ get:
   tags:
     - Professors
   summary: GET /professors/preferences/{id}
-  description: Gets a single preference entry
-  operationId: getProfessorPreferences(id)
+  description: Gets a single preference entry by preference id
+  operationId: getProfessorPreferencesByID(id)
   parameters:
     - name: id
       in: path
