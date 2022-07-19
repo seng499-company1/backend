@@ -246,19 +246,22 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: professor's preferences not found
-  /professors/remind:
+  /professors/remind/{id}:
     post:
       tags:
         - Professors
-      summary: POST /professors/remind/
+      summary: POST /professors/remind/{id}/
       description: |
         Reminds a professor via email to update their preference form.
-      operationId: postRemind
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RemindInput'
+      operationId: postRemind(id)
+      parameters:
+        - name: id
+          in: path
+          description: ID of professor to remind
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: OK
@@ -997,15 +1000,6 @@ components:
           description: This professor's course preferences
           type: array
           $ref: '#/components/schemas/CoursePreference'
-    RemindInput:
-      type: object
-      required:
-        - id
-      properties:
-        id:
-          description: uuid of the professor to be reminded
-          type: string
-          example: ce84c7eb-0627-11ed-9861-0242ac120002
     Course:
       type: object
       required:

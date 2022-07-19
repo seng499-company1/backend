@@ -1,9 +1,0 @@
-type: object
-required:
-  - id
-properties:
-  id:
-    description: uuid of the professor to be reminded
-    type: string
-    example: ce84c7eb-0627-11ed-9861-0242ac120002
-    
