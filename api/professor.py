@@ -100,21 +100,12 @@ def delete_professor(professor_id):
 
     return f'Deleted prof with id {professor_id}', 200
 
-@PROFESSOR_BP.route('/remind', methods=['POST'])
-def remind_professor():
+@PROFESSOR_BP.route('/remind/<professor_id>/', methods=['POST'])
+def remind_professor(professor_id):
     '''
     Sends a reminder email to a professor to fill out their preference form.
     '''
-
-    # get user email
-    data = request.json
-
-    if 'id' not in data:
-        return 'no id provided', 401
-
-    prof_id = data['id']
-
-    sql = f'SELECT email from Professor WHERE BIN_TO_UUID(id) = \"{prof_id}\"'
+    sql = f'SELECT email from Professor WHERE BIN_TO_UUID(id) = \"{professor_id}\"'
     user_email = DB_CONN.select_one(sql).get_json()['email']
 
     # send email
@@ -122,12 +113,10 @@ def remind_professor():
     gmail_password = '<fill this in here>'
 
     subject = 'Preference form reminder'
-    body = """Please fill out your preference form for next year.
-    You can do so at https://seng499-company1.github.io/frontend/"""
+    body = 'Please fill out your preference form for next year. '
+    body += 'You can do so at https://seng499-company1.github.io/frontend/.'
 
-    email_text = f"""Subject: {subject}
-
-    {body}"""
+    email_text = f'Subject: {subject}\n\n{body}'
 
     smtp_server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     smtp_server.ehlo()
