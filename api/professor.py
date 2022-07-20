@@ -2,6 +2,7 @@
 contains all API /professors endpoints
 '''
 import json
+import smtplib
 from flask import Blueprint, request
 from .dbconn import DB_CONN
 from .preference import PREFERENCE_BP
@@ -117,3 +118,29 @@ def delete_professor(professor_id):
         return f'Unable to delete prof with id {professor_id}', 500
 
     return f'Deleted prof with id {professor_id}', 200
+
+@PROFESSOR_BP.route('/<professor_id>/remind/', methods=['POST'])
+def remind_professor(professor_id):
+    '''
+    Sends a reminder email to a professor to fill out their preference form.
+    '''
+    sql = f'SELECT email from Professor WHERE BIN_TO_UUID(id) = \"{professor_id}\"'
+    user_email = DB_CONN.select_one(sql).get_json()['email']
+
+    # send email
+    gmail_user = '<fill this in here>'
+    gmail_password = '<fill this in here>'
+
+    subject = 'Preference form reminder'
+    body = 'Please fill out your preference form for next year. '
+    body += 'You can do so at https://seng499-company1.github.io/frontend/.'
+
+    email_text = f'Subject: {subject}\n\n{body}'
+
+    smtp_server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    smtp_server.ehlo()
+    smtp_server.login(gmail_user, gmail_password)
+    smtp_server.sendmail(gmail_user, user_email, email_text)
+    smtp_server.close()
+
+    return 'Reminder email sent successfully.', 200
