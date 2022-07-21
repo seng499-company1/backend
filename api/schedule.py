@@ -79,8 +79,6 @@ def get_company_schedule(company_num):
     historical_data = get_historical_data()
     if company_num == '1':
         schedule = c1alg2(historical_data, previous_enrolment, schedule)
-        # removes extra instance of SENG275 that Algo2 is adding
-        schedule['fall'].pop()
         final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
     elif company_num == '2':
         schedule = c2alg2(historical_data, previous_enrolment, schedule)
