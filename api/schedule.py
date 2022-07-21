@@ -3,12 +3,12 @@ contains all /schedule endpoints
 '''
 import json
 import yaml
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from pymysql.converters import escape_string
+from forecaster.forecaster import forecast as c2alg2
 from c1algo1 import scheduler as c1alg1
 from c1algo2.forecaster import forecast as c1alg2
 from coursescheduler import generate_schedule as c2alg1
-from forecaster.forecaster import forecast as c2alg2
 from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data
 from .dbconn import DB_CONN
 
@@ -37,7 +37,7 @@ def get_all_schedules():
 
     my_json = results.get_json()
     if my_json == []:
-        return 'No schedules found',404
+        return 'No schedules found', 404
     #render json properly for each schedule
     for schedule in my_json:
         schedule['result'] = yaml.safe_load(schedule['result'])
@@ -63,7 +63,6 @@ def get_schedule(schedule_id):
 
     if results is None:
         return 'Schedule not found', 404
-
     # render json properly
     my_json['result'] = yaml.safe_load(my_json['result'])
     return my_json, 200
@@ -78,7 +77,6 @@ def get_company_schedule(company_num):
     schedule = get_empty_schedule()
     previous_enrolment = get_previous_enrolment()
     historical_data = get_historical_data()
-
     if company_num == '1':
         schedule = c1alg2(historical_data, previous_enrolment, schedule)
         # removes extra instance of SENG275 that Algo2 is adding
@@ -119,7 +117,14 @@ def update_schedule(schedule_id):
     '''
     Update the schedule.
     '''
-    return f'update schedule {schedule_id}', 200
+    data = request.json
+    json_schedule = json.dumps(data['schedule'])
+    json_schedule = escape_string(json_schedule)
+    sql = f"""UPDATE Schedule SET result = \"{json_schedule}\"
+                                        WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
+    if not DB_CONN.execute(sql):
+        return 'Error updating course', 500
+    return f'Updated {schedule_id}', 200
 
 @SCHEDULE_BP.route('/<schedule_id>', methods=['DELETE'])
 def delete_schedule(schedule_id):
