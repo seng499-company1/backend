@@ -227,6 +227,22 @@
                 "timeSlots":  [{"dayOfWeek":"TUESDAY","timeRange":"11:30 12:20"}, {"dayOfWeek":"WEDNESDAY","timeRange":"11:30 12:20"}, {"dayOfWeek":"FRIDAY", "timeRange":"11:30 12:20"}]
             }
         ]
+    },
+    {
+        "course":{
+            "code": "MATH101",
+            "title": "Calculus II",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Svetlana Oshkai"},
+                "capacity": 210,
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"15:30 16:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"15:30 16:20"},{"dayOfWeek":"THURSDAY", "timeRange":"15:30 16:20"}]
+            }
+        ]
     }
 
 ]
