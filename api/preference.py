@@ -2,9 +2,8 @@
 contains all API /professors/{id}/preferences endpoints
 '''
 import json
-import yaml
 from pymysql.converters import escape_string
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from .dbconn import DB_CONN
 
 PREFERENCE_BP = Blueprint('preference', __name__)
@@ -18,10 +17,11 @@ def hello():
 @PREFERENCE_BP.route('/preferences/times/<year>', methods=['GET'])
 def get_professor_preference_entry_times(year):
     '''
-    returns a list of professor preference entry times for the specified year
+    returns a list of professor preference entry times by year
     '''
     sql = f"""SELECT
                     BIN_TO_UUID(Professor.id) as prof_id,
+                    BIN_TO_UUID(ProfessorAvailability.id) as pref_id,
                     Professor.first_name,
                     Professor.last_name,
                     ProfessorAvailability.time_stamp
@@ -41,9 +41,9 @@ def get_professor_preference_entry_times(year):
 
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['GET'])
-def get_professor_preferences(professor_id):
+def get_professor_preference_history(professor_id):
     '''
-    returns professor's preference
+    returns a sorted history of professor's preference entries
     '''
     sql = f"""SELECT
                     BIN_TO_UUID(ProfessorAvailability.id) as id,
@@ -57,59 +57,148 @@ def get_professor_preferences(professor_id):
                     ProfessorAvailability.num_fall_courses, 
                     ProfessorAvailability.num_spring_courses,
                     ProfessorAvailability.preferred_times,
-                    BIN_TO_UUID(ProfessorCoursePreference.course_id) as course_id,
-                    ProfessorCoursePreference.will_to_teach,
-                    ProfessorCoursePreference.able_to_teach
+                    JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "course_id", BIN_TO_UUID(ProfessorCoursePreference.course_id),
+                            "will_to_teach", ProfessorCoursePreference.will_to_teach,
+                            "able_to_teach", ProfessorCoursePreference.able_to_teach
+                        )
+                    ) as course_preferences
             FROM ProfessorAvailability 
             LEFT JOIN ProfessorCoursePreference 
             ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
-            WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\"{professor_id}\");"""
+            WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\'{professor_id}\')
+            GROUP BY ProfessorAvailability.id, 
+					ProfessorAvailability.prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times
+            ORDER BY time_stamp DESC;"""
     results = DB_CONN.select(sql)
 
     if isinstance(results, str):
         return results, 400
 
-    my_json = results.get_json()
+    if results.get_json == []:
+        return f'Professor {professor_id} has no preference entry', 404
 
-    if my_json == []:
-        return 'Prof preferences not found', 404
+    return results, 200
 
-    course_pref = []
 
-    for entry in my_json:
-        if entry["course_id"] is None:
-            continue
-        course_item = {}
-        course_item["course_id"] = entry["course_id"]
-        course_item["will_to_teach"] = entry["will_to_teach"]
-        course_item["able_to_teach"] = entry["able_to_teach"]
-        course_pref.append(course_item)
+@PREFERENCE_BP.route('/<professor_id>/preferences/<year>', methods=['GET'])
+def get_professor_preference_by_year(professor_id, year):
+    '''
+    returns a professor's preference entry by year
+    '''
+    sql = f"""SELECT
+                    BIN_TO_UUID(ProfessorAvailability.id) as id,
+                    BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
+                    JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "course_id", BIN_TO_UUID(ProfessorCoursePreference.course_id),
+                            "will_to_teach", ProfessorCoursePreference.will_to_teach,
+                            "able_to_teach", ProfessorCoursePreference.able_to_teach
+                        )
+                    ) as course_preferences
+            FROM ProfessorAvailability 
+            LEFT JOIN ProfessorCoursePreference 
+            ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
+            WHERE ProfessorAvailability.prof_id=UUID_TO_BIN(\'{professor_id}\')
+            AND ProfessorAvailability.year = {year}
+            GROUP BY ProfessorAvailability.id, 
+					ProfessorAvailability.prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times;"""
+    results = DB_CONN.select(sql)
 
-    preferred_times_string = yaml.safe_load(my_json[0]['preferred_times'])
-    output = {}
-    output["id"] = my_json[0]["id"]
-    output["time_stamp"] = my_json[0]["time_stamp"]
-    output["year"] = my_json[0]["year"]
-    output["semester_off"] = my_json[0]["semester_off"]
-    output["num_relief"] = my_json[0]["num_relief"]
-    output["num_summer_courses"]= my_json[0]["num_summer_courses"]
-    output["num_fall_courses"]= my_json[0]["num_fall_courses"]
-    output["num_spring_courses"]= my_json[0]["num_spring_courses"]
-    output["why_relief"]= my_json[0]["why_relief"]
-    output["preferred_times"] = preferred_times_string
-    output["course_preference"] = course_pref
+    if isinstance(results, str):
+        return results, 400
 
-    return jsonify(output), 200
+    if results.get_json == []:
+        return f'Professor {professor_id} has no preference entry for year {year}', 404
+
+    return results, 200
+
+
+@PREFERENCE_BP.route('/preferences/<preference_id>', methods=['GET'])
+def get_professor_preferences(preference_id):
+    '''
+    returns a single preference entry by preference id
+    '''
+    sql = f"""SELECT
+                    BIN_TO_UUID(ProfessorAvailability.id) as id,
+                    BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times,
+                    JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "course_id", BIN_TO_UUID(ProfessorCoursePreference.course_id),
+                            "will_to_teach", ProfessorCoursePreference.will_to_teach,
+                            "able_to_teach", ProfessorCoursePreference.able_to_teach
+                        )
+                    ) as course_preferences
+            FROM ProfessorAvailability 
+            LEFT JOIN ProfessorCoursePreference 
+            ON ProfessorCoursePreference.prof_avail_id = ProfessorAvailability.id
+            WHERE ProfessorAvailability.id=UUID_TO_BIN(\'{preference_id}\')
+            GROUP BY ProfessorAvailability.id, 
+					ProfessorAvailability.prof_id, 
+                    ProfessorAvailability.time_stamp, 
+                    ProfessorAvailability.year, 
+                    ProfessorAvailability.semester_off,
+                    ProfessorAvailability.num_relief,
+                    ProfessorAvailability.why_relief, 
+                    ProfessorAvailability.num_summer_courses, 
+                    ProfessorAvailability.num_fall_courses, 
+                    ProfessorAvailability.num_spring_courses,
+                    ProfessorAvailability.preferred_times;"""
+    results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
+    if results.get_json() == []:
+        return f'No preference with id {preference_id}', 404
+
+    return results, 200
 
 @PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['POST'])
 def post_professor_preferences(professor_id):
     '''
-    adds a new professor's preferences
+    adds a professor's preference entry
     '''
     data = request.json
     uuid = DB_CONN.uuid()
     sqls = []
-    data = json.loads(data)
     json_preferred_times = json.dumps(data['preferred_times'])
     insert_json = escape_string(json_preferred_times)
     sqls.append(f"""INSERT INTO ProfessorAvailability
@@ -161,8 +250,8 @@ def post_professor_preferences(professor_id):
 
     return uuid, 200
 
-@PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['PUT'])
-def update_professor_preferences(professor_id):
+@PREFERENCE_BP.route('/preferences/<preference_id>', methods=['PUT'])
+def update_professor_preferences(preference_id):
     '''
     updates a professor's preferences
     '''
@@ -179,13 +268,12 @@ def update_professor_preferences(professor_id):
                         num_fall_courses = {data['num_fall_courses']},
                         num_spring_courses = {data['num_spring_courses']},
                         preferred_times = \'{insert_json}\'
-                    WHERE BIN_TO_UUID(prof_id)=\"{professor_id}\";""")
+                    WHERE BIN_TO_UUID(id)=\"{preference_id}\";""")
 
     course_prefs = data['course_preferences']
 
     for course in course_prefs:
         sqls.append(f"""UPDATE ProfessorCoursePreference SET
-                                year = {data['year']},
                                 will_to_teach = \"{course['will_to_teach']}\",
                                 able_to_teach = \"{course['able_to_teach']}\"
                             WHERE BIN_TO_UUID(course_id)=\"{course['course_id']}\";""")
@@ -194,21 +282,18 @@ def update_professor_preferences(professor_id):
     if isinstance(result, str):
         return result, 400
 
-    return f'updates the preferences for \
-     professor with id {professor_id}', 200
+    return f'updated preference {preference_id}', 200
 
 
-@PREFERENCE_BP.route('/<professor_id>/preferences/', methods=['DELETE'])
-def delete_professor_preferences(professor_id):
+@PREFERENCE_BP.route('/preferences/<preference_id>', methods=['DELETE'])
+def delete_professor_preferences(preference_id):
     '''
-    deletes a professor's preferences
+    deletes a preference entry
     '''
-    sql = """DELETE FROM ProfessorAvailability
-                    WHERE BIN_TO_UUID(prof_id) = \'{professor_id}\'"""
+    sql = f"""DELETE FROM ProfessorAvailability WHERE BIN_TO_UUID(id) = \'{preference_id}\'"""
     result = DB_CONN.execute(sql)
 
     if isinstance(result, str):
         return result, 400
 
-    return f'deleted preference for \
-     professor with id {professor_id}', 200
+    return f'deleted preference {preference_id}', 200
