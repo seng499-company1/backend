@@ -3,6 +3,8 @@ starting point for API
 '''
 import os
 from flask import Flask
+from flask_cors import CORS
+
 from .admin import ADMIN_BP
 from .professor import PROFESSOR_BP
 from .schedule import SCHEDULE_BP
@@ -10,18 +12,13 @@ from .course import COURSE_BP
 from .login import LOGIN_BP
 
 APP = Flask(__name__)
+CORS(APP, supports_credentials=True)
 @APP.route('/')
 def index():
     '''
     sanity check endpoint
     '''
     return 'all is good :)'
-
-@APP.after_request
-def add_cors_headers(response):
-    '''Allows frontend to connect to the backend.'''
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
 
 APP.register_blueprint(ADMIN_BP, url_prefix='/admins')
 APP.register_blueprint(PROFESSOR_BP, url_prefix='/professors')

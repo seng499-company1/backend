@@ -1,0 +1,176 @@
+[
+    {
+        "fall": [
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Natasha Morrison (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:50 AM\nBuilding: Engineering Comp Science Bldg\nRoom: 124\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "19 of 80 seats remain.\n20 of 20 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Natasha Morrison (Primary)"
+        },
+        {
+        "time": "Tuesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n04:30 PM - 05:50 PM\nBuilding: Cornett Building\nRoom: B135\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "7 of 80 seats remain.\n20 of 20 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Jon Noel (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n09:30 AM - 10:20 AM\nBuilding: MacLaurin Building\nRoom: D207\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "23 of 80 seats remain.\n30 of 30 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A04"
+        },
+        {
+        "professor": "Jon Noel (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:20 PM\nBuilding: Cornett Building\nRoom: B135\nStart Date: Sep 07, 2022\nEnd Date: Dec 05, 2022"
+        },
+        {
+        "capacity": "FULL: 0 of 80 seats remain.\n39 of 50 waitlist seats remain."
+        }
+        ]
+    },
+    {
+        "spring": [
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Michelle Edwards (Primary)"
+        },
+        {
+        "time": "Monday,Thursday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:50 AM\nBuilding: Engineering Comp Science Bldg\nRoom: 124\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "4 of 80 seats remain.\n20 of 20 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Michelle Edwards (Primary)"
+        },
+        {
+        "time": "Monday,Wednesday,Thursday\nS\nM\nT\nW\nT\nF\nS\n02:30 PM - 03:20 PM\nBuilding: Engineering Comp Science Bldg\nRoom: 124\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "10 of 80 seats remain.\n100 of 100 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Gary MacGillivray\nJoseph Horan (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n08:30 AM - 09:20 AM\nBuilding: Cornett Building\nRoom: B135\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "8 of 80 seats remain.\n100 of 100 waitlist seats remain."
+        },
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A04"
+        },
+        {
+        "professor": "Joseph Horan (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:20 PM\nBuilding: Cornett Building\nRoom: B135\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "5 of 80 seats remain.\n100 of 100 waitlist seats remain."
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Logic and Foundations\nLecture"
+        },
+        {
+        "code": "MATH122"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Joseph Horan (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n10:30 AM - 11:20 AM\nBuilding: MacLaurin Building\nRoom: D288\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "15 of 80 seats remain.\n35 of 35 waitlist seats remain."
+        }
+        ]
+    }
+]

@@ -38,8 +38,12 @@ paths:
     $ref: paths/professors/professors.yaml
   /professors/{id}:
     $ref: paths/professors/professors_{id}.yaml
+  /professors/preferences/times/{year}:
+    $ref: paths/professors/professors_preferences_times.yaml
   /professors/{id}/preferences:
     $ref: paths/professors/professors_{id}_preferences.yaml
+  /professors/{id}/remind:
+    $ref: paths/professors/professors_{id}_remind.yaml.yaml
   /courses:
     $ref: paths/courses/courses.yaml
   /courses/{id}:

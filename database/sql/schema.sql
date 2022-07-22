@@ -57,6 +57,7 @@ CREATE TABLE CourseOffering (
 CREATE TABLE ProfessorAvailability (
 	id  BINARY(16) PRIMARY KEY,
 	prof_id  BINARY(16) NOT NULL,
+	time_stamp DATETIME default now(),
 	year INT NOT NULL,
 	semester_off INT NOT NULL,
 	num_relief INT NOT NULL,
@@ -77,7 +78,6 @@ CREATE TABLE ProfessorCoursePreference (
 	year INT NOT NULL,
 	will_to_teach VARCHAR(12) NOT NULL,
 	able_to_teach VARCHAR(12) NOT NULL,
-	time_stamp DATETIME default now(),
 	FOREIGN KEY(prof_avail_id)
 		REFERENCES ProfessorAvailability(id)
 		ON DELETE CASCADE

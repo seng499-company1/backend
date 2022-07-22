@@ -1,0 +1,82 @@
+[
+    {
+        "fall": [ 
+        {
+        "title": "Fundamentals of Chemistry from Atoms to Materials"
+        },
+        {
+        "code": "CHEM101"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Genevieve Boice"
+        },
+        {
+        "time": "Monday,Thursday\n01:00 PM - 02:20 PM"
+        },
+        {
+        "capacity": "32 of 358 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Fundamentals of Chemistry from Atoms to Materials"
+        },
+        {
+        "code": "CHEM101"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Genevieve Boice"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\n09:30 AM - 10:20 AM"
+        },
+        {
+        "capacity": "76 of 358 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Fundamentals of Chemistry from Atoms to Materials"
+        },
+        {
+        "code": "CHEM101"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Genevieve Boice"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\n12:30 PM - 01:20 PM"
+        },
+        {
+        "capacity": "120 of 299 seats remain.\n100 of 100 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Fundamentals of Chemistry from Atoms to Materials"
+        },
+        {
+        "code": "CHEM101"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Michele de Souza"
+        },
+        {
+        "time": "Monday,Thursday\n08:30 AM - 09:50 AM"
+        },
+        {
+        "capacity": "138"
+        }
+        ]
+    }
+]

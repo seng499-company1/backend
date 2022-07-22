@@ -1,99 +1,71 @@
 '''
 contains all /schedule endpoints
 '''
-from flask import Blueprint, request, jsonify
-from c1algo1.scheduler import generate_schedule as c1alg1
-# from c1algo2 import forecast as c1alg2 << not working right now, algo2 needs to debug this
-from coursescheduler import generate_schedule as c2alg1
+import json
+import yaml
+from flask import Blueprint, jsonify, request
+from pymysql.converters import escape_string
 from forecaster.forecaster import forecast as c2alg2
+from c1algo1 import scheduler as c1alg1
+from c1algo2.forecaster import forecast as c1alg2
+from coursescheduler import generate_schedule as c2alg1
+from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data
+from .dbconn import DB_CONN
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
 @SCHEDULE_BP.route('/hello/')
 def hello():
     '''
-    blah
+    Sanity Endpoint
     '''
     return 'Hello from Schedules'
-SCHEDULES = [
-    {
-        'uuid': '4e90ab30-c380-4034-acdb-238856a88df3',
-        'semester': 'Fall',
-        'year': '2022',
-        'schedule': [
-            {
-                'timeslot': 'MWF 10am-10:50am',
-                'course_code': 'CSC230',
-                'prof': 'Bill Bird',
-                'section': 'A1',
-                'capacity': 100,
-            },
-            {
-                'timeslot': 'MWF 10am-10:50am',
-                'course_code': 'CSC230',
-                'prof': 'Bill Bird',
-                'section': 'A2',
-                'capacity': 20,
-            },
-            {
-                'timeslot': 'MTh 10am-10:50am',
-                'course_code': 'CSC111',
-                'prof': 'Hausi Muller',
-                'section': 'A1',
-                'capacity': 100,
-            },
-            {
-                'timeslot': 'MTh 10am-10:50am',
-                'course_code': 'CSC111',
-                'prof': 'Hausi Muller',
-                'section': 'A2',
-                'capacity': 20,
-            },
-        ]
-    },
-    {
-        'uuid': '5e90ab30-c380-4034-acdb-238856a88df3',
-        'semester': 'Spring',
-        'year': '2022',
-        'schedule': [
-            {
-                'timeslot': 'MWF 11am-11:50am',
-                'course_code': 'CSC370',
-                'prof': 'Bill Bird',
-                'section': 'A1',
-                'capacity': 40,
-            },
-            {
-                'timeslot': 'MWF 11am-11:50am',
-                'course_code': 'CSC370',
-                'prof': 'Bill Bird',
-                'section': 'A2',
-                'capacity': 10,
-            },
-            {
-                'timeslot': 'MTh 2pm-2:50pm',
-                'course_code': 'SENG275',
-                'prof': 'Mike Zastre',
-                'section': 'A1',
-                'capacity': 100,
-            },
-            {
-                'timeslot': 'MTh 2pm-2:50pm',
-                'course_code': 'SENG275',
-                'prof': 'Mike Zastre',
-                'section': 'A2',
-                'capacity': 20,
-            },
-        ]
-    }
-]
-UUIDS = [schedule['uuid'] for schedule in SCHEDULES]
 
 @SCHEDULE_BP.route('/', methods=['GET'])
 def get_all_schedules():
     '''
     Return JSON object containing a list of schedules with their year, semester and id
     '''
-    return jsonify(SCHEDULES), 200
+    sql = """SELECT
+                BIN_TO_UUID(id) as id,
+                year,
+                result
+        FROM Schedule;"""
+    results = DB_CONN.select(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
+    my_json = results.get_json()
+    if my_json == []:
+        return 'No schedules found', 404
+    #render json properly for each schedule
+    for schedule in my_json:
+        schedule['result'] = yaml.safe_load(schedule['result'])
+    return jsonify(my_json), 200
+
+@SCHEDULE_BP.route('/<schedule_id>', methods=['GET'])
+def get_schedule(schedule_id):
+    '''
+    Return a schedule with a particular id
+    '''
+    sql = f"""SELECT
+                BIN_TO_UUID(id) as id,
+                year,
+                result
+        FROM Schedule
+        WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
+    results = DB_CONN.select_one(sql)
+
+    if isinstance(results, str):
+        return results, 400
+
+    my_json = results.get_json()
+
+    if results is None:
+        return 'Schedule not found', 404
+    # render json properly
+    my_json['result'] = yaml.safe_load(my_json['result'])
+    return my_json, 200
 
 @SCHEDULE_BP.route('/company/<company_num>', methods=['GET'])
 def get_company_schedule(company_num):
@@ -101,61 +73,66 @@ def get_company_schedule(company_num):
     Return JSON object containing a list of schedules with their year, semester and id  as
     generated from <company_num>.
     '''
-    message = f'company {company_num} not recongnized'
-    status = 200
+    professors = get_prof_array()
+    schedule = get_empty_schedule()
+    previous_enrolment = get_previous_enrolment()
+    historical_data = get_historical_data()
     if company_num == '1':
-        message = 'Algo 1: ' + c1alg1(None, None, None)
-        # message += ' Algo 2: ' + c1alg2(None, None, None) << not working same as above
+        schedule = c1alg2(historical_data, previous_enrolment, schedule)
+        final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
     elif company_num == '2':
-        message = 'Algo 1: ' + c2alg1(None, None, None)
-        message += ' Algo 2: ' + c2alg2(None, None, None)
+        schedule = c2alg2(historical_data, previous_enrolment, schedule)
+        final_schedule, _ = c2alg1(professors, schedule)
     else:
-        status = 404
-    return message, status
+        return f'Company {company_num} Not Found.', 404
+    # post schedule
+    data = final_schedule
+    uuid = DB_CONN.uuid()
+    # data = json.loads(data)
+    json_schedule = json.dumps(data)
+    json_schedule = escape_string(json_schedule)
+    sql = f"""INSERT INTO Schedule
+                    (
+                        id,
+                        year,
+                        semester,
+                        result
+                    ) Values(
+                        UUID_TO_BIN(\"{uuid}\"),
+                        2022,
+                        'a',
+                        \'{json_schedule}\'
+                    );"""
+    result = DB_CONN.execute(sql)
 
-@SCHEDULE_BP.route('<schedule_id>', methods=['GET'])
-def get_schedule(schedule_id):
-    '''
-    Return JSON object containing schedule
-    '''
-    if schedule_id not in UUIDS:
-        return 'couldn\'t find that schedule', 404
-    return jsonify(SCHEDULES[UUIDS.index(schedule_id)]), 200
+    if isinstance(result, str):
+        return result, 400
 
-@SCHEDULE_BP.route('/', methods=['POST'])
-def add_schedule():
-    '''
-    Request contains JSON object containing a new schedule
-    Add a new schedule to the table of schedules
-    Returns new schedule’s id
-    '''
-    return f'schedule id of new entry\n\nJSON object:\n{request.data}\n\n', 200
+    return {"id": uuid, "year": 2022, "schedule":final_schedule}, 200
 
-@SCHEDULE_BP.route('/<schedule_id>/<course_id>', methods=['PUT'])
-def update_course_time(schedule_id, course_id):
+@SCHEDULE_BP.route('/<schedule_id>', methods=['PUT'])
+def update_schedule(schedule_id):
     '''
-    Update the time slot of a course in the schedule
+    Update the schedule.
     '''
-    return f'update timeslot of course {course_id} in schedule {schedule_id}', 200
-
-@SCHEDULE_BP.route('/<schedule_id>/<course_id>/<prof_id>', methods=['PUT'])
-def update_course_prof(schedule_id, course_id, prof_id):
-    '''
-    Update the professor of a course in the existing schedule
-    '''
-    return f'update prof teaching course {course_id} to \
-        prof {prof_id} in schedule {schedule_id}', 200
+    data = request.json
+    json_schedule = json.dumps(data['schedule'])
+    json_schedule = escape_string(json_schedule)
+    sql = f"""UPDATE Schedule SET result = \"{json_schedule}\"
+                                        WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
+    if not DB_CONN.execute(sql):
+        return 'Error updating course', 500
+    return f'Updated {schedule_id}', 200
 
 @SCHEDULE_BP.route('/<schedule_id>', methods=['DELETE'])
 def delete_schedule(schedule_id):
     '''
     Deletes a schedule from the schedules table
     '''
-    return f'deleted schedule {schedule_id}', 200
+    sql = f"""DELETE FROM Schedule WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
+    result = DB_CONN.execute(sql)
 
-@SCHEDULE_BP.route('/<schedule_id>/<course_id>', methods=['DELETE'])
-def delete_course_from_schedule(schedule_id, course_id):
-    '''
-    Deletes a course from the schedule
-    '''
-    return f'deleted course {course_id} from schedule {schedule_id}', 200
+    if isinstance(result, str):
+        return result, 400
+
+    return f'deleted schedule with id {schedule_id}', 200

@@ -1,0 +1,18 @@
+[
+    {
+        "course":{
+            "code": "ECON180",
+            "title": "Introduction to Economics and Financial Project Evaluation",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Moein Amini"},
+                "capacity": 175,
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"13:00 14:20"},{"dayOfWeek":"THURSDAY", "timeRange":"13:00 14:20"}]
+            }
+        ]
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "spring": [
+        {
+        "title": "Introductory Physics II\nLecture"
+        },
+        {
+        "code": "PHYS111"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n10:30 AM - 11:20 AM\nBuilding: Elliott Building\nRoom: 168\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "63 of 180 seats remain.\n15 of 15 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics II\nLecture"
+        },
+        {
+        "code": "PHYS111"
+        },
+        {
+        "name": "A02"
+        },
+        {
+        "professor": "Bob Kowalewski (Primary)\nMark Laidlaw"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n11:30 AM - 12:20 PM\nBuilding: Elliott Building\nRoom: 168\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "90 of 180 seats remain.\n15 of 15 waitlist seats remain.\nLINKED"
+        },
+        {
+        "title": "Introductory Physics II\nLecture"
+        },
+        {
+        "code": "PHYS111"
+        },
+        {
+        "name": "A03"
+        },
+        {
+        "professor": "Mark Laidlaw\nTravis Martin (Primary)"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n01:30 PM - 02:20 PM\nBuilding: Elliott Building\nRoom: 168\nStart Date: Jan 10, 2022\nEnd Date: Apr 07, 2022"
+        },
+        {
+        "capacity": "56 of 180 seats remain.\n15 of 15 waitlist seats remain.\nLINKED"
+        }
+        ]
+    },
+    {
+        "summer": [
+        {
+        "title": "Introductory Physics II\nLecture"
+        },
+        {
+        "code": "PHYS111"
+        },
+        {
+        "name": "A01"
+        },
+        {
+        "professor": "Mark Laidlaw (Primary)\nTravis Martin"
+        },
+        {
+        "time": "Tuesday,Wednesday,Friday\nS\nM\nT\nW\nT\nF\nS\n01:30 PM - 02:20 PM\nBuilding: Bob Wright Centre\nRoom: A104\nStart Date: May 04, 2022\nEnd Date: Jul 29, 2022"
+        },
+        {
+        "capacity": "40 of 110 seats remain.\n10 of 10 waitlist seats remain.\nLINKED"
+        }
+        ]
+    }
+]
