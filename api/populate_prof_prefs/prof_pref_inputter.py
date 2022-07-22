@@ -147,6 +147,6 @@ def post_prefs():
             prefs['semester_off'] = 2
         else:
             prefs['semester_off'] = 0
-        res = requests.post(url, json=json.dumps(prefs))
+        res = requests.post(url, json=prefs)
         print(res.text)
 post_prefs()
