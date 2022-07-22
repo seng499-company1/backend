@@ -90,22 +90,42 @@ def get_prof_array():
     '''
     Creates and returns an array of Professors
     '''
-    sql = """SELECT
-                    BIN_TO_UUID(ProfessorAvailability.id) as id,
-                    BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
-                    ProfessorAvailability.year, 
-                    ProfessorAvailability.num_relief,
-                    ProfessorAvailability.num_summer_courses, 
-                    ProfessorAvailability.num_fall_courses, 
-                    ProfessorAvailability.num_spring_courses,
-                    ProfessorAvailability.preferred_times,
-                    Professor.first_name,
-                    Professor.last_name,
-                    Professor.is_peng,
-                    Professor.is_teaching
-            FROM ProfessorAvailability
-            LEFT JOIN Professor
-            ON ProfessorAvailability.prof_id = Professor.id;"""
+    sql = """WITH
+            LatestPrefEntries AS(
+                                    SELECT
+                                            ProfessorAvailability.prof_id as prof_id,
+                                            max(ProfessorAvailability.year) as year,
+                                            Professor.first_name,
+                                            Professor.last_name,
+                                            Professor.is_peng,
+                                            Professor.is_teaching
+                                    FROM ProfessorAvailability
+                                    JOIN Professor
+                                    ON ProfessorAvailability.prof_id = Professor.id
+                                    GROUP BY 
+                                            ProfessorAvailability.prof_id,
+                                            Professor.first_name,
+                                            Professor.last_name,
+                                            Professor.is_peng,
+                                            Professor.is_teaching
+                                )
+            SELECT 
+                BIN_TO_UUID(ProfessorAvailability.id) as id,
+                BIN_TO_UUID(ProfessorAvailability.prof_id) as prof_id, 
+                LatestPrefEntries.year, 
+                ProfessorAvailability.num_relief,
+                ProfessorAvailability.num_summer_courses, 
+                ProfessorAvailability.num_fall_courses, 
+                ProfessorAvailability.num_spring_courses,
+                ProfessorAvailability.preferred_times,
+                LatestPrefEntries.first_name,
+                LatestPrefEntries.last_name,
+                LatestPrefEntries.is_peng,
+                LatestPrefEntries.is_teaching
+            FROM LatestPrefEntries 
+            JOIN ProfessorAvailability 
+            ON LatestPrefEntries.prof_id=ProfessorAvailability.prof_id
+            AND LatestPrefEntries.year=ProfessorAvailability.year;"""
     results = DB_CONN.select(sql, ['is_peng', 'is_teaching'])
     my_json = results.get_json()
     prof_array = []
@@ -152,7 +172,8 @@ def get_prof_array():
             ON ProfessorAvailability.id = ProfessorCoursePreference.prof_avail_id
             LEFT JOIN CourseOffering
             ON ProfessorCoursePreference.course_id = CourseOffering.id
-            WHERE ProfessorCoursePreference.prof_avail_id = UUID_TO_BIN(\"{prof_avail_id}\");"""
+            WHERE ProfessorCoursePreference.prof_avail_id = UUID_TO_BIN(\"{prof_avail_id}\")
+            AND ProfessorCoursePreference.year={prof["year"]};"""
         results = DB_CONN.select(sql)
         course_preferences_json = results.get_json()
         course_preferences = []
