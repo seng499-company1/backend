@@ -4,12 +4,14 @@ items:
 example: [
   {
     "prof_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "pref_id": "98277323-6632-4dcf-bae8-2a51ed8626b8",
     "first_name": "Rich",
     "last_name": "Little",
     "time_stamp": "2022-06-25 10:34:06"
   },
   {
-    "prof_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "prof_id": "2c883081-06ed-11ed-b074-0242ac120002",
+    "pref_id": "155bd100-06ed-11ed-b074-0242ac120002",
     "first_name": "Dan",
     "last_name": "Mai",
     "time_stamp": "2022-06-21 09:30:26"

@@ -3,7 +3,7 @@ get:
     - Professors
   summary: GET /professors/preferences/times/{year}
   description: Gets a list of all professor preference entries for the year
-  operationId: getProfessorPreferenceTimes
+  operationId: getProfessorPreferenceTimes(year)
   parameters:
     - name: year
       in: path
