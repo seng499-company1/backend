@@ -561,6 +561,45 @@ paths:
                 example: 78c74a60-281c-45f4-9536-7d128701ddb5
         '404':
           description: schedule not found
+    put:
+      tags:
+        - Schedules
+      summary: PUT /schedules/{id}
+      description: Modifies a specific schedule
+      operationId: putSchedule(id)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleNoID'
+      parameters:
+        - name: id
+          in: path
+          description: ID of schedule to modify
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                description: UUID of schedule deleted
+                example: Updated 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: schedule does not pass validation
+          content:
+            application/json:
+              schema:
+                type: array
+                description: list of issues (this isn't implemented yet fyi)
+                example:
+                  - SENG310 doesnt have an assigned professor.
+        '404':
+          description: schedule not found
   /schedules/company/{company_num}:
     get:
       tags:
