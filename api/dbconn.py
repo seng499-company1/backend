@@ -25,16 +25,16 @@ class DBConn:
         }
 
         try:
-            # try:
-            retval = mysql.connector.connect(**config)
-            # except: # pylint: disable=bare-except
-                # This exception will be thrown if using a prod environment instead of docker
-                # so this sets the host to JAWS DB which is used for prod.
-                # config['user'] = 'hdqz2q7qyb1bys07'
-                # config['password'] = 'jejgtg12efo5qw3p'
-                # config['host'] = 'wcwimj6zu5aaddlj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
-                # config['database'] = 'fxk6nzr07ofh3rkm'
-                # retval = mysql.connector.connect(**config)
+            try:
+                retval = mysql.connector.connect(**config)
+            except: # pylint: disable=bare-except
+                This exception will be thrown if using a prod environment instead of docker
+                so this sets the host to JAWS DB which is used for prod.
+                config['user'] = 'hdqz2q7qyb1bys07'
+                config['password'] = 'jejgtg12efo5qw3p'
+                config['host'] = 'wcwimj6zu5aaddlj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
+                config['database'] = 'fxk6nzr07ofh3rkm'
+                retval = mysql.connector.connect(**config)
         except:
             # This exception will be thrown if using a local dev environment
             # so this sets the host to localhost which is used when not using docker. If an
