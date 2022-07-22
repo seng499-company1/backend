@@ -50,8 +50,8 @@ def get_all_professors():
     if isinstance(results, str):
         return results, 400
 
-    with open('populate_prof_prefs/curr_professors.json', 'w', encoding='utf-8') as file_handle:
-        json.dump(results.json,file_handle)
+#     with open('populate_prof_prefs/curr_professors.json', 'w', encoding='utf-8') as file_handle:
+#         json.dump(results.json,file_handle)
     return results, 200
 
 @PROFESSOR_BP.route('/', methods=['POST'])
