@@ -28,8 +28,8 @@ class DBConn:
             try:
                 retval = mysql.connector.connect(**config)
             except: # pylint: disable=bare-except
-                This exception will be thrown if using a prod environment instead of docker
-                so this sets the host to JAWS DB which is used for prod.
+                # This exception will be thrown if using a prod environment instead of docker
+                # so this sets the host to JAWS DB which is used for prod.
                 config['user'] = 'hdqz2q7qyb1bys07'
                 config['password'] = 'jejgtg12efo5qw3p'
                 config['host'] = 'wcwimj6zu5aaddlj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
