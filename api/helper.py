@@ -58,6 +58,8 @@ def get_course_offering(semester:str, filename:str):
             WHERE {semester} = 1;"""
     results = DB_CONN.select(sql, ['spring_peng_req','summer_peng_req', 'fall_peng_req'])
     courses_json = results.get_json()
+    with open(f'init_data/courses_w_multiple_sections.json', 'r',encoding='UTF-8') as file_handle:
+        courses_w_multiple_sections = json.load(file_handle)
     courses = []
     for course in courses_json:
         new_course = {}
@@ -71,6 +73,8 @@ def get_course_offering(semester:str, filename:str):
         new_course['yearRequired'] = course['year_req']
         course_section = {'professor':None, 'capacity':0, 'timeSlots':[]}
         course_sections = [course_section]
+        if course['course_code'] in courses_w_multiple_sections:
+            course_sections.append({'professor':None, 'capacity':0, 'timeSlots':[]})
         course_offering = {}
         course_offering['course'] = new_course
         course_offering['sections'] = course_sections
