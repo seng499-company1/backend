@@ -489,29 +489,6 @@ paths:
                 $ref: '#/components/schemas/ArraySchedules'
         '404':
           description: Not Found
-    post:
-      tags:
-        - Schedules
-      summary: POST /schedules
-      description: |
-        Adds a new schedule to database
-      operationId: postSchedule
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScheduleNoID'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                description: UUID of schedule
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '400':
-          description: error adding schedule
   /schedules/{id}:
     get:
       tags:
@@ -1414,19 +1391,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Schedule'
-    ScheduleNoID:
-      type: object
-      required:
-        - year
-        - schedule
-      properties:
-        year:
-          description: Year of schedule
-          type: integer
-          example: 2022
-        schedule:
-          description: The schedule for the year.
-          $ref: '#/components/schemas/AlgSchedule'
     ScheduleInput:
       type: object
       properties:

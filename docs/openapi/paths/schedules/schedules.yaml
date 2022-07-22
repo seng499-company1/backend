@@ -13,26 +13,3 @@ get:
             $ref: ../../components/schemas/ArraySchedules.yaml
     '404':
       description: Not Found
-post:
-  tags:
-    - Schedules
-  summary: POST /schedules
-  description: |
-    Adds a new schedule to database
-  operationId: postSchedule
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/schemas/ScheduleNoID.yaml
-  responses:
-    '200':
-      description: OK
-      content:
-        application/json:
-          schema:
-            type: string
-            description: UUID of schedule
-            example: 78c74a60-281c-45f4-9536-7d128701ddb5
-    '400':
-      description: error adding schedule
