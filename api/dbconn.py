@@ -35,7 +35,7 @@ class DBConn:
                 config['host'] = 'wcwimj6zu5aaddlj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
                 config['database'] = 'fxk6nzr07ofh3rkm'
                 retval = mysql.connector.connect(**config)
-        except:
+        except mysql.connector.errors.DatabaseError:
             # This exception will be thrown if using a local dev environment
             # so this sets the host to localhost which is used when not using docker. If an
             # expection is thrown again then something is actually wrong.
