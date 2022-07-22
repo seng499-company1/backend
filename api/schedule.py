@@ -77,9 +77,12 @@ def get_company_schedule(company_num):
     schedule = get_empty_schedule()
     previous_enrolment = get_previous_enrolment()
     historical_data = get_historical_data()
+    
     if company_num == '1':
         schedule = c1alg2(historical_data, previous_enrolment, schedule)
         final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
+        print(final_schedule)
+        return None, 200
     elif company_num == '2':
         schedule = c2alg2(historical_data, previous_enrolment, schedule)
         final_schedule, _ = c2alg1(professors, schedule)
@@ -88,7 +91,6 @@ def get_company_schedule(company_num):
     # post schedule
     data = final_schedule
     uuid = DB_CONN.uuid()
-    # data = json.loads(data)
     json_schedule = json.dumps(data)
     json_schedule = escape_string(json_schedule)
     sql = f"""INSERT INTO Schedule
@@ -116,6 +118,10 @@ def update_schedule(schedule_id):
     Update the schedule.
     '''
     data = request.json
+    professors = get_prof_array()
+    schedule = data['schedule']
+    errors = c1alg1.validate(schedule, professors)
+    print(errors)
     json_schedule = json.dumps(data['schedule'])
     json_schedule = escape_string(json_schedule)
     sql = f"""UPDATE Schedule SET result = \"{json_schedule}\"
