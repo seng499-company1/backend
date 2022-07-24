@@ -67,21 +67,11 @@ put:
         format: uuid
   responses:
     '200':
-      description: successful operation
+      description: schedule goes through validator - if list is empty schedule is valid
       content:
         application/json:
           schema:
-            type: string
-            description: UUID of schedule deleted
-            example: Updated 78c74a60-281c-45f4-9536-7d128701ddb5
-    '404':
-      description: schedule not found
-    '400':
-      description: schedule does not pass validation
-      content:
-        application/json:
-          schema:
-            type: array
+            type: object
             description: list of issues (this isn't implemented yet fyi)
-            example: ['SENG310 doesnt have an assigned professor.']
+            example: {"errors":['SENG310 doesnt have an assigned professor.']}
 
