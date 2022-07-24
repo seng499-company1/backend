@@ -29,7 +29,8 @@ def get_all_courses():
                     fall_peng_req,
                     course_desc,
                     prof_prereq,
-                    year_req
+                    year_req,
+                    notes
                     FROM CourseOffering"""
     results = DB_CONN.select(sql, ['spring_req', 'summer_req', 'fall_req',
                                    'spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
@@ -58,7 +59,8 @@ def get_course(course_id):
                     fall_peng_req,
                     course_desc,
                     prof_prereq,
-                    year_req
+                    year_req,
+                    notes
                     FROM CourseOffering 
                     WHERE BIN_TO_UUID(id) = \'{course_id}\'"""
     result = DB_CONN.select_one(sql, ['spring_req', 'summer_req', 'fall_req',
@@ -88,14 +90,15 @@ def add_course():
                                             \"{data['course_code']}\",
                                             \"{data['course_desc']}\",
                                             \"{data['prof_prereq']}\",
-                                            \"{data['min_offering']}\",
+                                            {data['min_offering']},
                                             {data['spring_req']},
                                             {data['summer_req']},
                                             {data['fall_req']},
                                             {data['spring_peng_req']},
                                             {data['summer_peng_req']},
                                             {data['fall_peng_req']},
-                                            {data['year_req']});
+                                            {data['year_req']},
+                                            \"{data['notes']}\");
                                             """
     result = DB_CONN.execute(sql)
 
@@ -124,7 +127,8 @@ def put_course(course_id):
                                         spring_peng_req = {data['spring_peng_req']},
                                         summer_peng_req = {data['summer_peng_req']},
                                         fall_peng_req = {data['fall_peng_req']},
-                                        year_req = {data['year_req']}
+                                        year_req = {data['year_req']},
+                                        notes = \"{data['notes']}\"
                                         WHERE BIN_TO_UUID(id) = \'{course_id}\';"""
     result = DB_CONN.execute(sql)
 
