@@ -105,3 +105,19 @@ $ pip install requests
 ```
 
 Next, start the flask app by following the instructions under API section and then simply run the `pytest` from the repo root to run all tests. See pytest documentation for other test configurations.
+
+## Performance Testing
+The peformance testing plan was built using the JMeter platform GUI. The performance test files are located in the [/tests/performance] directory. To run the performance tests, you will need to:
+
+- Install JMeter binaries on your device, available at [https://jmeter.apache.org/download_jmeter.cgi] .
+- Extract the files from the downloaded compressed file, tgz or zip.
+- Navigate to the \bin\ directory within the extracted jmeter folder.
+- Run jmeter.bat for Windows and jmeter.sh for UNIX based systems.
+- Once GUI is open, copy files in [/tests/performance] over to the [bin\] folder.
+- In JMeter GUI, click file > open and select either of your just copied files.
+- Once test plan is open, open the thread group dropdown (Prof. Group or Admin Group).
+- Click `Immortal Minds Server` and change the value of `Server Name` to the target server.
+- Save test plan.
+- Click start button.
+
+NOTE: The requests sent during this test actually populate the database and there is currently no automated method to clean-up after the test. To prevent unwanted behavior from your server, make sure to manually delete all newly added data from the test. Variables are defined in the test plan.
