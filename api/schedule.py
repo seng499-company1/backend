@@ -79,15 +79,14 @@ def get_company_schedule(company_num):
     historical_data = get_historical_data()
     if company_num == '1':
         schedule = c1alg2(historical_data, previous_enrolment, schedule)
-        final_schedule, _ = c1alg1.generate_schedule(professors, schedule)
-        print(final_schedule)
-        # return None, 200
+        final_schedule, errors = c1alg1.generate_schedule(professors, schedule)
     elif company_num == '2':
         schedule = c2alg2(historical_data, previous_enrolment, schedule)
-        final_schedule, _ = c2alg1(professors, schedule)
+        final_schedule, errors = c2alg1(professors, schedule)
     else:
         return f'Company {company_num} Not Found.', 404
     # post schedule
+    print(errors)
     data = final_schedule
     uuid = DB_CONN.uuid()
     json_schedule = json.dumps(data)

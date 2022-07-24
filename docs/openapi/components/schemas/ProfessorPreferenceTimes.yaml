@@ -1,6 +1,7 @@
 type: object
 required:
   - prof_id
+  - pref_id
   - first_name
   - last_name
   - time_stamp
@@ -9,6 +10,10 @@ properties:
     description: uuid of professor
     type: string
     example: 61587323-6632-4dcf-bae8-2a51ed8585a0
+  pref_id:
+    description: uuid of preference entry
+    type: string
+    example: 98277323-6632-4dcf-bae8-2a51ed8626b8
   first_name:
     description: professor's first name
     type: string

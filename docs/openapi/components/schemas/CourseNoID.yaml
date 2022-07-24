@@ -9,8 +9,8 @@ required:
   - spring_peng_req
   - summer_peng_req
   - fall_peng_req
+  - year_req
   - course_desc
-  - prof_prereq
 properties:
   course_code:
     description: course code of the course
@@ -60,3 +60,7 @@ properties:
     description: The year of study a student is intended to take the course. For example, a course in term 3B would be represented as 3.
     type: integer
     example: 3
+  notes:
+    description: Additional information about a course that may not be included in any attributes but is useful to admin or prof.
+    type: string
+    example: Summer section is for BSENG only; PENG preferred, This course is popular with Comp sci students so an extra session is generally a good idea.
