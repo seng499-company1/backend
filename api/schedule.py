@@ -89,7 +89,6 @@ def get_company_schedule(company_num):
     print(errors)
     data = final_schedule
     uuid = DB_CONN.uuid()
-    # data = json.loads(data)
     json_schedule = json.dumps(data)
     json_schedule = escape_string(json_schedule)
     sql = f"""INSERT INTO Schedule
@@ -117,13 +116,16 @@ def update_schedule(schedule_id):
     Update the schedule.
     '''
     data = request.json
+    professors = get_prof_array()
+    schedule = data['schedule']
+    errors = c1alg1.validate(schedule, professors)
     json_schedule = json.dumps(data['schedule'])
     json_schedule = escape_string(json_schedule)
     sql = f"""UPDATE Schedule SET result = \"{json_schedule}\"
                                         WHERE BIN_TO_UUID(id) = \'{schedule_id}\';"""
     if not DB_CONN.execute(sql):
         return 'Error updating course', 500
-    return f'Updated {schedule_id}', 200
+    return {"errors": errors}, 200
 
 @SCHEDULE_BP.route('/<schedule_id>', methods=['DELETE'])
 def delete_schedule(schedule_id):

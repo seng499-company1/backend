@@ -629,24 +629,15 @@ paths:
             format: uuid
       responses:
         '200':
-          description: successful operation
+          description: schedule goes through validator - if list is empty schedule is valid
           content:
             application/json:
               schema:
-                type: string
-                description: UUID of schedule deleted
-                example: Updated 78c74a60-281c-45f4-9536-7d128701ddb5
-        '400':
-          description: schedule does not pass validation
-          content:
-            application/json:
-              schema:
-                type: array
+                type: object
                 description: list of issues (this isn't implemented yet fyi)
                 example:
-                  - SENG310 doesnt have an assigned professor.
-        '404':
-          description: schedule not found
+                  errors:
+                    - SENG310 doesnt have an assigned professor.
   /schedules/company/{company_num}:
     get:
       tags:
@@ -1683,6 +1674,19 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Schedule'
+    ScheduleNoID:
+      type: object
+      required:
+        - year
+        - schedule
+      properties:
+        year:
+          description: Year of schedule
+          type: integer
+          example: 2022
+        schedule:
+          description: The schedule for the year.
+          $ref: '#/components/schemas/AlgSchedule'
     ScheduleInput:
       type: object
       properties:
