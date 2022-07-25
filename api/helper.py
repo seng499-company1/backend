@@ -28,14 +28,20 @@ def get_historical_data()->list:
         data = json.load(file_handle)
     return data
 
-def get_empty_schedule():
+def get_empty_schedule(company):
     '''
     Creates and returns an empty schedule pre-populated with courses
     '''
-    schedule = {}
-    schedule['fall'] = get_course_offering('fall_req', 'fall_static_courses.json')
-    schedule['spring'] = get_course_offering('spring_req', 'spring_static_courses.json')
-    schedule['summer'] = get_course_offering('summer_req', 'summer_static_courses.json')
+    if company == 1:
+        schedule = {}
+        schedule['fall'] = get_course_offering('fall_req', 'fall_static_courses.json')
+        schedule['spring'] = get_course_offering('spring_req', 'spring_static_courses.json')
+        schedule['summer'] = get_course_offering('summer_req', 'summer_static_courses.json')
+    else:
+        schedule = {}
+        schedule['fall'] = get_course_offering('fall_req', 'fall_static_courses_c2.json')
+        schedule['spring'] = get_course_offering('spring_req', 'spring_static_courses_c2.json')
+        schedule['summer'] = get_course_offering('summer_req', 'summer_static_courses_c2.json')
     return schedule
 
 def get_course_offering(semester: str, filename: str):
