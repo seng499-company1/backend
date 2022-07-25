@@ -5,8 +5,16 @@ Based on Algo1 Kai's randomizer.
 '''
 import random
 import json
+import sys
 import requests
-input_json = {"year": 2022}
+
+# Default parameters
+LATEST_YEAR = 2022
+NUM_HISTORY = 2
+# Get params from command line
+if len(sys.argv) > 1:
+    LATEST_YEAR = int(sys.argv[1])
+    NUM_HISTORY = int(sys.argv[2])
 
 time_slots = ['8:30',
 '9:00',
@@ -151,7 +159,7 @@ def sanitize_professors(professors):
 
     return professors
 
-def post_prefs():
+def post_prefs(year):
     '''
     Posts prefs for all profs in curr_professors.json
     '''
@@ -162,7 +170,7 @@ def post_prefs():
     finished_professors = []
     for prof in professors:
         prefs = {}
-        prefs['year'] = 2022
+        prefs['year'] = year
         prefs['num_relief'] = random.randint(0,2)
         prefs['num_summer_courses'] = random.randint(0,2)
         prefs['num_fall_courses'] = random.randint(0,2)
@@ -188,4 +196,15 @@ def post_prefs():
         res = requests.post(url, json=prof)
         print(res.text)
 
-post_prefs()
+def main():
+    '''
+    Starting point of the script
+    '''
+    num_years = list(range(NUM_HISTORY))
+    # reverse list so that earlier years are inputted first
+    num_years.reverse()
+    for i in num_years:
+        post_prefs(LATEST_YEAR-i)
+
+if __name__ == "__main__":
+    main()
