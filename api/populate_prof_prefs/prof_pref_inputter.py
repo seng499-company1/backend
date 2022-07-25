@@ -109,6 +109,7 @@ def get_preferred_times():
     preferred_times['spring'] = get_day_times()
     preferred_times['summer'] = get_day_times()
     return preferred_times
+
 def get_preferred_non_teaching_semester():
     '''
     return randomized non teaching semester
@@ -120,6 +121,36 @@ def get_preferred_course_day_spread():
     Returns randomized course day spread
     '''
     return course_day_spread[random.randint(0, 1)]
+
+def sanitize_professors(professors):
+    '''
+    Returns a list of professor preferences that have been checked to make sure that each course
+    is covered by a professor.
+    '''
+    with open('curr_courses.json', encoding='utf-8') as file_handle:
+        all_courses = json.load(file_handle)
+    for course in all_courses:
+        course_covered = False
+        for prof in professors:
+            for pref in prof['course_preferences']:
+                if pref['course_id'] == course['id'] and \
+                    (pref['able_to_teach'] == 'ABLE' or pref['able_to_teach'] == 'WITH_EFFORT') \
+                    and \
+                    (pref['will_to_teach'] == 'VERY_WILLING' or pref['will_to_teach'] =='WILLING'):
+                    course_covered = True
+
+        if not course_covered:
+            print(course['course_code'], 'not covered. Fixing.')
+            pref = {}
+            pref['course_id'] = course['id']
+            pref['will_to_teach'] = willingness_scores[0]
+            pref['able_to_teach'] = able_to_teach_scores[0]
+
+            lucky_prof_index = random.randint(0, len(professors) - 1)
+            professors[lucky_prof_index]['course_preferences'].append(pref)
+
+    return professors
+
 def post_prefs():
     '''
     Posts prefs for all profs in curr_professors.json
@@ -127,9 +158,9 @@ def post_prefs():
     base_url = 'http://127.0.0.1:5000/professors'
     with open('curr_professors.json', encoding='utf-8') as file_handle:
         professors = json.load(file_handle)
+
+    finished_professors = []
     for prof in professors:
-        prof_id = prof['id']
-        url = f'{base_url}/{prof_id}/preferences'
         prefs = {}
         prefs['year'] = 2022
         prefs['num_relief'] = random.randint(0,2)
@@ -147,6 +178,14 @@ def post_prefs():
             prefs['semester_off'] = 2
         else:
             prefs['semester_off'] = 0
-        res = requests.post(url, json=prefs)
+        finished_professors.append(prefs)
+
+    finished_professors = sanitize_professors(finished_professors)
+
+    for i, prof in enumerate(finished_professors):
+        prof_id = professors[i]['id']
+        url = f'{base_url}/{prof_id}/preferences'
+        res = requests.post(url, json=prof)
         print(res.text)
+
 post_prefs()
