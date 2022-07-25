@@ -559,29 +559,6 @@ paths:
                 $ref: '#/components/schemas/ArraySchedules'
         '404':
           description: Not Found
-    post:
-      tags:
-        - Schedules
-      summary: POST /schedules
-      description: |
-        Adds a new schedule to database
-      operationId: postSchedule
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScheduleNoID'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                description: UUID of schedule
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '400':
-          description: error adding schedule
   /schedules/{id}:
     get:
       tags:
@@ -652,24 +629,15 @@ paths:
             format: uuid
       responses:
         '200':
-          description: successful operation
+          description: schedule goes through validator - if list is empty schedule is valid
           content:
             application/json:
               schema:
-                type: string
-                description: UUID of schedule deleted
-                example: Updated 78c74a60-281c-45f4-9536-7d128701ddb5
-        '400':
-          description: schedule does not pass validation
-          content:
-            application/json:
-              schema:
-                type: array
+                type: object
                 description: list of issues (this isn't implemented yet fyi)
                 example:
-                  - SENG310 doesnt have an assigned professor.
-        '404':
-          description: schedule not found
+                  errors:
+                    - SENG310 doesnt have an assigned professor.
   /schedules/company/{company_num}:
     get:
       tags:
@@ -1289,7 +1257,6 @@ components:
         - summer_peng_req
         - fall_peng_req
         - course_desc
-        - prof_prereq
         - year_req
       properties:
         id:
@@ -1354,6 +1321,15 @@ components:
             example, a course in term 3B would be represented as 3.
           type: integer
           example: 3
+        notes:
+          description: >-
+            Additional information about a course that may not be included in
+            any attributes but is useful to admin or prof.
+          type: string
+          example: >-
+            Summer section is for BSENG only; PENG preferred, This course is
+            popular with Comp sci students so an extra session is generally a
+            good idea.
     ArrayCourses:
       type: array
       items:
@@ -1370,8 +1346,8 @@ components:
         - spring_peng_req
         - summer_peng_req
         - fall_peng_req
+        - year_req
         - course_desc
-        - prof_prereq
       properties:
         course_code:
           description: course code of the course
@@ -1431,6 +1407,15 @@ components:
             example, a course in term 3B would be represented as 3.
           type: integer
           example: 3
+        notes:
+          description: >-
+            Additional information about a course that may not be included in
+            any attributes but is useful to admin or prof.
+          type: string
+          example: >-
+            Summer section is for BSENG only; PENG preferred, This course is
+            popular with Comp sci students so an extra session is generally a
+            good idea.
     Admin:
       type: object
       required:

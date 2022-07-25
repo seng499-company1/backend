@@ -14,5 +14,131 @@
                 "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"13:00 14:20"},{"dayOfWeek":"THURSDAY", "timeRange":"13:00 14:20"}]
             }
         ]
+    },
+    {
+        "course":{
+            "code": "CHEM101",
+            "title": "Fundamentals of Chemistry from Atoms to Materials",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Michele de Souza"},
+                "capacity": 358,
+                "timeSlots": [{"dayOfWeek":"MONDAY","timeRange":"8:30 9:50"}, {"dayOfWeek":"THURSDAY","timeRange":"8:30 9:50"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH109",
+            "title": "Introduction to Calculus",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Shangzhi Zeng"},
+                "capacity": 250,
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"10:30 11:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"10:30 11:20"},{"dayOfWeek":"FRIDAY", "timeRange":"10:30 11:20"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "STAT260",
+            "title": "Introduction to Probability and Statistics I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Chi Kou"},
+                "capacity": 150,
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"8:30 9:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"8:30 9:20"},{"dayOfWeek":"FRIDAY", "timeRange":"8:30 9:20"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH122",
+            "title": "Logic and Foundations",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 2
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Joseph Horan"},
+                "capacity": 80,
+                "timeSlots":  [{"dayOfWeek":"TUESDAY","timeRange":"10:30 11:20"}, {"dayOfWeek":"WEDNESDAY","timeRange":"10:30 11:20"}, {"dayOfWeek":"FRIDAY", "timeRange":"10:30 11:20"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "ENGR141",
+            "title": "Engineering Mechanics",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Saeedeh Saghlatou"},
+                "capacity": 210,
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"10:00 11:20"},{"dayOfWeek":"THURSDAY", "timeRange":"10:00 11:20"}]
+            }
+
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH101",
+            "title": "Calculus II",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Muhammad Awais"},
+                "capacity": 215,
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"THURSDAY", "timeRange":"14:30 15:20"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "PHYS111",
+            "title": "Introductory Physics II",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Mark Laidlaw"},
+                "capacity": 180,
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"13:30 14:20"},{"dayOfWeek":"FRIDAY", "timeRange":"13:30 14:20"}]
+            }
+        ]
+    },
+    {
+        "course":{
+            "code": "MATH100",
+            "title": "Calculus I",
+            "pengRequired": {"fall":false, "spring":false, "summer":false},
+            "yearRequired": 1
+        },
+        "sections": [
+            {
+                "professor":{"id":0, "name":"Christopher Bose"},
+                "capacity": 250,
+                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"11:30 12:50"},{"dayOfWeek":"THURSDAY", "timeRange":"11:30 12:50"}]
+            }
+
+        ]
     }
 ]
