@@ -9,7 +9,7 @@ from forecaster.forecaster import forecast as c2alg2
 from c1algo1 import scheduler as c1alg1
 from c1algo2.forecaster import forecast as c1alg2
 from coursescheduler import generate_schedule as c2alg1
-from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data
+from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data, fix_schedule
 from .dbconn import DB_CONN
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
@@ -79,6 +79,7 @@ def get_company_schedule(company_num):
     if company_num == '1':
         schedule = get_empty_schedule(1)
         schedule = c1alg2(historical_data, previous_enrolment, schedule)
+        schedule = fix_schedule(schedule)
         final_schedule, errors = c1alg1.generate_schedule(professors, schedule)
     elif company_num == '2':
         schedule = get_empty_schedule(2)

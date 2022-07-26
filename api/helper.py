@@ -7,7 +7,26 @@ from .dbconn import DB_CONN
 TimeRange = tuple
 START = 0
 END = 1
-
+def fix_schedule(schedule:dict) -> dict:
+    '''
+    fixes schedule
+    '''
+    fall_courses = schedule['fall']
+    for course in fall_courses:
+        for section in course['sections']:
+            if section['capacity'] == 0:
+                section['capacity'] = 120
+    spring_courses = schedule['spring']
+    for course in spring_courses:
+        for section in course['sections']:
+            if section['capacity'] == 0:
+                section['capacity'] = 120
+    summer_courses = schedule['summer']
+    for course in summer_courses:
+        for section in course['sections']:
+            if section['capacity'] == 0:
+                section['capacity'] = 120
+    return schedule
 def get_previous_enrolment()->dict:
     '''
     Gets and returns a dictionary of previous enrollment stored in json file
