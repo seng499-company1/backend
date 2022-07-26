@@ -7,7 +7,7 @@ from .dbconn import DB_CONN
 TimeRange = tuple
 START = 0
 END = 1
-def fix_schedule(schedule:dict) -> dict:
+def fix_schedule(schedule: dict) -> dict:
     '''
     fixes schedule
     '''
