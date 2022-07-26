@@ -9,7 +9,8 @@ from forecaster.forecaster import forecast as c2alg2
 from c1algo1 import scheduler as c1alg1
 from c1algo2.forecaster import forecast as c1alg2
 from coursescheduler import generate_schedule as c2alg1
-from .helper import get_prof_array, get_empty_schedule, get_previous_enrolment, get_historical_data, fix_schedule
+from .helper import get_prof_array, get_empty_schedule, \
+    get_previous_enrolment, get_historical_data, fix_schedule
 from .dbconn import DB_CONN
 
 SCHEDULE_BP = Blueprint('schedule', __name__)
