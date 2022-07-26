@@ -85,8 +85,7 @@ def get_course_preferences():#(is_peng):
     for course in all_courses:
         #randomly make it so most course have 0's and dont get added to prof,
         #probably a better way to do this
-        enter = [random.randint(0, 6), random.randint(0, 6), random.randint(0, 6),\
-            random.randint(0, 6), random.randint(0, 6), random.randint(0, 6), random.randint(0, 6)]
+        enter = [random.randint(0, 6), random.randint(0, 6), random.randint(0, 6)]
         if 0 not in enter:
             # enthusiasm_score_index = random.randint(1, 6)
             preference = {}

@@ -105,7 +105,7 @@
             {
                 "professor":{"id":"0", "name":"Muhammad Awais"},
                 "capacity": 215,
-                "timeSlots": [{"dayOfWeek":"MONDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"THURSDAY", "timeRange":"14:30 15:20"}]
+                "timeSlots": [{"dayOfWeek":"TUESDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"WEDNESDAY", "timeRange":"14:30 15:20"},{"dayOfWeek":"FRIDAY", "timeRange":"14:30 15:20"}]
             }
         ]
     },
