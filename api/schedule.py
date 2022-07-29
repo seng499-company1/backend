@@ -2,8 +2,8 @@
 contains all /schedule endpoints
 '''
 import json
-import yaml
 import sys
+import yaml
 from flask import Blueprint, jsonify, request
 from pymysql.converters import escape_string
 from forecaster.forecaster import forecast as c2alg2

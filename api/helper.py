@@ -31,7 +31,7 @@ def get_historical_data()->list:
 def get_empty_schedule(company):
     '''
     Creates and returns an empty schedule pre-populated with courses. The company number is needed
-    as C2's Alg1 won't function if static courses have multiple sections. 
+    as C2's Alg1 won't function if static courses have multiple sections.
     '''
     if company == 1:
         schedule = {}
@@ -49,7 +49,7 @@ def get_course_offering(semester: str, filename: str):
     # pylint: disable-msg=too-many-locals
     '''
     get and return the list of courseOffering for a certain semester
-    PARAMETERS: 
+    PARAMETERS:
     semester: 'spring_req' or 'summer_req' or 'fall_req'
     filename: name of json file with list of static courses for that semester
     '''
@@ -92,7 +92,6 @@ def get_course_offering(semester: str, filename: str):
         courses.append(course_offering)
     with open(f'init_data/{filename}', 'r', encoding='UTF-8') as file_handle:
         data = json.load(file_handle)
-        
     # add all the static courses
     for course in data:
         for section in course['sections']:
