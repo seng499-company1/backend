@@ -2,6 +2,7 @@
 contains all /schedule endpoints
 '''
 import json
+import sys
 import yaml
 from flask import Blueprint, jsonify, request
 from pymysql.converters import escape_string
@@ -87,7 +88,7 @@ def get_company_schedule(company_num):
     else:
         return f'Company {company_num} Not Found.', 404
     # post schedule
-    print(errors)
+    print(errors, file=sys.stderr)
     data = final_schedule
     uuid = DB_CONN.uuid()
     json_schedule = json.dumps(data)
@@ -114,7 +115,7 @@ def get_company_schedule(company_num):
 @SCHEDULE_BP.route('/<schedule_id>', methods=['PUT'])
 def update_schedule(schedule_id):
     '''
-    Update the schedule.
+    Update and validate the schedule.
     '''
     data = request.json
     professors = get_prof_array()
