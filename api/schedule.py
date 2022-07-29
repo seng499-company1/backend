@@ -115,7 +115,7 @@ def get_company_schedule(company_num):
 @SCHEDULE_BP.route('/<schedule_id>', methods=['PUT'])
 def update_schedule(schedule_id):
     '''
-    Update the schedule.
+    Update and validate the schedule.
     '''
     data = request.json
     professors = get_prof_array()
