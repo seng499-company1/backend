@@ -22,8 +22,6 @@ tags:
     description: Operations about admins.
   - name: Schedules
     description: Operations about schedules.
-  - name: Algorithm 1
-    description: inputs to algorithm 1 python library
   - name: Login
     description: Login operations.
 servers:
@@ -62,8 +60,6 @@ paths:
     $ref: paths/schedules/schedules_{id}.yaml
   /schedules/company/{company_num}:
     $ref: paths/schedules/schedules_company_{company_num}.yaml
-  /alg1:
-    $ref: paths/algorithm1.yaml
   /login:
     $ref: paths/login/login.yaml
 components:

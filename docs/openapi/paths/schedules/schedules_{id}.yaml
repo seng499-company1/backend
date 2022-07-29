@@ -72,6 +72,6 @@ put:
         application/json:
           schema:
             type: object
-            description: list of issues (this isn't implemented yet fyi)
+            description: list of issues
             example: {"errors":['SENG310 doesnt have an assigned professor.']}
 
