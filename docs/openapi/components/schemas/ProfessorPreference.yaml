@@ -1,6 +1,7 @@
 type: object
 required:
   - id
+  - prof_id
   - time_stamp
   - year
   - semester_off
@@ -12,7 +13,11 @@ required:
   - course_preferences
 properties:
   id:
-    description: uuid of preferences
+    description: uuid of preference entry
+    type: string
+    example: 98277323-6632-4dcf-bae8-2a51ed8626b8
+  prof_id:
+    description: uuid of professor
     type: string
     example: 61587323-6632-4dcf-bae8-2a51ed8585a0
   time_stamp:
