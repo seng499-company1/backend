@@ -20,6 +20,8 @@ get:
         application/json:
           schema:
             $ref: ../../components/schemas/ProfessorPreference.yaml
+    '400':
+      description: Bad sql query or invalid input parameter
     '404':
       description: preference entry not found
 put:
@@ -49,9 +51,9 @@ put:
           schema:
             type: string
             description: UUID of preference updated
-            example: 78c74a60-281c-45f4-9536-7d128701ddb5
-    '404':
-      description: preference entry not found
+            example: updated preference 78c74a60-281c-45f4-9536-7d128701ddb5
+    '400':
+      description: Bad sql query or invalid input parameter
 delete:
   tags:
     - Professors
@@ -74,6 +76,6 @@ delete:
           schema:
             type: string
             description: UUID of preferences deleted
-            example: 78c74a60-281c-45f4-9536-7d128701ddb5
-    '404':
-      description: preference entry not found
+            example: deleted preference 78c74a60-281c-45f4-9536-7d128701ddb5
+    '400':
+      description: Bad sql query or invalid input parameter

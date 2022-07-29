@@ -3,7 +3,8 @@ items:
   $ref: 'ProfessorPreference.yaml'
 example: [
   {
-    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "id": "98277323-6632-4dcf-bae8-2a51ed8626b8",
+    "prof_id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
     "time_stamp": "2022-06-21 09:30:26",
     "year": 2022,
     "semester_off": 3,
@@ -119,7 +120,8 @@ example: [
     ]
   },
   {
-    "id": "61587323-6632-4dcf-bae8-2a51ed8585a0",
+    "id": "88277323-6632-4dcf-bae8-2a51ed8626b8",
+    "prof_id": "ae6fa563-0ea6-11ed-878b-0242c0a86002",
     "time_stamp": "2021-06-21 09:30:26",
     "year": 2021,
     "semester_off": 3,

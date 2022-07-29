@@ -203,6 +203,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArrayProfessorPreference'
+        '400':
+          description: Bad sql query or invalid input parameter
         '404':
           description: Professor has no preference entry
     post:
@@ -278,6 +280,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfessorPreference'
+        '400':
+          description: Bad sql query or invalid input parameter
         '404':
           description: preference entry not found
     put:
@@ -307,9 +311,9 @@ paths:
               schema:
                 type: string
                 description: UUID of preference updated
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '404':
-          description: preference entry not found
+                example: updated preference 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: Bad sql query or invalid input parameter
     delete:
       tags:
         - Professors
@@ -332,9 +336,9 @@ paths:
               schema:
                 type: string
                 description: UUID of preferences deleted
-                example: 78c74a60-281c-45f4-9536-7d128701ddb5
-        '404':
-          description: preference entry not found
+                example: deleted preference 78c74a60-281c-45f4-9536-7d128701ddb5
+        '400':
+          description: Bad sql query or invalid input parameter
   /courses:
     get:
       tags:
@@ -935,6 +939,7 @@ components:
       type: object
       required:
         - id
+        - prof_id
         - time_stamp
         - year
         - semester_off
@@ -946,7 +951,11 @@ components:
         - course_preferences
       properties:
         id:
-          description: uuid of preferences
+          description: uuid of preference entry
+          type: string
+          example: 98277323-6632-4dcf-bae8-2a51ed8626b8
+        prof_id:
+          description: uuid of professor
           type: string
           example: 61587323-6632-4dcf-bae8-2a51ed8585a0
         time_stamp:
@@ -1007,7 +1016,8 @@ components:
       items:
         $ref: '#/components/schemas/ProfessorPreference'
       example:
-        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        - id: 98277323-6632-4dcf-bae8-2a51ed8626b8
+          prof_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
           time_stamp: '2022-06-21 09:30:26'
           year: 2022
           semester_off: 3
@@ -1084,7 +1094,8 @@ components:
             - course_id: 61587323-6632-4dcf-bae8-2a51ed8585a0
               will_to_teach: VERY_WILLING
               able_to_teach: ABLE
-        - id: 61587323-6632-4dcf-bae8-2a51ed8585a0
+        - id: 88277323-6632-4dcf-bae8-2a51ed8626b8
+          prof_id: ae6fa563-0ea6-11ed-878b-0242c0a86002
           time_stamp: '2021-06-21 09:30:26'
           year: 2021
           semester_off: 3

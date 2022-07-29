@@ -19,6 +19,8 @@ get:
         application/json:
           schema:
             $ref: ../../components/schemas/ArrayProfessorPreference.yaml
+    '400':
+      description: Bad sql query or invalid input parameter
     '404':
       description: Professor has no preference entry
 post:
