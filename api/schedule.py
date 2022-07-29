@@ -3,6 +3,7 @@ contains all /schedule endpoints
 '''
 import json
 import yaml
+import sys
 from flask import Blueprint, jsonify, request
 from pymysql.converters import escape_string
 from forecaster.forecaster import forecast as c2alg2
@@ -87,7 +88,7 @@ def get_company_schedule(company_num):
     else:
         return f'Company {company_num} Not Found.', 404
     # post schedule
-    print(errors)
+    print(errors, file=sys.stderr)
     data = final_schedule
     uuid = DB_CONN.uuid()
     json_schedule = json.dumps(data)

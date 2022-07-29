@@ -30,7 +30,8 @@ def get_historical_data()->list:
 
 def get_empty_schedule(company):
     '''
-    Creates and returns an empty schedule pre-populated with courses
+    Creates and returns an empty schedule pre-populated with courses. The company number is needed
+    as C2's Alg1 won't function if static courses have multiple sections. 
     '''
     if company == 1:
         schedule = {}
@@ -48,7 +49,9 @@ def get_course_offering(semester: str, filename: str):
     # pylint: disable-msg=too-many-locals
     '''
     get and return the list of courseOffering for a certain semester
-    PARAMETERS: 'spring_req' or 'summer_req' or 'fall_req'
+    PARAMETERS: 
+    semester: 'spring_req' or 'summer_req' or 'fall_req'
+    filename: name of json file with list of static courses for that semester
     '''
     sql = f"""SELECT
                     course_code,
@@ -65,8 +68,9 @@ def get_course_offering(semester: str, filename: str):
     results = DB_CONN.select(sql, ['spring_peng_req', 'summer_peng_req', 'fall_peng_req'])
     courses_json = results.get_json()
     with open('init_data/courses_wo_multiple_sections.json', 'r', encoding='UTF-8') as file_handle:
-        courses_w_multiple_sections = json.load(file_handle)
+        courses_wo_multiple_sections = json.load(file_handle)
     courses = []
+    # for every course in the db add it to the list
     for course in courses_json:
         new_course = {}
         new_course['code'] = course['course_code']
@@ -79,7 +83,8 @@ def get_course_offering(semester: str, filename: str):
         new_course['yearRequired'] = course['year_req']
         course_section = {'professor':None, 'capacity':0, 'timeSlots':[]}
         course_sections = [course_section]
-        if course['course_code'] not in courses_w_multiple_sections:
+        # if course has multiple sections add another section
+        if course['course_code'] not in courses_wo_multiple_sections:
             course_sections.append({'professor':None, 'capacity':0, 'timeSlots':[]})
         course_offering = {}
         course_offering['course'] = new_course
@@ -87,7 +92,8 @@ def get_course_offering(semester: str, filename: str):
         courses.append(course_offering)
     with open(f'init_data/{filename}', 'r', encoding='UTF-8') as file_handle:
         data = json.load(file_handle)
-
+        
+    # add all the static courses
     for course in data:
         for section in course['sections']:
             #changes info from a string of start and end times to a tuple
